@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Inventory Management</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.css">
+    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</head>
+
+<body style="display: flex; flex-direction: column; align-items: center">
+    <header>
+        <h1>Header goes here</h1>
+    </header>
+    <div class="card border-primary mb-3" style="max-width: 95%;overflow: scroll;">
+        <div class="card-header">Inventory Control 
+                <button type="button" class="btn btn-link" style="float:right">Settings</button>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Check</th>
+                        <th scope="col">Item Name</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">QTY</th>
+                        <th scope="col">Unit</th>
+                        <th scope="col">Unit Cost</th>
+                        <th scope="col">Expiration Date</th>
+                        <th scope="col">Vendor</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <th scope="row" style="display:flex; flex-direction:column; align-items:center;">
+                            <input class="form-check-input" type="checkbox" value="" style="max-width: 20px;">
+                        </th>
+                        <th>
+                            <input class="form-control" id="readOnlyInput" type="text" placeholder="Root Beer" readonly="" style="min-width: 250px;">
+                        </th>
+                        <td>
+                            <input type="text" class="form-control" placeholder="Wharehouse, Rack 4, Shelf 3" id="inputDefault" style="min-width: 250px;">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="43" id="inputDefault" style="min-width: 50px;">
+                        </td>
+                        <td>
+                            <input class="form-control" id="readOnlyInput" type="text" placeholder="Liters" readonly="" style="min-width: 100px;">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="1.94" id="inputDefault" style="min-width: 75px;">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="12/31/9999" id="inputDefault" style="min-width: 120px;">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="A&W Inc." id="inputDefault" style="min-width: 250px;">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row" style="display:flex; flex-direction:column; align-items:center;">
+                            <input class="form-check-input" type="checkbox" value="">
+                        </th>
+                        <th>
+                            <select class="form-control" id="exampleSelect1">
+                                <option>Root Beer</option>
+                                <option>Ice Cream</option>
+                                <option>Burger Patties</option>
+                                <option>Buns</option>
+                                <option>Chicken</option>
+                            </select>
+                        </th>
+                        <td>
+                            <input type="text" class="form-control" placeholder="" id="inputDefault">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="" id="inputDefault">
+                        </td>
+                        <td>
+                            <input class="form-control" id="readOnlyInput" type="text" placeholder="" readonly="">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="" id="inputDefault">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="" id="inputDefault">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="" id="inputDefault">
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div style="display:flex; flex-direction:row; justify-content:space-evenly; min-width:95%">
+        <button type="button" class="btn btn-success">Add New Row</button>
+        <button type="button" class="btn btn-primary">Save Changes</button>
+        <button type="button" class="btn btn-danger">Delete Item</button>
+    </div>
+    <footer>
+        <h1>Footer goes here</h1>
+    </footer>
+</body>
+
+</html>
