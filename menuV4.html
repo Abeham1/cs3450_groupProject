@@ -1,0 +1,184 @@
+<DOCTYPE! html>
+<html lang="en"> 
+
+<head>
+
+<meta charset="utf-8"/>
+<style>
+.banner {
+    font-weight: bold;
+	margin: 2px;
+	border-style:solid;
+	border-color:black;
+}
+nav {
+padding: 5px;
+	margin: 2px;
+	border-style:solid;
+	border-color:black;
+}
+nav ul {
+    display: flex;
+}
+nav li {
+    display: inline;
+    text-align: center;
+    flex: 1;
+}
+.flexBox {
+	width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.left {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: left;
+}
+.right {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: left;
+	width: 95%;
+	padding: 5px;
+	margin: 2px;
+	border-style:solid;
+	border-color:black;
+}
+.foodMenu {
+	width: 95%;
+	padding: 5px;
+	margin: 2px;
+	border-style:solid;
+	border-color:black;
+}
+.Review {
+}
+#menu_bottom {
+	flex: 1;
+	display: inline;
+	flex-direction: row;
+}
+</style>
+
+<script>
+
+// these are variables to read in
+var sizeMenu = 5;
+var itemsMenu =['Cheeseburger', 'Burger', 'fries', 'pop', 'float'];
+var descMenu = ['Cheeseburger Nunc vitae felis sapien. Suspendisse efficitur non justo suscipit vestibulum. Mauris.',
+	 'Ut mollis sed erat quis sodales. Quisque nec iaculis diam. Sed. Burger',
+	 'Etiam vulputate lacus sed lobortis sollicitudin. Phasellus varius varius turpis, porttitor. fries',
+	 'pop Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac.',
+	 'Nulla vehicula velit ac lacinia lacinia. Phasellus volutpat diam in diam. float'];
+var myPrices = [4.29, 3.79, 1.99, 1.09, 2.79];
+// these are reviews to read in
+var sizeReview = 6;
+var itemsReview = ['Cheeseburger Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac.',
+	 'Burger Suspendisse potenti. Pellentesque sed scelerisque libero. Fusce vel felis odio. Pellentesque.',
+	 'fries Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac.',
+   	 'float Suspendisse potenti. Pellentesque sed scelerisque libero. Fusce vel felis odio. Pellentesque.',
+  	 'Burger Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac.',
+	 'fries Suspendisse potenti. Pellentesque sed scelerisque libero. Fusce vel felis odio. Pellentesque.' ];
+// these are functions to build the dom
+window.onload = function(){
+	addMenu();
+	addReview();
+}
+//modify class and id names to get yeti to format reviews here
+function addReview(){
+	var element = document.getElementById("menu_right");
+// create list object
+	var temp1 = document.createElement("DIV");
+	var temp2 = document.createElement("UL");
+	element.appendChild(temp1);
+	temp1.appendChild(temp2);
+	for (var i = 0; i < sizeReview; i++){
+		tempA = document.createElement("LI");
+		tempB = document.createTextNode(itemsReview[i]);
+		temp2.appendChild(tempA);
+		tempA.appendChild(tempB);
+	}
+}
+//modify class and id names to get yeti to format menu items here
+function addMenu(){
+	for (var i = 0; i < sizeMenu; i++){
+//create elements
+		var temp1 = document.createElement("DIV");
+		var temp2 = document.createElement("LABEL");
+		var temp3 = document.createElement("LABEL");
+		var temp3b = document.createElement("LABEL");
+		var temp4 = document.createElement("LABEL");
+		var temp5 = document.createElement("LABEL");
+		var temp6 = document.createElement("FORM");
+		var temp7 = document.createElement("INPUT");
+		temp7.type = "number";
+		var temp7b = document.createElement("INPUT");
+		temp7b.type = "text";
+//createTextNodes
+		var temp8 = document.createTextNode(itemsMenu[i]);		//menu item
+		var temp9 = document.createTextNode(descMenu[i]);		// item description
+		var temp10 = document.createTextNode("$ "+myPrices[i]);		// item prices
+		var temp11 = document.createTextNode("Quantity: ");
+		var temp12 = document.createTextNode("Special: ");
+
+// attach from top down
+		var element = document.getElementById("menu_left");
+		element.appendChild(temp1);
+		temp1.appendChild(temp2);
+		temp1.appendChild(temp3);
+		temp1.appendChild(temp3b);
+		temp1.appendChild(temp6);
+		temp6.appendChild(temp4);
+		temp4.appendChild(temp11);
+		temp6.appendChild(temp7);
+		temp6.appendChild(temp5);
+		temp5.appendChild(temp12);
+		temp6.appendChild(temp7b);
+		temp2.appendChild(temp8);
+		temp3.appendChild(temp9);
+		temp3b.appendChild(temp10);
+	}	
+}
+</script>
+</head>
+<body>
+  <div class="banner">
+    <label><pre>
+                __________      ___.           __     __      __        .__  __                                
+	        \______   \ ____\_ |__   _____/  |_  /  \    /  \_____  |__|/  |________   ____   ______ ______
+ 	         |       _//  _ \| __ \ /  _ \   __\ \   \/\/   /\__  \ |  \   __\_  __ \_/ __ \ /  ___//  ___/
+ 	         |    |   (  <_> ) \_\ (  <_> )  |    \        /  / __ \|  ||  |  |  | \/\  ___/ \___ \ \___ \ 
+ 	         |____|_  /\____/|___  /\____/|__|     \__/\  /  (____  /__||__|  |__|    \___  >____  >____  >
+        	        \/           \/                     \/        \/                      \/     \/     \/ </pre> </label>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="admin.html">Admin</a></li>
+      <li><a href="cook.html">Cook</a></li>
+      <li><a href="inventory.html">Inventory</a></li>
+      <li><a href="review.html">Review</a></li>
+    </ul>
+  </nav>
+  <div class=flexBox>
+    <div class=left id="menu_left">
+	
+    </div>
+    <div class=right id="menu_right">
+		
+    </div>
+  </div>
+  <div class=flexBox>
+    <div class=buttons id="menu_bottom">
+	<button type="button">Request Server</button>
+	<button type="button">Order Now</button>
+	<label>You're total is:</label>
+	<label id=OrderPriceID>$0.00</label>
+	<button type="button">Pay Now</button>
+    </div>	
+  </div>
+</body>
+</html>
