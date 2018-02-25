@@ -1,0 +1,146 @@
+<DOCTYPE! html>
+<html lang="en"> 
+
+<head>
+
+<meta charset="utf-8"/>
+<style>
+.banner {
+    font-weight: bold;
+	margin: 2px;
+	border-style:solid;
+	border-color:black;
+}
+nav {
+padding: 5px;
+	margin: 2px;
+	border-style:solid;
+	border-color:black;
+}
+nav ul {
+    display: flex;
+}
+nav li {
+    display: inline;
+    text-align: center;
+    flex: 1;
+}
+</style>
+
+<script>
+var salesMoney = 435.68
+var tableRow1 = [["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]
+	, ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]]
+var tableSize = 6;
+
+window.onload = function(){
+	getMoney();
+	getTableData();
+}
+
+function getMoney(){
+	document.getElementById("salesNumber").innerHTML = "$ " + salesMoney;
+}
+function getTableData(){
+	var temp1 = document.getElementsByTagName('table');
+	for (var j = 0; j < tableSize; j++){
+		var temp2 = document.createElement("TR");
+		temp1[0].appendChild(temp2);
+		for (var i = 0; i < tableSize; i++){
+			var temp3 = document.createElement("TD");
+			temp3.innerHTML = tableRow1[j][i];
+			temp2.appendChild(temp3);
+		}
+	}
+}
+</script>
+</head>
+<body>
+  <div class="banner">
+    <label><pre>
+                __________      ___.           __     __      __        .__  __                                
+	        \______   \ ____\_ |__   _____/  |_  /  \    /  \_____  |__|/  |________   ____   ______ ______
+ 	         |       _//  _ \| __ \ /  _ \   __\ \   \/\/   /\__  \ |  \   __\_  __ \_/ __ \ /  ___//  ___/
+ 	         |    |   (  <_> ) \_\ (  <_> )  |    \        /  / __ \|  ||  |  |  | \/\  ___/ \___ \ \___ \ 
+ 	         |____|_  /\____/|___  /\____/|__|     \__/\  /  (____  /__||__|  |__|    \___  >____  >____  >
+        	        \/           \/                     \/        \/                      \/     \/     \/ </pre> </label>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="admin.html">Admin</a></li>
+      <li><a href="cook.html">Cook</a></li>
+      <li><a href="inventory.html">Inventory</a></li>
+      <li><a href="review.html">Review</a></li>
+    </ul>
+  </nav>
+  <div id="sales">
+	<h1>Daily Sales</h1>
+	<h1 id="salesNumber"></h1>
+  </div>
+  <div>
+    <h2>Current Orders</h2>
+	<table>
+	  <tr>
+	    <th>Order Number</th>
+		<th>Price</th>
+		<th>Table</th>	<!-- As a waiter / waitress I need to identify which table / location an order relates to -->
+		<th>Needs Service?</th> <!-- As a waiter / waitress I need to know what locations / tables have service requests -->
+		<th>Food Ready?</th>
+		<th>Time Elapsed<th>
+	  </tr>
+	</table>
+  <div>  <!--As a waiter / waitress I need to be able to place zero cost orders -->
+    <form action="">
+    1. Adjust order price<br>
+	Order Number: <input type="text" name="adjustPriceOrderNumber">
+	New Price: <input type="text" name="adjustPriceNewPrice">
+	<input type="submit" name="adjustPriceSubmit" value="Submit"> 
+    </form>
+  </div>
+  <!-- As a waiter / waitress, I would like to split or combine different bills -->
+  <div>
+  <form action="">
+    2. Split Bill<br>
+	Order Number: <input type="text" name="splitBillOrderNumber"><br>
+	<ul>
+		<li>New Price: <input type="text" name="splitBillNewPrice1"></li>
+		<li>New Price: <input type="text" name="splitBillNewPrice2"></li>
+		<li>New Price: <input type="text" name="splitBillNewPrice3"></li>
+		<li>New Price: <input type="text" name="splitBillNewPrice4"></li>
+	</ul>
+	<input type="submit" name="splitBillSubmit" value="Submit"> 
+    </form>
+  </div>
+  <div> <!-- As a manager, I would like to delete, create, and manage menu items -->
+	<form action="">
+		3. Add Menu item<br>
+		New item: <input type="text" name="newItem"><br>
+		description: <input type="text" name"newItemDescription"><br>
+		Price: $ <input type="number" name"newItemPrice">
+		<input type="submit" name="newMenuItemSubmit" value="Submit"> 
+	</form>
+	</div>
+	<div>
+		<form action="">
+		4. Remove Menu item<br>
+		New item: <input type="text" name="removeItem">
+		<input type="submit" name="removeItemSubmit" value="Submit"> 
+	</form>
+	</div>
+<!-- As a manager, I need to be able to override details about an open order (menu items, price, location, etc.) -->
+	<div> 
+		<form action="">
+		5. Change table<br>
+		Order Number: <input type="text" name="changeTableOrderNumber">
+		New table: <input type="text" name="newTable">
+		<input type="submit" name="changeTableSubmit" value="Submit"> 
+		</form>
+	</div>
+	<div>
+		<form action="">
+		6. Change Order<br>
+		Order Number: <input type="text" name="changeOrder"> 
+		<input type="submit" name="changeOrderSubmit" value="Submit"> <!-- this should probably just kick to menu with pre-populated fields --> 
+</body>
+</html>
