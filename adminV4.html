@@ -13,7 +13,14 @@
 	border-color:black;
 	background-color: rgb(102, 153, 255);
 }
-
+.FlexDiv {
+	display: flex;
+	flew-wrap: wrap;
+	flex-direction: row;
+}
+.card {
+	padding: 25px;
+	}
 </style>
 
 <script>
@@ -87,6 +94,7 @@ function getTableData(){
   </a>
 </div>
   
+<div>
 	<table class="table table-primary">
 	  <tr class="table-info">
 	    <th>Order Number</th>
@@ -97,57 +105,61 @@ function getTableData(){
 		<th>Time Elapsed<th>
 	  </tr>
 	</table>
-  <div>  <!--As a waiter / waitress I need to be able to place zero cost orders -->
-    <form action="">
-    1. Adjust order price<br>
-	Order Number: <input type="text" name="adjustPriceOrderNumber">
-	New Price: <input type="text" name="adjustPriceNewPrice">
-	<input type="submit" name="adjustPriceSubmit" value="Submit"> 
-    </form>
-  </div>
-  <!-- As a waiter / waitress, I would like to split or combine different bills -->
-  <div>
-  <form action="">
-    2. Split Bill<br>
-	Order Number: <input type="text" name="splitBillOrderNumber"><br>
-	<ul>
-		<li>New Price: <input type="text" name="splitBillNewPrice1"></li>
-		<li>New Price: <input type="text" name="splitBillNewPrice2"></li>
-		<li>New Price: <input type="text" name="splitBillNewPrice3"></li>
-		<li>New Price: <input type="text" name="splitBillNewPrice4"></li>
-	</ul>
-	<input type="submit" name="splitBillSubmit" value="Submit"> 
-    </form>
-  </div>
-  <div> <!-- As a manager, I would like to delete, create, and manage menu items -->
+</div>
+<div class="FlexDiv">
+	<div class="card border-primary mb-3" style="max-width: 20rem;">  <!--As a waiter / waitress I need to be able to place zero cost orders -->
+		<form action="">
+		<div class="card-header">1. Adjust order price</div>
+		Order Number: <input type="text" name="adjustPriceOrderNumber">
+		New Price: <input type="text" name="adjustPriceNewPrice">
+		<input type="submit" name="adjustPriceSubmit" value="Submit"> 
+		</form>
+	</div>
+	<!-- As a waiter / waitress, I would like to split or combine different bills -->
+	<div class="card border-primary mb-3" style="max-width: 20rem;">
+		<form action="">
+		<div class="card-header">2. Split Bill</div>
+		Order Number: <input type="text" name="splitBillOrderNumber"><br>
+		<ul>
+			<li>New Price: <input type="text" name="splitBillNewPrice1"></li>
+			<li>New Price: <input type="text" name="splitBillNewPrice2"></li>
+			<li>New Price: <input type="text" name="splitBillNewPrice3"></li>
+			<li>New Price: <input type="text" name="splitBillNewPrice4"></li>
+		</ul>
+		<input type="submit" name="splitBillSubmit" value="Submit"> 
+		</form>
+	</div>
+	<div class="card border-primary mb-3" style="max-width: 20rem;"> <!-- As a manager, I would like to delete, create, and manage menu items -->
 	<form action="">
-		3. Add Menu item<br>
+		<div class="card-header">3. Add Menu item</div>
 		New item: <input type="text" name="newItem"><br>
 		description: <input type="text" name"newItemDescription"><br>
 		Price: $ <input type="number" name"newItemPrice">
 		<input type="submit" name="newMenuItemSubmit" value="Submit"> 
 	</form>
 	</div>
-	<div>
+	<div class="card border-primary mb-3" style="max-width: 20rem;">
 		<form action="">
-		4. Remove Menu item<br>
+		<div class="card-header">4. Remove Menu item</div>
 		New item: <input type="text" name="removeItem">
 		<input type="submit" name="removeItemSubmit" value="Submit"> 
 	</form>
 	</div>
 <!-- As a manager, I need to be able to override details about an open order (menu items, price, location, etc.) -->
-	<div> 
+	<div class="card border-primary mb-3" style="max-width: 20rem;"> 
 		<form action="">
-		5. Change table<br>
+		<div class="card-header">5. Change table</div>
 		Order Number: <input type="text" name="changeTableOrderNumber">
 		New table: <input type="text" name="newTable">
 		<input type="submit" name="changeTableSubmit" value="Submit"> 
 		</form>
 	</div>
-	<div>
+	<div class="card border-primary mb-3" style="max-width: 20rem;">
 		<form action="">
-		6. Change Order<br>
+		<div class="card-header">6. Change Order</div>
 		Order Number: <input type="text" name="changeOrder"> 
 		<input type="submit" name="changeOrderSubmit" value="Submit"> <!-- this should probably just kick to menu with pre-populated fields --> 
+	</div>
+	</div>
 </body>
 </html>
