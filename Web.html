@@ -1,4 +1,5 @@
-<html>
+<DOCTYPE! html>
+<html lang="en">
 <head>
 <style>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0-beta.3/yeti/bootstrap.min.css">
@@ -17,7 +18,6 @@
 		position:                        absolute;
 		height:                            874px;
 		width:                             1424px;
-		color: darkblue;
 	}
 	.roboHeader {
 		width: 98.2%;
@@ -107,17 +107,21 @@
 </script>
 </head>
 <body>
-	<div class=roboHeader>
-		Robot Waitress
-	</div>
-	<div>
+	<div class="card border-primary mb-3" style="max-width: 700rem;">
+        <div class="card-header" style="font-size: 40px">Robot Waitress</div>
+        <div class="card-body">
 		<div class=menuColumn>
+        <div class="card-header" style="font-size: 40px">Menu Items</div>
+        <div class="card-body">
 			<div class=menuItem>
 				<div class=itemColumn>
 					<div class=itemDetails>
-						<div class=itemLabel>
-							burger
-						</div>
+						<div class="card border-secondary mb-3" style="max-width: 20rem;">
+                          <div class="card-header">Burger</div>
+                          <div class="card-body">
+                            <p class="card-text">Details</p>
+                          </div>
+                        </div>
 						<div class=details>
 							details
 						</div>
@@ -134,7 +138,7 @@
 				<div class=items>
 					<div class=itemCell>
 						<div class="form-group">
-							<label for="exampleSelect1">Qty</label>
+							<label for="exampleSelect1"></label>
 							<select class="form-control" id="exampleSelect1">
 								<option>1</option>
 								<option>2</option>
@@ -154,7 +158,7 @@
 				<div class=itemColumn>
 					<div class=itemDetails>
 						<div class=itemLabel>
-							burger
+							Fries
 						</div>
 						<div class=details>
 							details
@@ -172,7 +176,7 @@
 				<div class=items>
 					<div class=itemCell>
 						<div class="form-group">
-							<label for="exampleSelect1">Qty</label>
+							<label for="exampleSelect1"></label>
 							<select class="form-control" id="exampleSelect1">
 								<option>1</option>
 								<option>2</option>
@@ -192,7 +196,7 @@
 				<div class=itemColumn>
 					<div class=itemDetails>
 						<div class=itemLabel>
-							burger
+							Drink
 						</div>
 						<div class=details>
 							details
@@ -210,7 +214,7 @@
 				<div class=items>
 					<div class=itemCell>
 						<div class="form-group">
-							<label for="exampleSelect1">Qty</label>
+							<label for="exampleSelect1"></label>
 							<select class="form-control" id="exampleSelect1">
 								<option>1</option>
 								<option>2</option>
@@ -226,128 +230,26 @@
 					</div>
 				</div>
 			</div>
-			<div class=menuItem>
-				<div class=itemColumn>
-					<div class=itemDetails>
-						<div class=itemLabel>
-							burger
-						</div>
-						<div class=details>
-							details
-						</div>
-					</div>
-					<div class=itemDetails>
-						<div class=itemLabel>
-							Special Request:
-						</div>
-						<div class=details style="border-width: thin">
-							do this, don't do that
-						</div>
-					</div>
-				</div>
-				<div class=items>
-					<div class=itemCell>
-						<div class="form-group">
-							<label for="exampleSelect1">Qty</label>
-							<select class="form-control" id="exampleSelect1">
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-								<option>4</option>
-								<option>5</option>
-							</select>
-							<button type="button" class="btn btn-primary">Add</button>
-						</div>
-					</div>
-					<div class=itemCell>
-						price
-					</div>
-				</div>
-			</div>
-			<div class=menuItem>
-				<div class=itemColumn>
-					<div class=itemDetails>
-						<div class=itemLabel>
-							burger
-						</div>
-						<div class=details>
-							details
-						</div>
-					</div>
-					<div class=itemDetails>
-						<div class=itemLabel>
-							Special Request:
-						</div>
-						<div class=details style="border-width: thin">
-							do this, don't do that
-						</div>
-					</div>
-				</div>
-				<div class=items>
-					<div class=itemCell>
-						<div class="form-group">
-							<label for="exampleSelect1">Qty</label>
-							<select class="form-control" id="exampleSelect1">
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-								<option>4</option>
-								<option>5</option>
-							</select>
-							<button type="button" class="btn btn-primary">Add</button>
-						</div>
-					</div>
-					<div class=itemCell>
-						price
-					</div>
-				</div>
-			</div>
-			<div class=menuItem>
-				<div class=itemColumn>
-					<div class=itemDetails>
-						<div class=itemLabel>
-							burger
-						</div>
-						<div class=details>
-							details
-						</div>
-					</div>
-					<div class=itemDetails>
-						<div class=itemLabel>
-							Special Request:
-						</div>
-						<div class=details style="border-width: thin">
-							do this, don't do that
-						</div>
-					</div>
-				</div>
-				<div class=items>
-					<div class=itemCell>
-						<div class="form-group">
-							<label for="exampleSelect1">Qty</label>
-							<select class="form-control" id="exampleSelect1">
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-								<option>4</option>
-								<option>5</option>
-							</select>
-							<button type="button" class="btn btn-primary">Add</button>
-						</div>
-					</div>
-					<div class=itemCell>
-						price
-					</div>
-				</div>
-			</div>
+			<html>
 			pay, getHelp, add/remove items, place order
 		</div>
+        </div>
 		<div class=menuColumn>
-		Hamburger, Fries, Drink
-		</div>
-	<div>
+        <div class="card-header" style="font-size: 40px">Reviews</div>
+            <div class="card-body">
+	    	<div class=menuItem>
+				Review 1
+		    </div>
+	    	<div class=menuItem>
+				Review 2
+		    </div>
+	    	<div class=menuItem>
+				Review 3
+		    </div>
+        </div>
+    </div>
 </body>
-
+</html>
 
 
 
