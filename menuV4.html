@@ -2,7 +2,7 @@
 <html lang="en"> 
 
 <head>
-
+<link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.css">
 <meta charset="utf-8"/>
 <style>
 .banner {
@@ -68,26 +68,38 @@ nav li {
 // these are variables to read in
 var sizeMenu = 5;
 var itemsMenu =['Cheeseburger', 'Burger', 'fries', 'pop', 'float'];
-var descMenu = ['Cheeseburger Nunc vitae felis sapien. Suspendisse efficitur non justo suscipit vestibulum. Mauris.',
-	 'Ut mollis sed erat quis sodales. Quisque nec iaculis diam. Sed. Burger',
-	 'Etiam vulputate lacus sed lobortis sollicitudin. Phasellus varius varius turpis, porttitor. fries',
-	 'pop Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac.',
-	 'Nulla vehicula velit ac lacinia lacinia. Phasellus volutpat diam in diam. float'];
+var descMenu = ['Cheeseburger description',
+	 'Burger description',
+	 'fries description',
+	 'pop description',
+	 'float description'];
 var myPrices = [4.29, 3.79, 1.99, 1.09, 2.79];
 // these are reviews to read in
-var sizeReview = 6;
-var itemsReview = ['Cheeseburger Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac.',
-	 'Burger Suspendisse potenti. Pellentesque sed scelerisque libero. Fusce vel felis odio. Pellentesque.',
-	 'fries Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac.',
-   	 'float Suspendisse potenti. Pellentesque sed scelerisque libero. Fusce vel felis odio. Pellentesque.',
-  	 'Burger Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac.',
-	 'fries Suspendisse potenti. Pellentesque sed scelerisque libero. Fusce vel felis odio. Pellentesque.' ];
+var sizeReview = 5;
+
+var comboReview = [['Cheeseburger',	'Not enough cheese but the bun was great.'], ['Burger', 'Juciest friggin thing evar'],
+	['fries', 'In and out eat your heart out'], ['float', 'Whatever "floats" your boat'],
+   	['Burger', 'I\'ve had better']]
 // these are functions to build the dom
 window.onload = function(){
 	addMenu();
-	addReview();
+	//addReview();
+	addMikesReviews();
 }
 //modify class and id names to get yeti to format reviews here
+function addMikesReviews() {
+	var top = document.getElementById("reviews");
+	for (var i = 0; i < sizeReview; i++){
+		tempA = document.createElement("TR");
+		tempB = document.createElement("TH");
+		tempB.innerHTML = comboReview[i][0];
+		tempC = document.createElement("TD");
+		tempC.innerHTML = comboReview[i][1];
+		top.appendChild(tempA);
+		tempA.appendChild(tempB);
+		tempA.appendChild(tempC);
+	}
+}
 function addReview(){
 	var element = document.getElementById("menu_right");
 // create list object
@@ -154,13 +166,23 @@ function addMenu(){
  	         |____|_  /\____/|___  /\____/|__|     \__/\  /  (____  /__||__|  |__|    \___  >____  >____  >
         	        \/           \/                     \/        \/                      \/     \/     \/ </pre> </label>
   </div>
-  <nav>
-    <ul>
-      <li><a href="menu.html">Menu</a></li>
-      <li><a href="admin.html">Admin</a></li>
-      <li><a href="cook.html">Cook</a></li>
-      <li><a href="inventory.html">Inventory</a></li>
-      <li><a href="review.html">Review</a></li>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <ul class="navbar-nav mr-auto">
+		<li class="nav-item">
+			<a  class="nav-link" href="menu.html">Menu</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="admin.html">Admin</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="cook.html">Cook</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="inventory.html">Inventory</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="review.html">Review</a>
+		</li>
     </ul>
   </nav>
   <div class=flexBox>
@@ -168,7 +190,17 @@ function addMenu(){
 	
     </div>
     <div class=right id="menu_right">
-		
+	<table class="table table-hover">
+		<thead>
+			<tr>
+			<th scope="col">Menu Item</th>
+			<td>Customer Review</td>
+			</tr>
+		</thead>
+		<tbody class="table-primary" id="reviews">
+			
+		</tbody>
+	</table> 	
     </div>
   </div>
   <div class=flexBox>
