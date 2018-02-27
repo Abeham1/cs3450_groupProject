@@ -66,6 +66,7 @@ nav li {
 <script>
 
 // these are variables to read in
+var primaryCard = "card text-white bg-primary mb-3";
 var sizeMenu = 5;
 var itemsMenu =['Cheeseburger', 'Burger', 'fries', 'pop', 'float'];
 var descMenu = ['Cheeseburger description',
@@ -74,6 +75,9 @@ var descMenu = ['Cheeseburger description',
 	 'pop description',
 	 'float description'];
 var myPrices = [4.29, 3.79, 1.99, 1.09, 2.79];
+var comboItemsMenu = [['Cheeseburger', 'Cheeseburger description', 4.29], ['Burger', 'Burger description', 3.79],
+	['fries', 'fries description', 1.99], ['pop', 'pop description', 1.09],
+	['float', 'float description', 2.79]];
 // these are reviews to read in
 var sizeReview = 5;
 
@@ -82,8 +86,9 @@ var comboReview = [['Cheeseburger',	'Not enough cheese but the bun was great.'],
    	['Burger', 'I\'ve had better']]
 // these are functions to build the dom
 window.onload = function(){
-	addMenu();
+	//addMenu();
 	//addReview();
+	addMikesMenu();
 	addMikesReviews();
 }
 //modify class and id names to get yeti to format reviews here
@@ -115,6 +120,39 @@ function addReview(){
 	}
 }
 //modify class and id names to get yeti to format menu items here
+function addMikesMenu() {
+	var top = document.getElementById("menu_left");
+	
+	for (var i = 0; i < sizeMenu; i++){
+		tempA = document.createElement("DIV");
+		tempA.className = primaryCard;
+		tempA.style = "max-width: 98%; min-width: 98%;";
+		tempB = document.createElement("DIV");
+		tempB.className = "card-header";
+		tempB.innerHTML = comboItemsMenu[i][0];
+		tempDiv = document.createElement("DIV");
+		tempDiv.className = "card-body"
+		tempC = document.createElement("P");
+		tempC.className = "card-text";
+		tempC.innerHTML = comboItemsMenu[i][1];
+		tempD = document.createElement("P");
+		tempD.className = "card-text";
+		tempD.innerHTML = "$" + comboItemsMenu[i][2];
+		tempE = document.createElement("FORM");
+		temp7 = document.createElement("INPUT");
+		temp7.type = "number";
+		temp7b = document.createElement("INPUT");
+		temp7b.type = "text";
+		top.appendChild(tempA);
+		tempA.appendChild(tempB);
+		tempA.appendChild(tempDiv);
+		tempDiv.appendChild(tempC);
+		tempDiv.appendChild(tempD);
+		tempDiv.appendChild(tempE);
+		tempE.appendChild(temp7);
+		tempE.appendChild(temp7b);
+	}
+}
 function addMenu(){
 	for (var i = 0; i < sizeMenu; i++){
 //create elements
