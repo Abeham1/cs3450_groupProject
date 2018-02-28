@@ -1,0 +1,165 @@
+<DOCTYPE! html>
+<html lang="en"> 
+
+<head>
+<link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.css">
+<meta charset="utf-8"/>
+<style>
+
+.banner {
+    font-weight: 900;
+	margin: 2px;
+	border-style:solid;
+	border-color:black;
+	background-color: rgb(102, 153, 255);
+}
+.FlexDiv {
+	display: flex;
+	flew-wrap: wrap;
+	flex-direction: row;
+}
+.card {
+	padding: 25px;
+	}
+</style>
+
+<script>
+var salesMoney = 435.68
+var dailySales = "Daily Sales: $"+salesMoney;
+var tableRow1 = [["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]
+	, ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]]
+var tableSize = 6;
+
+window.onload = function(){
+	getMoney();
+	getTableData();
+}
+
+function getMoney(){
+	document.getElementById("salesNumber").innerHTML = dailySales;
+}
+function getTableData(){
+	var temp1 = document.getElementsByTagName('table');
+	for (var j = 0; j < tableSize; j++){
+		var temp2 = document.createElement("TR");
+		temp1[0].appendChild(temp2);
+		for (var i = 0; i < tableSize; i++){
+			var temp3 = document.createElement("TD");
+			temp3.innerHTML = tableRow1[j][i];
+			temp2.appendChild(temp3);
+		}
+	}
+}
+</script>
+</head>
+<body>
+  <div class="banner">
+    <label><pre>
+                __________      ___.           __     __      __        .__  __                                
+	        \______   \ ____\_ |__   _____/  |_  /  \    /  \_____  |__|/  |________   ____   ______ ______
+ 	         |       _//  _ \| __ \ /  _ \   __\ \   \/\/   /\__  \ |  \   __\_  __ \_/ __ \ /  ___//  ___/
+ 	         |    |   (  <_> ) \_\ (  <_> )  |    \        /  / __ \|  ||  |  |  | \/\  ___/ \___ \ \___ \ 
+ 	         |____|_  /\____/|___  /\____/|__|     \__/\  /  (____  /__||__|  |__|    \___  >____  >____  >
+        	        \/           \/                     \/        \/                      \/     \/     \/ </pre> </label>
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <ul class="navbar-nav mr-auto">
+		<li class="nav-item">
+			<a  class="nav-link" href="../menu/">Menu</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="../manager/">Manager</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="../cook/">Cook</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="../inventory/">Inventory</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="../review/">Review</a>
+		</li>
+    </ul>
+  </nav>
+  <div class="list-group">
+<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h3 class="mb-1" id="salesNumber"></h3>
+    </div>
+  </a>
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+    <div class="d-flex w-100 justify-content-between">
+      <h3 class="mb-1">Current Orders</h3>
+    </div>
+  </a>
+</div>
+  
+<div>
+	<table class="table table-primary">
+	  <tr class="table-info">
+	    <th>Order Number</th>
+		<th>Price</th>
+		<th>Table</th>	<!-- As a waiter / waitress I need to identify which table / location an order relates to -->
+		<th>Needs Service?</th> <!-- As a waiter / waitress I need to know what locations / tables have service requests -->
+		<th>Food Ready?</th>
+		<th>Time Elapsed<th>
+	  </tr>
+	</table>
+</div>
+<div class="FlexDiv">
+	<div class="card border-primary mb-3" style="max-width: 20rem;">  <!--As a waiter / waitress I need to be able to place zero cost orders -->
+		<form action="">
+		<div class="card-header">1. Adjust order price</div>
+		Order Number: <input type="text" name="adjustPriceOrderNumber">
+		New Price: <input type="text" name="adjustPriceNewPrice">
+		<input type="submit" name="adjustPriceSubmit" value="Submit"> 
+		</form>
+	</div>
+	<!-- As a waiter / waitress, I would like to split or combine different bills -->
+	<div class="card border-primary mb-3" style="max-width: 20rem;">
+		<form action="">
+		<div class="card-header">2. Split Bill</div>
+		Order Number: <input type="text" name="splitBillOrderNumber"><br>
+		<ul>
+			<li>New Price: <input type="text" name="splitBillNewPrice1"></li>
+			<li>New Price: <input type="text" name="splitBillNewPrice2"></li>
+			<li>New Price: <input type="text" name="splitBillNewPrice3"></li>
+			<li>New Price: <input type="text" name="splitBillNewPrice4"></li>
+		</ul>
+		<input type="submit" name="splitBillSubmit" value="Submit"> 
+		</form>
+	</div>
+	<div class="card border-primary mb-3" style="max-width: 20rem;"> <!-- As a manager, I would like to delete, create, and manage menu items -->
+	<form action="">
+		<div class="card-header">3. Add Menu item</div>
+		New item: <input type="text" name="newItem"><br>
+		description: <input type="text" name"newItemDescription"><br>
+		Price: $ <input type="number" name"newItemPrice">
+		<input type="submit" name="newMenuItemSubmit" value="Submit"> 
+	</form>
+	</div>
+	<div class="card border-primary mb-3" style="max-width: 20rem;">
+		<form action="">
+		<div class="card-header">4. Remove Menu item</div>
+		New item: <input type="text" name="removeItem">
+		<input type="submit" name="removeItemSubmit" value="Submit"> 
+	</form>
+	</div>
+<!-- As a manager, I need to be able to override details about an open order (menu items, price, location, etc.) -->
+	<div class="card border-primary mb-3" style="max-width: 20rem;"> 
+		<form action="">
+		<div class="card-header">5. Change table</div>
+		Order Number: <input type="text" name="changeTableOrderNumber">
+		New table: <input type="text" name="newTable">
+		<input type="submit" name="changeTableSubmit" value="Submit"> 
+		</form>
+	</div>
+	<div class="card border-primary mb-3" style="max-width: 20rem;">
+		<form action="">
+		<div class="card-header">6. Change Order</div>
+		Order Number: <input type="text" name="changeOrder"> 
+		<input type="submit" name="changeOrderSubmit" value="Submit"> <!-- this should probably just kick to menu with pre-populated fields --> 
+	</div>
+	</div>
+</body>
+</html>

@@ -25,7 +25,7 @@ SECRET_KEY = '#c##m=$^bsac@cf0+18os!vp_@9lstsgaawrsuqe1_mkecjodk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
