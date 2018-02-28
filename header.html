@@ -1,0 +1,68 @@
+<DOCTYPE! html>
+<html lang="en"> 
+
+<head>
+<link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.css">
+<meta charset="utf-8"/>
+<style>
+.banner {
+    font-weight: bold;
+	margin: 2px;
+	border-style:solid;
+	border-color:black;
+	background-color: rgb(102, 153, 255);
+}
+nav {
+padding: 5px;
+	margin: 2px;
+	border-style:solid;
+	border-color:black;
+}
+nav ul {
+    display: flex;
+}
+nav li {
+    display: inline;
+    text-align: center;
+    flex: 1;
+}
+</style>
+
+<script>
+var RestaurantName = "Kell's Burger Hut";
+
+window.onload = function(){
+	loadBanner();
+}
+function loadBanner(){
+	var top = document.getElementsByClassName("banner");
+	var pTag = document.createElement("H1");
+	pTag.innerHTML = RestaurantName;
+	top[0].appendChild(pTag);
+}
+</script>
+</head>
+<body>
+	<div class="banner">
+	</div>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a  class="nav-link" href="menu.html">Menu</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="admin.html">Admin</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="cook.html">Cook</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="inventory.html">Inventory</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="review.html">Review</a>
+			</li>
+		</ul>
+	</nav>
+</body>
+</html>
