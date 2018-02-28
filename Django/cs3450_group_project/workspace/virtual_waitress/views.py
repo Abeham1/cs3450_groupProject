@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render_to_response
 
+def cook (request):
+    return render_to_response('virtual_waitress/cook_view.html')
 
-from django.http import HttpResponse
+def review (request):
+    return render_to_response('virtual_waitress/customer_review.html')
 
-
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+def inventory (request):
+    return render_to_response('virtual_waitress/inventory.html')
