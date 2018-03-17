@@ -46,7 +46,19 @@ Virtual Waitress Inventory
 </style>
 {% endblock page-style %}
 
-{% block body-end-script %}
+{% block register-on-load-scripts %}
+<script>
+	window.onload = function(){
+		//addMenu();
+		//addReview();
+		loadBanner();
+		addMikesMenu();
+		addMikesReviews();
+	}
+</script>
+{% endblock register-on-load-scripts %}
+
+{% block head-script %}
 <script>
 
 // these are variables to read in
@@ -71,13 +83,6 @@ var comboReview = [['Cheeseburger',	'Not enough cheese but the bun was great.'],
 // these are functions to build the dom
 var RestaurantName = "{{ resturantName|safe }}";
 
-window.onload = function(){
-	//addMenu();
-	//addReview();
-	loadBanner();
-	addMikesMenu();
-	addMikesReviews();
-}
 function loadBanner(){
 	var top = document.getElementsByClassName("banner");
 	var pTag = document.createElement("H1");
@@ -186,7 +191,7 @@ function addMenu(){
 	}	
 }
 </script>
-{% endblock body-end-script %}
+{% endblock head-script %}
 
 {% block central-content %}
 <div class=flexBox>
@@ -200,7 +205,7 @@ function addMenu(){
 				<td>Customer Review</td>
 				</tr>
 			</thead>
-			<tbody class="table-primary" id="reviews">
+			<tbody id="reviews">
 				
 			</tbody>
 		</table> 	
