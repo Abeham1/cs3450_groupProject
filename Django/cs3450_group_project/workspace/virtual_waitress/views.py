@@ -1,19 +1,38 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 
 def index (request):
-    return render_to_response('virtual_waitress/menu.html')
+    context = {
+        'activePage':'menu'
+    }
+    return render(request, 'virtual_waitress/menu.html', context)
 
 def manager (request):
-    return render_to_response('virtual_waitress/manager.html')
+    context = {
+        'activePage':'manager'
+    }
+    return render(request, 'virtual_waitress/manager.html', context)
 
 def cook (request):
-    return render_to_response('virtual_waitress/cook_view.html')
+    context = {
+        'activePage':'cook'
+    }
+    return render(request, 'virtual_waitress/cook_view.html', context)
 
 def review (request):
-    return render_to_response('virtual_waitress/customer_review.html')
+    context = {
+        'activePage':'review'
+    }
+    return render(request, 'virtual_waitress/customer_review.html', context)
 
 def inventory (request):
-    return render_to_response('virtual_waitress/inventory.html')
+    context = {
+        'activePage':'inventory',
+        'resturantName': 'Welcome To Test!'
+    }
+    return render(request, 'virtual_waitress/inventory.html', context)
 
 def menu (request):
-    return render_to_response('virtual_waitress/menu.html')
+    context = {
+        'activePage':'menu'
+    }
+    return render(request, 'virtual_waitress/menu.html', context)

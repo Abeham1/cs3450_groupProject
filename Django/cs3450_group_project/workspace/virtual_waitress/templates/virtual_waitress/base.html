@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>
+        {% block page-title %}
+        Welcome to the Virtual Waitress
+        {% endblock page-title %}
+    </title>
+    
+    <link rel="stylesheet" href="{% static 'virtual_waitress/style.css' %}" />
+    
+    {% block html-head-script %}
+    <script>
+            document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+    </script>
+    {% endblock html-head-script %}
+
+    {% block page-style %}
+    <style>
+        .banner {
+            font-weight: bold;
+            margin: 2px;
+            border-style:solid;
+            border-color:black;
+            background-color: rgb(102, 153, 255);
+        }
+    </style>
+    {% endblock page-style %}
+
+    {% block on-load-script %}
+    <script>
+    var RestaurantName = "{{ resturantName|safe }}";
+
+    window.onload = function(){
+        loadBanner();
+    }
+    function loadBanner(){
+        var top = document.getElementsByClassName("banner");
+        var pTag = document.createElement("H1");
+        pTag.innerHTML = RestaurantName;
+        top[0].appendChild(pTag);
+    }
+    </script>
+    {% endblock on-load-script %}
+</head>
+<body>
+    {% block banner %}
+    <div class="banner">
+    </div>    
+    {% endblock banner %}
+
+    {% block nav-bar %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            {% block navbar-menu %}
+            <li class="nav-item {% if activePage == 'menu' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'virtual_waitress:menu' %}">Menu 
+                    {% if activePage == 'menu' %}
+                        <span class="sr-only">(current)</span>
+                    {% endif %}
+                </a>
+            </li>
+            {% endblock navbar-menu %}
+
+            {% block navbar-manager %}
+            <li class="nav-item {% if activePage == 'manager' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'virtual_waitress:manager' %}">Manager
+                    {% if activePage == 'manager' %}
+                        <span class="sr-only">(current)</span>
+                    {% endif %}
+                </a>
+            </li>
+            {% endblock navbar-manager %}
+
+            {% block navbar-cook %}
+            <li class="nav-item {% if activePage == 'cook' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'virtual_waitress:cook' %}">Cook
+                    {% if activePage == 'cook' %}
+                        <span class="sr-only">(current)</span>
+                    {% endif %}
+                </a>
+            </li>
+            {% endblock navbar-cook %}
+            
+            {% block navbar-inventory %}
+            <li class="nav-item {% if activePage == 'inventory' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'virtual_waitress:inventory' %}">Inventory
+                    {% if activePage == 'inventory' %}
+                        <span class="sr-only">(current)</span>
+                    {% endif %}
+                </a>
+            </li>
+            {% endblock navbar-inventory %}
+
+            {% block navbar-review %}
+            <li class="nav-item {% if activePage == 'review' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'virtual_waitress:review' %}">Customer Review
+                    {% if activePage == 'review' %}
+                        <span class="sr-only">(current)</span>
+                    {% endif %}
+                </a>
+            </li>
+            {% endblock navbar-review %}
+        </ul>
+    </div>
+    </nav>
+    {% endblock nav-bar %}
+
+    {% block central-content %}
+    <main>
+        <h1>Hello World!</h1>
+    </main>
+    {% endblock central-content %}
+
+    {% block footer %}
+    <footer>
+        <h1>Footer goes here</h1>
+    </footer>
+    {% endblock footer %}
+
+    {% block body-end-script %}
+    
+    {% endblock body-end-script %}
+</body>
+</html>
