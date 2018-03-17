@@ -33,6 +33,7 @@ def inventory (request):
 
 def menu (request):
     context = {
-        'activePage':'menu'
+        'activePage':'menu',
+        'resturantName': 'Welcome To Test!'
     }
     return render(request, 'virtual_waitress/menu.html', context)

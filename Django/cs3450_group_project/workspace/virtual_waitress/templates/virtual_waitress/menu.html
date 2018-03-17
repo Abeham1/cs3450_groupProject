@@ -1,31 +1,12 @@
-<DOCTYPE! html>
-<html lang="en"> 
+{% extends "./base.html" %} 
 
-<head>
-<link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.css">
-<meta charset="utf-8"/>
+{% block page-title %}
+Virtual Waitress Inventory
+{% endblock page-title %}
+
+{% block page-style %}
+{{ block.super }}
 <style>
-.banner {
-    font-weight: bold;
-	margin: 2px;
-	border-style:solid;
-	border-color:black;
-	background-color: rgb(102, 153, 255);
-}
-nav {
-padding: 5px;
-	margin: 2px;
-	border-style:solid;
-	border-color:black;
-}
-nav ul {
-    display: flex;
-}
-nav li {
-    display: inline;
-    text-align: center;
-    flex: 1;
-}
 .flexBox {
 	width: 100%;
     display: flex;
@@ -63,7 +44,9 @@ nav li {
 	flex-direction: row;
 }
 </style>
+{% endblock page-style %}
 
+{% block body-end-script %}
 <script>
 
 // these are variables to read in
@@ -86,11 +69,20 @@ var comboReview = [['Cheeseburger',	'Not enough cheese but the bun was great.'],
 	['fries', 'In and out eat your heart out'], ['float', 'Whatever "floats" your boat'],
    	['Burger', 'I\'ve had better']]
 // these are functions to build the dom
+var RestaurantName = "{{ resturantName|safe }}";
+
 window.onload = function(){
 	//addMenu();
 	//addReview();
+	loadBanner();
 	addMikesMenu();
 	addMikesReviews();
+}
+function loadBanner(){
+	var top = document.getElementsByClassName("banner");
+	var pTag = document.createElement("H1");
+	pTag.innerHTML = RestaurantName;
+	top[0].appendChild(pTag);
 }
 //modify class and id names to get yeti to format reviews here
 function addMikesReviews() {
@@ -194,62 +186,34 @@ function addMenu(){
 	}	
 }
 </script>
-</head>
-<body>
-  <div class="banner">
-    <label><pre>
-                __________      ___.           __     __      __        .__  __                                
-	        \______   \ ____\_ |__   _____/  |_  /  \    /  \_____  |__|/  |________   ____   ______ ______
- 	         |       _//  _ \| __ \ /  _ \   __\ \   \/\/   /\__  \ |  \   __\_  __ \_/ __ \ /  ___//  ___/
- 	         |    |   (  <_> ) \_\ (  <_> )  |    \        /  / __ \|  ||  |  |  | \/\  ___/ \___ \ \___ \ 
- 	         |____|_  /\____/|___  /\____/|__|     \__/\  /  (____  /__||__|  |__|    \___  >____  >____  >
-        	        \/           \/                     \/        \/                      \/     \/     \/ </pre> </label>
-  </div>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <ul class="navbar-nav mr-auto">
-		<li class="nav-item">
-			<a  class="nav-link" href="../menu/">Menu</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="../manager/">Manager</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="../cook/">Cook</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="../inventory/">Inventory</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="../review/">Review</a>
-		</li>
-    </ul>
-  </nav>
-  <div class=flexBox>
-    <div class=left id="menu_left">
-	
-    </div>
-    <div class=right id="menu_right">
-	<table class="table table-hover">
-		<thead>
-			<tr>
-			<th scope="col">Menu Item</th>
-			<td>Customer Review</td>
-			</tr>
-		</thead>
-		<tbody class="table-primary" id="reviews">
-			
-		</tbody>
-	</table> 	
-    </div>
-  </div>
-  <div class=flexBox>
-    <div class=buttons id="menu_bottom">
-	<button type="button">Request Server</button>
-	<button type="button">Order Now</button>
-	<label>You're total is:</label>
-	<label id=OrderPriceID>$0.00</label>
-	<button type="button">Pay Now</button>
-    </div>	
-  </div>
-</body>
-</html>
+{% endblock body-end-script %}
+
+{% block central-content %}
+<div class=flexBox>
+	<div class=left id="menu_left">
+	</div>
+	<div class=right id="menu_right">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+				<th scope="col">Menu Item</th>
+				<td>Customer Review</td>
+				</tr>
+			</thead>
+			<tbody class="table-primary" id="reviews">
+				
+			</tbody>
+		</table> 	
+	</div>
+</div>
+<div class=flexBox>
+	<div class=buttons id="menu_bottom">
+		<button type="button">Request Server</button>
+		<button type="button">Order Now</button>
+		<label>You're total is:</label>
+		<label id=OrderPriceID>$0.00</label>
+		<button type="button">Pay Now</button>
+	</div>	
+</div>
+{% endblock central-content %}
+  
