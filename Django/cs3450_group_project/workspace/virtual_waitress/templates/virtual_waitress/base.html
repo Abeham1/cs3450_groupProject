@@ -30,16 +30,22 @@
         }
     </style>
     {% endblock page-style %}
-
+<!-- "{{ resturantName|safe }}" -->
     {% block head-script %}
     <script>
-    var RestaurantName = "{{ resturantName|safe }}";
-
+    var foo = "{{ foo|safe }}";
+    console.log(foo);
+    var RestaurantName = JSON.parse('{{ resturantName|escapejs }}');
+    console.log(RestaurantName[0].name);
+    console.log(RestaurantName);
     function loadBanner(){
         var top = document.getElementsByClassName("banner");
         var pTag = document.createElement("H1");
-        pTag.innerHTML = RestaurantName;
-        top[0].appendChild(pTag);
+        for (var i = 0; i < RestaurantName.length; i++){
+            pTag.innerHTML += RestaurantName[i].name + " ";
+            top[0].appendChild(pTag);
+        }
+        
     }
     </script>
     {% endblock head-script %}
