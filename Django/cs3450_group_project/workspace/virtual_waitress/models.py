@@ -26,3 +26,12 @@ class Items(models.Model):
     class Meta:
         verbose_name = "Inventory Item"
         
+
+class RestaurantName(models.Model):
+    name = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Restaurant Name"
