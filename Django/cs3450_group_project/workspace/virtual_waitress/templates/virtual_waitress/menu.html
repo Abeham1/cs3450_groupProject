@@ -1,224 +1,222 @@
-{% extends "./base.html" %} 
+{% extends "./base.html" %}
 
-{% block page-title %}
-Virtual Waitress Inventory
-{% endblock page-title %}
+{% block page-title %}Virtual Waitress Inventory{% endblock page-title %}
 
 {% block page-style %}
-{{ block.super }}
-<style>
-.flexBox {
-	width: 100%;
-    display: flex;
-    flex-direction: row;
-}
-.left {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    align-items: left;
-}
-.right {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    align-items: left;
-	width: 95%;
-	padding: 5px;
-	margin: 2px;
-	border-style:solid;
-	border-color:black;
-}
-.foodMenu {
-	width: 95%;
-	padding: 5px;
-	margin: 2px;
-	border-style:solid;
-	border-color:black;
-}
-.Review {
-}
-#menu_bottom {
-	flex: 1;
-	display: inline;
-	flex-direction: row;
-}
-</style>
+    {{ block.super }}
+    <style>
+        .flexBox {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .left {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            align-items: left;
+        }
+
+        .right {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            align-items: left;
+            width: 95%;
+            padding: 5px;
+            margin: 2px;
+            border: solid black;
+        }
+
+        .foodMenu {
+            width: 95%;
+            padding: 5px;
+            margin: 2px;
+            border: solid black;
+        }
+
+        .Review {
+        }
+
+        #menu_bottom {
+            flex: 1;
+            display: inline;
+            flex-direction: row;
+        }
+    </style>
 {% endblock page-style %}
 
 {% block register-on-load-scripts %}
-<script>
-	window.onload = function(){
-		//addMenu();
-		//addReview();
-		loadBanner();
-		addMikesMenu();
-		addMikesReviews();
-	}
-</script>
+    <script>
+        window.onload = function () {
+            //addMenu();
+            //addReview();
+            loadBanner();
+            addMikesMenu();
+            addMikesReviews();
+        }
+    </script>
 {% endblock register-on-load-scripts %}
 
 {% block head-script %}
-<script>
+    <script>
 
-// these are variables to read in
-var primaryCard = "card text-white bg-primary mb-3";
-var sizeMenu = 5;
-var itemsMenu =['Cheeseburger', 'Burger', 'fries', 'pop', 'float'];
-var descMenu = ['Cheeseburger description',
-	 'Burger description',
-	 'fries description',
-	 'pop description',
-	 'float description'];
-var myPrices = [4.29, 3.79, 1.99, 1.09, 2.79];
-var comboItemsMenu = [['Cheeseburger', 'Cheeseburger description', 4.29], ['Burger', 'Burger description', 3.79],
-	['fries', 'fries description', 1.99], ['pop', 'pop description', 1.09],
-	['float', 'float description', 2.79]];
-// these are reviews to read in
-var sizeReview = 5;
+        // these are variables to read in
+        var primaryCard = "card text-white bg-primary mb-3";
+        var sizeMenu = 5;
+        var itemsMenu = ['Cheeseburger', 'Burger', 'fries', 'pop', 'float'];
+        var descMenu = ['Cheeseburger description',
+            'Burger description',
+            'fries description',
+            'pop description',
+            'float description'];
+        var myPrices = [4.29, 3.79, 1.99, 1.09, 2.79];
+        var comboItemsMenu = [['Cheeseburger', 'Cheeseburger description', 4.29], ['Burger', 'Burger description', 3.79],
+            ['fries', 'fries description', 1.99], ['pop', 'pop description', 1.09],
+            ['float', 'float description', 2.79]];
+        // these are reviews to read in
+        var sizeReview = 5;
 
-var comboReview = [['Cheeseburger',	'Not enough cheese but the bun was great.'], ['Burger', 'Juciest friggin thing evar'],
-	['fries', 'In and out eat your heart out'], ['float', 'Whatever "floats" your boat'],
-   	['Burger', 'I\'ve had better']]
-// these are functions to build the dom
-var RestaurantName = "{{ resturantName|safe }}";
+        var comboReview = [['Cheeseburger', 'Not enough cheese but the bun was great.'], ['Burger', 'Juciest friggin thing evar'],
+            ['fries', 'In and out eat your heart out'], ['float', 'Whatever "floats" your boat'],
+            ['Burger', 'I\'ve had better']];
+        // these are functions to build the dom
 
-function loadBanner(){
-	var top = document.getElementsByClassName("banner");
-	var pTag = document.createElement("H1");
-	pTag.innerHTML = RestaurantName;
-	top[0].appendChild(pTag);
-}
-//modify class and id names to get yeti to format reviews here
-function addMikesReviews() {
-	var top = document.getElementById("reviews");
-	for (var i = 0; i < sizeReview; i++){
-		tempA = document.createElement("TR");
-		tempB = document.createElement("TH");
-		tempB.innerHTML = comboReview[i][0];
-		tempC = document.createElement("TD");
-		tempC.innerHTML = comboReview[i][1];
-		top.appendChild(tempA);
-		tempA.appendChild(tempB);
-		tempA.appendChild(tempC);
-	}
-}
-function addReview(){
-	var element = document.getElementById("menu_right");
-// create list object
-	var temp1 = document.createElement("DIV");
-	var temp2 = document.createElement("UL");
-	element.appendChild(temp1);
-	temp1.appendChild(temp2);
-	for (var i = 0; i < sizeReview; i++){
-		tempA = document.createElement("LI");
-		tempB = document.createTextNode(itemsReview[i]);
-		temp2.appendChild(tempA);
-		tempA.appendChild(tempB);
-	}
-}
-//modify class and id names to get yeti to format menu items here
-function addMikesMenu() {
-	var top = document.getElementById("menu_left");
-	
-	for (var i = 0; i < sizeMenu; i++){
-		tempA = document.createElement("DIV");
-		tempA.className = primaryCard;
-		tempA.style = "max-width: 98%; min-width: 98%;";
-		tempB = document.createElement("DIV");
-		tempB.className = "card-header";
-		tempB.innerHTML = comboItemsMenu[i][0];
-		tempDiv = document.createElement("DIV");
-		tempDiv.className = "card-body"
-		tempC = document.createElement("P");
-		tempC.className = "card-text";
-		tempC.innerHTML = comboItemsMenu[i][1];
-		tempD = document.createElement("P");
-		tempD.className = "card-text";
-		tempD.innerHTML = "$" + comboItemsMenu[i][2];
-		tempE = document.createElement("FORM");
-		temp7 = document.createElement("INPUT");
-		temp7.type = "number";
-		temp7b = document.createElement("INPUT");
-		temp7b.type = "text";
-		top.appendChild(tempA);
-		tempA.appendChild(tempB);
-		tempA.appendChild(tempDiv);
-		tempDiv.appendChild(tempC);
-		tempDiv.appendChild(tempD);
-		tempDiv.appendChild(tempE);
-		tempE.appendChild(temp7);
-		tempE.appendChild(temp7b);
-	}
-}
-function addMenu(){
-	for (var i = 0; i < sizeMenu; i++){
-//create elements
-		var temp1 = document.createElement("DIV");
-		var temp2 = document.createElement("LABEL");
-		var temp3 = document.createElement("LABEL");
-		var temp3b = document.createElement("LABEL");
-		var temp4 = document.createElement("LABEL");
-		var temp5 = document.createElement("LABEL");
-		var temp6 = document.createElement("FORM");
-		var temp7 = document.createElement("INPUT");
-		temp7.type = "number";
-		var temp7b = document.createElement("INPUT");
-		temp7b.type = "text";
-//createTextNodes
-		var temp8 = document.createTextNode(itemsMenu[i]);		//menu item
-		var temp9 = document.createTextNode(descMenu[i]);		// item description
-		var temp10 = document.createTextNode("$ "+myPrices[i]);		// item prices
-		var temp11 = document.createTextNode("Quantity: ");
-		var temp12 = document.createTextNode("Special: ");
 
-// attach from top down
-		var element = document.getElementById("menu_left");
-		element.appendChild(temp1);
-		temp1.appendChild(temp2);
-		temp1.appendChild(temp3);
-		temp1.appendChild(temp3b);
-		temp1.appendChild(temp6);
-		temp6.appendChild(temp4);
-		temp4.appendChild(temp11);
-		temp6.appendChild(temp7);
-		temp6.appendChild(temp5);
-		temp5.appendChild(temp12);
-		temp6.appendChild(temp7b);
-		temp2.appendChild(temp8);
-		temp3.appendChild(temp9);
-		temp3b.appendChild(temp10);
-	}	
-}
-</script>
+        //modify class and id names to get yeti to format reviews here
+        function addMikesReviews() {
+            var top = document.getElementById("reviews");
+            for (var i = 0; i < sizeReview; i++) {
+                tempA = document.createElement("TR");
+                tempB = document.createElement("TH");
+                tempB.innerHTML = comboReview[i][0];
+                tempC = document.createElement("TD");
+                tempC.innerHTML = comboReview[i][1];
+                top.appendChild(tempA);
+                tempA.appendChild(tempB);
+                tempA.appendChild(tempC);
+            }
+        }
+
+        function addReview() {
+            var element = document.getElementById("menu_right");
+            // create list object
+            var temp1 = document.createElement("DIV");
+            var temp2 = document.createElement("UL");
+            element.appendChild(temp1);
+            temp1.appendChild(temp2);
+            for (var i = 0; i < sizeReview; i++) {
+                tempA = document.createElement("LI");
+                tempB = document.createTextNode(itemsReview[i]);
+                temp2.appendChild(tempA);
+                tempA.appendChild(tempB);
+            }
+        }
+
+        //modify class and id names to get yeti to format menu items here
+        function addMikesMenu() {
+            var top = document.getElementById("menu_left");
+
+            for (var i = 0; i < sizeMenu; i++) {
+                tempA = document.createElement("DIV");
+                tempA.className = primaryCard;
+                tempA.style = "max-width: 98%; min-width: 98%;";
+                tempB = document.createElement("DIV");
+                tempB.className = "card-header";
+                tempB.innerHTML = comboItemsMenu[i][0];
+                tempDiv = document.createElement("DIV");
+                tempDiv.className = "card-body";
+                tempC = document.createElement("P");
+                tempC.className = "card-text";
+                tempC.innerHTML = comboItemsMenu[i][1];
+                tempD = document.createElement("P");
+                tempD.className = "card-text";
+                tempD.innerHTML = "$" + comboItemsMenu[i][2];
+                tempE = document.createElement("FORM");
+                temp7 = document.createElement("INPUT");
+                temp7.type = "number";
+                temp7b = document.createElement("INPUT");
+                temp7b.type = "text";
+                top.appendChild(tempA);
+                tempA.appendChild(tempB);
+                tempA.appendChild(tempDiv);
+                tempDiv.appendChild(tempC);
+                tempDiv.appendChild(tempD);
+                tempDiv.appendChild(tempE);
+                tempE.appendChild(temp7);
+                tempE.appendChild(temp7b);
+            }
+        }
+
+        function addMenu() {
+            for (var i = 0; i < sizeMenu; i++) {
+                //create elements
+                var temp1 = document.createElement("DIV");
+                var temp2 = document.createElement("LABEL");
+                var temp3 = document.createElement("LABEL");
+                var temp3b = document.createElement("LABEL");
+                var temp4 = document.createElement("LABEL");
+                var temp5 = document.createElement("LABEL");
+                var temp6 = document.createElement("FORM");
+                var temp7 = document.createElement("INPUT");
+                temp7.type = "number";
+                var temp7b = document.createElement("INPUT");
+                temp7b.type = "text";
+                //createTextNodes
+                var temp8 = document.createTextNode(itemsMenu[i]);		//menu item
+                var temp9 = document.createTextNode(descMenu[i]);		// item description
+                var temp10 = document.createTextNode("$ " + myPrices[i]);		// item prices
+                var temp11 = document.createTextNode("Quantity: ");
+                var temp12 = document.createTextNode("Special: ");
+
+                // attach from top down
+                var element = document.getElementById("menu_left");
+                element.appendChild(temp1);
+                temp1.appendChild(temp2);
+                temp1.appendChild(temp3);
+                temp1.appendChild(temp3b);
+                temp1.appendChild(temp6);
+                temp6.appendChild(temp4);
+                temp4.appendChild(temp11);
+                temp6.appendChild(temp7);
+                temp6.appendChild(temp5);
+                temp5.appendChild(temp12);
+                temp6.appendChild(temp7b);
+                temp2.appendChild(temp8);
+                temp3.appendChild(temp9);
+                temp3b.appendChild(temp10);
+            }
+        }
+    </script>
 {% endblock head-script %}
 
 {% block central-content %}
-<div class=flexBox>
-	<div class=left id="menu_left">
-	</div>
-	<div class=right id="menu_right">
-		<table class="table table-hover">
-			<thead>
-				<tr>
-				<th scope="col">Menu Item</th>
-				<td>Customer Review</td>
-				</tr>
-			</thead>
-			<tbody id="reviews">
-				
-			</tbody>
-		</table> 	
-	</div>
-</div>
-<div class=flexBox>
-	<div class=buttons id="menu_bottom">
-		<button type="button">Request Server</button>
-		<button type="button">Order Now</button>
-		<label>You're total is:</label>
-		<label id=OrderPriceID>$0.00</label>
-		<button type="button">Pay Now</button>
-	</div>	
-</div>
+    <div class=flexBox>
+        <div class=left id="menu_left">
+        </div>
+        <div class=right id="menu_right">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Menu Item</th>
+                    <td>Customer Review</td>
+                </tr>
+                </thead>
+                <tbody id="reviews">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class=flexBox>
+        <div class=buttons id="menu_bottom">
+            <button type="button">Request Server</button>
+            <button type="button">Order Now</button>
+            <label>You're total is:</label>
+            <label id=OrderPriceID>$0.00</label>
+            <button type="button">Pay Now</button>
+        </div>
+    </div>
 {% endblock central-content %}
   

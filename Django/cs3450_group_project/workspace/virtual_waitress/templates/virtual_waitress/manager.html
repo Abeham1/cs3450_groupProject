@@ -15,7 +15,7 @@
 }
 .FlexDiv {
 	display: flex;
-	flew-wrap: wrap;
+	flex-wrap: wrap;
 	flex-direction: row;
 }
 .card {
@@ -24,16 +24,16 @@
 </style>
 
 <script>
-var salesMoney = 435.68
+var salesMoney = 435.68;
 var dailySales = "Daily Sales: $"+salesMoney;
 var tableRow1 = [["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]
-	, ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]]
+	, ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]];
 var tableSize = 6;
 
 window.onload = function(){
 	getMoney();
 	getTableData();
-}
+};
 
 function getMoney(){
 	document.getElementById("salesNumber").innerHTML = dailySales;
