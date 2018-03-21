@@ -1,6 +1,8 @@
+from pprint import pprint
+
 from django.shortcuts import render
 import json
-from virtual_waitress.models import RestaurantName
+from virtual_waitress.models import RestaurantName, Order, OrderItem
 
 
 def manager(request):
@@ -11,11 +13,13 @@ def manager(request):
 
 
 def cook(request):
-    result = RestaurantName.objects.all()
-    lst = (list(result.values()))
+    openOrders = Order.objects.filter(orderitem__ready=False)
+    pprint(openOrders.values())
+
+    restaurantNames = list(RestaurantName.objects.all().values())
     context = {
         'activePage': 'cook',
-        'restaurantName': json.dumps(lst),
+        'restaurantName': json.dumps(restaurantNames),
     }
     return render(request, 'virtual_waitress/cook_view.html', context)
 

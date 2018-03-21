@@ -1,8 +1,4 @@
-# from __future__ import unicode_literals
-
 from django.db import models
-from django.db.models import CASCADE
-
 
 # Create your models here.
 class AllowedItems(models.Model):
@@ -17,7 +13,7 @@ class AllowedItems(models.Model):
 
 
 class Items(models.Model):
-    itemType = models.ForeignKey(AllowedItems, on_delete=CASCADE)
+    itemType = models.ForeignKey(AllowedItems, on_delete=models.CASCADE)
     loc = models.CharField("Item Location", max_length=250)
     qty = models.PositiveIntegerField(default=0)
     cost = models.FloatField("Unit Cost", default=0)
@@ -39,3 +35,25 @@ class RestaurantName(models.Model):
 
     class Meta:
         verbose_name = "Restaurant Name"
+
+
+class Order(models.Model):
+    placed = models.DateTimeField("Order Placed")
+    ready = models.BooleanField("Food Ready", default=False)
+
+    def __str__(self):
+        return "Order " + str(self.id) + " placed on " + str(self.placed)
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    food = models.ForeignKey(AllowedItems, on_delete=models.CASCADE)
+    qty = models.PositiveIntegerField(default=0)
+    note = models.TextField("Customer Notes", blank=True)
+    ready = models.BooleanField("Food Ready", default=False)
+
+    def __str__(self):
+        return str(self.qty) + " " + str(self.food)
+
+
+
