@@ -1,9 +1,9 @@
-<DOCTYPE! html>
-<html lang="en"> 
+{% extends "./base.html" %}
 
-<head>
-<link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.css">
-<meta charset="utf-8"/>
+{% block page-title %}Virtual Waitress Menu{% endblock page-title %}
+
+{% block page-style %}
+    {{ block.super }}
 <style>
 
 .banner {
@@ -22,18 +22,24 @@
 	padding: 25px;
 	}
 </style>
+{% endblock page-style %}
 
-<script>
+{% block register-on-load-scripts %}
+    <script>
+        window.onload = function () {
+            loadBanner();
+						getMoney();
+						getTableData();
+        }
+
 var salesMoney = 435.68;
 var dailySales = "Daily Sales: $"+salesMoney;
-var tableRow1 = [["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]
-	, ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]];
+var tableData = JSON.parse('{{ tableData|escapejs }}');
+//console.log(menu[0].menuItem);
+console.log(tableData);
+//var tableRow1 = [["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]
+//	, ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]];
 var tableSize = 6;
-
-window.onload = function(){
-	getMoney();
-	getTableData();
-};
 
 function getMoney(){
 	document.getElementById("salesNumber").innerHTML = dailySales;
@@ -50,7 +56,11 @@ function getTableData(){
 		}
 	}
 }
-</script>
+
+    </script>
+{% endblock register-on-load-scripts %}
+
+
 </head>
 <body>
   <div class="banner">
@@ -65,7 +75,7 @@ function getTableData(){
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <ul class="navbar-nav mr-auto">
 		<li class="nav-item">
-			<a  class="nav-link" href="../menu/">Menu</a>
+			<a  class="nav-link" href="../menu/">Menu</a> 
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href="../manager/">Manager</a>

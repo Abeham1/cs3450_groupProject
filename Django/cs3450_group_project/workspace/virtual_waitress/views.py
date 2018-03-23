@@ -1,11 +1,28 @@
 from django.shortcuts import render
 import json
-from virtual_waitress.models import RestaurantName, Menu
+from virtual_waitress.models import RestaurantName, Menu, Order
 
 
 def manager(request):
+    result = RestaurantName.objects.all()
+    myresult = Order.objects.all()
+    #for x in myresult:
+    #    myresult[x].objects.dateCreated = str(myresult[x].objects.dateCreated)
+    #print("helloWorld")
+
+    
+    mylist = (list(myresult.values()))
+    #myresult = Order.objects.filter(str(Order.objects.datetime))
+    #myresult = Order.objects.get(pk=1).total
+    #mylist = myresult
+    #myresult = str(Order.objects.get(pk=1).dateCreated)
+    #mylist = myresult
+    
+    lst = (list(result.values()))
     context = {
-        'activePage': 'manager'
+        'activePage': 'manager',
+        'restaurantName': json.dumps(lst),
+        'tableData': json.dumps(mylist)
     }
     return render(request, 'virtual_waitress/manager.html', context)
 

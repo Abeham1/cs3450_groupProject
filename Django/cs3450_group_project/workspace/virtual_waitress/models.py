@@ -1,4 +1,5 @@
 # from __future__ import unicode_literals
+import datetime
 
 from django.db import models
 from django.db.models import CASCADE
@@ -51,3 +52,16 @@ class Menu(models.Model):
 
     class Meta:
         verbose_name = "Menu"
+
+
+class Order(models.Model):
+    dateCreated = models.DateTimeField()
+    ready = models.BooleanField(default=False)
+    total = models.FloatField()
+    orderNumber = models.IntegerField()
+
+    def __str__(self):
+        return str(self.orderNumber)
+
+    class Meta:
+        verbose_name = "Order"
