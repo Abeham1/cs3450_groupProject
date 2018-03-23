@@ -62,9 +62,14 @@
 {% block head-script %}
     <script>
 
+        // doing some console logging
+        var menu = JSON.parse('{{ comboItemsMenu|escapejs }}');
+        console.log(menu[0].menuItem);
+        console.log(menu);
         // these are variables to read in
         var primaryCard = "card text-white bg-primary mb-3";
-        var sizeMenu = 5;
+        // var sizeMenu = 5; // old
+        var sizeMenu = menu.length;
         var itemsMenu = ['Cheeseburger', 'Burger', 'fries', 'pop', 'float'];
         var descMenu = ['Cheeseburger description',
             'Burger description',
@@ -72,9 +77,9 @@
             'pop description',
             'float description'];
         var myPrices = [4.29, 3.79, 1.99, 1.09, 2.79];
-        var comboItemsMenu = [['Cheeseburger', 'Cheeseburger description', 4.29], ['Burger', 'Burger description', 3.79],
-            ['fries', 'fries description', 1.99], ['pop', 'pop description', 1.09],
-            ['float', 'float description', 2.79]];
+        //var comboItemsMenu = [['Cheeseburger', 'Cheeseburger description', 4.29], ['Burger', 'Burger description', 3.79],
+        //    ['fries', 'fries description', 1.99], ['pop', 'pop description', 1.09],
+        //    ['float', 'float description', 2.79]];
         // these are reviews to read in
         var sizeReview = 5;
 
@@ -124,15 +129,18 @@
                 tempA.style = "max-width: 98%; min-width: 98%;";
                 tempB = document.createElement("DIV");
                 tempB.className = "card-header";
-                tempB.innerHTML = comboItemsMenu[i][0];
+                //tempB.innerHTML = comboItemsMenu[i][2];
+                tempB.innerHTML = menu[i].menuItem;
                 tempDiv = document.createElement("DIV");
                 tempDiv.className = "card-body";
                 tempC = document.createElement("P");
                 tempC.className = "card-text";
-                tempC.innerHTML = comboItemsMenu[i][1];
+                //tempC.innerHTML = comboItemsMenu[i][1];
+                tempC.innerHTML = menu[i].menuDescription;
                 tempD = document.createElement("P");
                 tempD.className = "card-text";
-                tempD.innerHTML = "$" + comboItemsMenu[i][2];
+                //tempD.innerHTML = "$" + comboItemsMenu[i][0];
+                tempD.innerHTML = "$" + menu[i].menuPrice;
                 tempE = document.createElement("FORM");
                 temp7 = document.createElement("INPUT");
                 temp7.type = "number";

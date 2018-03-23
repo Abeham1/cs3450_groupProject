@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import json
-from virtual_waitress.models import RestaurantName
+from virtual_waitress.models import RestaurantName, Menu
 
 
 def manager(request):
@@ -49,9 +49,12 @@ def inventory(request):  # To send model data from Database to Javascript/Templa
 
 def menu(request):
     result = RestaurantName.objects.all()
+    myresult = Menu.objects.all()
+    mylist = (list(myresult.values()))
     lst = (list(result.values()))
     context = {
         'activePage': 'menu',
         'restaurantName': json.dumps(lst),
+        'comboItemsMenu': json.dumps(mylist),
     }
     return render(request, 'virtual_waitress/menu.html', context)

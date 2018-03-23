@@ -39,3 +39,15 @@ class RestaurantName(models.Model):
 
     class Meta:
         verbose_name = "Restaurant Name"
+
+
+class Menu(models.Model):
+    menuItem = models.CharField(max_length=60)
+    menuDescription = models.CharField(max_length=400)
+    menuPrice = models.FloatField()
+
+    def __str__(self):
+        return str(self.menuItem)
+
+    class Meta:
+        verbose_name = "Menu"
