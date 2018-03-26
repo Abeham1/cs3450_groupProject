@@ -1,6 +1,6 @@
 {% extends "./base.html" %}
 
-{% block page-title %}Virtual Waitress Menu{% endblock page-title %}
+{% block page-title %}Virtual Waitress Manager{% endblock page-title %}
 
 {% block page-style %}
     {{ block.super }}
@@ -61,49 +61,7 @@ function getTableData(){
 {% endblock register-on-load-scripts %}
 
 
-</head>
-<body>
-  <div class="banner">
-    <label><pre>
-                __________      ___.           __     __      __        .__  __                                
-	        \______   \ ____\_ |__   _____/  |_  /  \    /  \_____  |__|/  |________   ____   ______ ______
- 	         |       _//  _ \| __ \ /  _ \   __\ \   \/\/   /\__  \ |  \   __\_  __ \_/ __ \ /  ___//  ___/
- 	         |    |   (  <_> ) \_\ (  <_> )  |    \        /  / __ \|  ||  |  |  | \/\  ___/ \___ \ \___ \ 
- 	         |____|_  /\____/|___  /\____/|__|     \__/\  /  (____  /__||__|  |__|    \___  >____  >____  >
-        	        \/           \/                     \/        \/                      \/     \/     \/ </pre> </label>
-  </div>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <ul class="navbar-nav mr-auto">
-		<li class="nav-item">
-			<a  class="nav-link" href="../menu/">Menu</a> 
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="../manager/">Manager</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="../cook/">Cook</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="../inventory/">Inventory</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="../review/">Review</a>
-		</li>
-    </ul>
-  </nav>
-  <div class="list-group">
-<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-    <div class="d-flex w-100 justify-content-between">
-      <h3 class="mb-1" id="salesNumber"></h3>
-    </div>
-  </a>
-  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-    <div class="d-flex w-100 justify-content-between">
-      <h3 class="mb-1">Current Orders</h3>
-    </div>
-  </a>
-</div>
-  
+{% block central-content %}
 <div>
 	<table class="table table-primary">
 	  <tr class="table-info">
@@ -171,5 +129,10 @@ function getTableData(){
 		<input type="submit" name="changeOrderSubmit" value="Submit"> <!-- this should probably just kick to menu with pre-populated fields --> 
 	</div>
 	</div>
-</body>
-</html>
+{% endblock central-content %}
+
+{% block footer %}
+    <footer>
+        <h1>Code by Chaosreader and Froggy</h1>
+    </footer>
+{% endblock footer %}
