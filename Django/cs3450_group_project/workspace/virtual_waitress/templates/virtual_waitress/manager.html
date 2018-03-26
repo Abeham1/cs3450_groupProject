@@ -46,14 +46,29 @@ function getMoney(){
 }
 function getTableData(){
 	var temp1 = document.getElementsByTagName('table');
-	for (var j = 0; j < tableSize; j++){
+	for (var j = 0; j < tableData.length; j++){
 		var temp2 = document.createElement("TR");
 		temp1[0].appendChild(temp2);
-		for (var i = 0; i < tableSize; i++){
-			var temp3 = document.createElement("TD");
-			temp3.innerHTML = tableRow1[j][i];
-			temp2.appendChild(temp3);
-		}
+		
+		var temp3 = document.createElement("TD");
+		temp3.innerHTML = tableData[j].id;
+		temp2.appendChild(temp3);
+		temp3 = document.createElement("TD");
+		temp3.innerHTML = tableData[j].total;
+		temp2.appendChild(temp3);
+		temp3 = document.createElement("TD");
+		temp3.innerHTML = "table: 24";
+		temp2.appendChild(temp3);
+		temp3 = document.createElement("TD");
+		temp3.innerHTML = "no";
+		temp2.appendChild(temp3);
+		temp3 = document.createElement("TD");
+		temp3.innerHTML = tableData[j].ready;
+		temp2.appendChild(temp3);
+		temp3 = document.createElement("TD");
+		temp3.innerHTML = "00:05:43";
+		temp2.appendChild(temp3);
+		
 	}
 }
 
@@ -62,6 +77,18 @@ function getTableData(){
 
 
 {% block central-content %}
+<div class="list-group">
+	<a href="#" class="list-group-item list-group-item-action flex-column aligin-items-start">
+		<div class="d-flex w-100 justify-content-between">
+			<h3 class="mb-1" id="salesNumber"></h3>
+		</div>
+	</a>
+	<a href="#" class="list-group-item list-group-item-action flex-column aligin-items-start active">
+		<div class="d-flex w-100 justify-content-between">
+			<h3 class="mb-1">Current Orders</h3>
+		</div>
+	</a>
+</div>
 <div>
 	<table class="table table-primary">
 	  <tr class="table-info">

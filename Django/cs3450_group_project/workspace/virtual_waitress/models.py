@@ -55,7 +55,7 @@ class Menu(models.Model):
 
 
 class Order(models.Model):
-    dateCreated = models.DateTimeField()
+    #dateCreated = models.DateTimeField()
     ready = models.BooleanField(default=False)
     total = models.FloatField()
     orderNumber = models.IntegerField()
