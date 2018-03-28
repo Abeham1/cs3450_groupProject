@@ -136,16 +136,22 @@
                 tempC = document.createElement("P");
                 tempC.className = "card-text";
                 //tempC.innerHTML = comboItemsMenu[i][1];
-                tempC.innerHTML = menu[i].menuDescription;
+                tempC.innerHTML = "Description: " + menu[i].menuDescription;
                 tempD = document.createElement("P");
                 tempD.className = "card-text";
                 //tempD.innerHTML = "$" + comboItemsMenu[i][0];
-                tempD.innerHTML = "$" + menu[i].menuPrice;
+                tempD.innerHTML = "Price: $" + menu[i].menuPrice;
                 tempE = document.createElement("FORM");
+                //temp71 = document.createElement("P");
+				//temp71.innerHTML = "Quantity";
                 temp7 = document.createElement("INPUT");
                 temp7.type = "number";
+				temp7.value = 0;
+                //temp7b1 = document.createElement("P");
+				//temp7b1.innerHTML = "Total";
                 temp7b = document.createElement("INPUT");
                 temp7b.type = "text";
+				temp7b.placeholder = "Special Requests";
                 top.appendChild(tempA);
                 tempA.appendChild(tempB);
                 tempA.appendChild(tempDiv);
@@ -153,7 +159,9 @@
                 tempDiv.appendChild(tempD);
                 tempDiv.appendChild(tempE);
                 tempE.appendChild(temp7);
+                //tempE.appendChild(temp71);
                 tempE.appendChild(temp7b);
+                //tempE.appendChild(temp7b1);
             }
         }
 
@@ -219,8 +227,10 @@
     </div>
     <div class=flexBox>
         <div class=buttons id="menu_bottom">
-            <button type="button">Request Server</button>
-            <button type="button">Order Now</button>
+            <button id="Request Server" type="button">Request Server</button>
+			Table: <input type="text" name="table" value="Counter">
+			<button id="Subtotal" type="button">Subtotal</button>
+            <button id="Order Now" type="button">Order Now</button>
             <label>You're total is:</label>
             <label id=OrderPriceID>$0.00</label>
             <button type="button">Pay Now</button>
