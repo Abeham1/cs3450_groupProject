@@ -3,7 +3,9 @@ from pprint import pprint
 from django.shortcuts import render
 import json
 from virtual_waitress.models import RestaurantName, Order, OrderItem, Menu
+import datetime
 
+json.JSONEncoder.default = lambda self, obj: (obj.isoformat() if isinstance(obj, datetime.datetime) else None)
 
 def manager(request):
     result = RestaurantName.objects.all()
@@ -19,7 +21,8 @@ def manager(request):
     #mylist = myresult
     #myresult = str(Order.objects.get(pk=1).dateCreated)
     #mylist = myresult
-    
+
+
     lst = (list(result.values())) 
     context = {
         'activePage': 'manager',
