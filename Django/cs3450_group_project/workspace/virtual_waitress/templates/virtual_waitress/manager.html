@@ -77,6 +77,7 @@ function getTableData(){
 
 
 {% block central-content %}
+
 <div class="list-group">
 	<a href="#" class="list-group-item list-group-item-action flex-column aligin-items-start">
 		<div class="d-flex w-100 justify-content-between">
@@ -134,9 +135,10 @@ function getTableData(){
 	</form>
 	</div>
 	<div class="card border-primary mb-3" style="max-width: 20rem;">
-		<form action="">
+		<form action="" method="post">
+				{% csrf_token %}
 		<div class="card-header">4. Remove Menu item</div>
-		New item: <input type="text" name="removeItem">
+		Target item: <input type="text" name="removeItem">
 		<input type="submit" name="removeItemSubmit" value="Submit"> 
 	</form>
 	</div>

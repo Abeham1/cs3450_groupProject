@@ -2,7 +2,7 @@ from pprint import pprint
 
 from django.shortcuts import render
 import json
-from virtual_waitress.models import RestaurantName, Order, OrderItem, Menu
+from virtual_waitress.models import RestaurantName, Order, OrderItem, Menu, Number
 import datetime
 
 #https://stackoverflow.com/questions/455580/json-datetime-between-python-and-javascript/
@@ -30,6 +30,17 @@ def manager(request):
         'restaurantName': json.dumps(lst),
         'tableData': json.dumps(mylist)
     }
+
+    #use this as a starting point to delete from the database
+    #Number.objects.filter(number = 1).delete()
+
+    #
+    # if request.method == 'POST':
+    if 'removeItem' in request.POST:
+        badNumber = request.POST.get('removeItem')
+        Number.objects.filter(number = badNumber).delete()
+        #Menu.objects
+
     return render(request, 'virtual_waitress/manager.html', context)
 
 
