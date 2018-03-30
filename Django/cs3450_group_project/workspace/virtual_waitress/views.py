@@ -5,6 +5,7 @@ import json
 from virtual_waitress.models import RestaurantName, Order, OrderItem, Menu
 import datetime
 
+#https://stackoverflow.com/questions/455580/json-datetime-between-python-and-javascript/
 json.JSONEncoder.default = lambda self, obj: (obj.isoformat() if isinstance(obj, datetime.datetime) else None)
 
 def manager(request):
