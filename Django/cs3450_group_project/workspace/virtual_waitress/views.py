@@ -34,11 +34,10 @@ def manager(request):
     #use this as a starting point to delete from the database
     #Number.objects.filter(number = 1).delete()
 
-    #
-    # if request.method == 'POST':
+    # Removes menuitems from the admin page
     if 'removeItem' in request.POST:
-        badNumber = request.POST.get('removeItem')
-        Number.objects.filter(number = badNumber).delete()
+        badItem = request.POST.get('removeItem')
+        Menu.objects.filter(menuItem = badItem).delete()
         #Menu.objects
 
     return render(request, 'virtual_waitress/manager.html', context)
