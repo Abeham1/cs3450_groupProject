@@ -1,11 +1,28 @@
 from django.shortcuts import render
 import json
-from virtual_waitress.models import RestaurantName
+from virtual_waitress.models import RestaurantName, Menu, Order
 
 
 def manager(request):
+    result = RestaurantName.objects.all()
+    myresult = Order.objects.all()
+    #for x in myresult:
+    #    x.dateCreated = strftime(x.dateCreated)
+    #print(myresult)
+
+    
+    mylist = (list(myresult.values()))
+    #myresult = Order.objects.filter(str(Order.objects.datetime))
+    #myresult = Order.objects.get(pk=1).total
+    #mylist = myresult
+    #myresult = str(Order.objects.get(pk=1).dateCreated)
+    #mylist = myresult
+    
+    lst = (list(result.values())) 
     context = {
-        'activePage': 'manager'
+        'activePage': 'manager',
+        'restaurantName': json.dumps(lst),
+        'tableData': json.dumps(mylist)
     }
     return render(request, 'virtual_waitress/manager.html', context)
 
@@ -49,9 +66,12 @@ def inventory(request):  # To send model data from Database to Javascript/Templa
 
 def menu(request):
     result = RestaurantName.objects.all()
+    myresult = Menu.objects.all()
+    mylist = (list(myresult.values()))
     lst = (list(result.values()))
     context = {
         'activePage': 'menu',
         'restaurantName': json.dumps(lst),
+        'comboItemsMenu': json.dumps(mylist),
     }
     return render(request, 'virtual_waitress/menu.html', context)
