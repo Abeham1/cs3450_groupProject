@@ -1,9 +1,9 @@
-<DOCTYPE! html>
-<html lang="en"> 
+{% extends "./base.html" %}
 
-<head>
-<link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.css">
-<meta charset="utf-8"/>
+{% block page-title %}Virtual Waitress Manager{% endblock page-title %}
+
+{% block page-style %}
+    {{ block.super }}
 <style>
 
 .banner {
@@ -22,78 +22,73 @@
 	padding: 25px;
 	}
 </style>
+{% endblock page-style %}
 
-<script>
+{% block register-on-load-scripts %}
+    <script>
+        window.onload = function () {
+            loadBanner();
+						getMoney();
+						getTableData();
+        }
+
 var salesMoney = 435.68;
 var dailySales = "Daily Sales: $"+salesMoney;
-var tableRow1 = [["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]
-	, ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]];
+var tableData = JSON.parse('{{ tableData|escapejs }}');
+//console.log(menu[0].menuItem);
+console.log(tableData);
+//var tableRow1 = [["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]
+//	, ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]];
 var tableSize = 6;
-
-window.onload = function(){
-	getMoney();
-	getTableData();
-};
 
 function getMoney(){
 	document.getElementById("salesNumber").innerHTML = dailySales;
 }
 function getTableData(){
 	var temp1 = document.getElementsByTagName('table');
-	for (var j = 0; j < tableSize; j++){
+	for (var j = 0; j < tableData.length; j++){
 		var temp2 = document.createElement("TR");
 		temp1[0].appendChild(temp2);
-		for (var i = 0; i < tableSize; i++){
-			var temp3 = document.createElement("TD");
-			temp3.innerHTML = tableRow1[j][i];
-			temp2.appendChild(temp3);
-		}
+		
+		var temp3 = document.createElement("TD");
+		temp3.innerHTML = tableData[j].id;
+		temp2.appendChild(temp3);
+		temp3 = document.createElement("TD");
+		temp3.innerHTML = tableData[j].total;
+		temp2.appendChild(temp3);
+		temp3 = document.createElement("TD");
+		temp3.innerHTML = "table: 24";
+		temp2.appendChild(temp3);
+		temp3 = document.createElement("TD");
+		temp3.innerHTML = "no";
+		temp2.appendChild(temp3);
+		temp3 = document.createElement("TD");
+		temp3.innerHTML = tableData[j].ready;
+		temp2.appendChild(temp3);
+		temp3 = document.createElement("TD");
+		temp3.innerHTML = "00:05:43";
+		temp2.appendChild(temp3);
+		
 	}
 }
-</script>
-</head>
-<body>
-  <div class="banner">
-    <label><pre>
-                __________      ___.           __     __      __        .__  __                                
-	        \______   \ ____\_ |__   _____/  |_  /  \    /  \_____  |__|/  |________   ____   ______ ______
- 	         |       _//  _ \| __ \ /  _ \   __\ \   \/\/   /\__  \ |  \   __\_  __ \_/ __ \ /  ___//  ___/
- 	         |    |   (  <_> ) \_\ (  <_> )  |    \        /  / __ \|  ||  |  |  | \/\  ___/ \___ \ \___ \ 
- 	         |____|_  /\____/|___  /\____/|__|     \__/\  /  (____  /__||__|  |__|    \___  >____  >____  >
-        	        \/           \/                     \/        \/                      \/     \/     \/ </pre> </label>
-  </div>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <ul class="navbar-nav mr-auto">
-		<li class="nav-item">
-			<a  class="nav-link" href="../menu/">Menu</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="../manager/">Manager</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="../cook/">Cook</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="../inventory/">Inventory</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="../review/">Review</a>
-		</li>
-    </ul>
-  </nav>
-  <div class="list-group">
-<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-    <div class="d-flex w-100 justify-content-between">
-      <h3 class="mb-1" id="salesNumber"></h3>
-    </div>
-  </a>
-  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-    <div class="d-flex w-100 justify-content-between">
-      <h3 class="mb-1">Current Orders</h3>
-    </div>
-  </a>
+
+    </script>
+{% endblock register-on-load-scripts %}
+
+
+{% block central-content %}
+<div class="list-group">
+	<a href="#" class="list-group-item list-group-item-action flex-column aligin-items-start">
+		<div class="d-flex w-100 justify-content-between">
+			<h3 class="mb-1" id="salesNumber"></h3>
+		</div>
+	</a>
+	<a href="#" class="list-group-item list-group-item-action flex-column aligin-items-start active">
+		<div class="d-flex w-100 justify-content-between">
+			<h3 class="mb-1">Current Orders</h3>
+		</div>
+	</a>
 </div>
-  
 <div>
 	<table class="table table-primary">
 	  <tr class="table-info">
@@ -161,5 +156,10 @@ function getTableData(){
 		<input type="submit" name="changeOrderSubmit" value="Submit"> <!-- this should probably just kick to menu with pre-populated fields --> 
 	</div>
 	</div>
-</body>
-</html>
+{% endblock central-content %}
+
+{% block footer %}
+    <footer>
+        <h1>Code by Chaosreader and Froggy</h1>
+    </footer>
+{% endblock footer %}

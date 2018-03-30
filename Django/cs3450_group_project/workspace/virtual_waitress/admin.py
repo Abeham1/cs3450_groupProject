@@ -7,4 +7,6 @@ admin.site.register(RestaurantName)
 admin.site.register(AllowedItems)
 admin.site.register(Items)
 admin.site.register(OrderItem)
-admin.site.register(Order)
+admin.site.register(Menu)
+
+

@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 
 # Create your models here.
@@ -38,12 +39,16 @@ class RestaurantName(models.Model):
 
 
 class Order(models.Model):
-    placed = models.DateTimeField("Order Placed")
-    ready = models.BooleanField("Food Ready", default=False)
+    #dateCreated = models.DateTimeField()
+    ready = models.BooleanField(default=False)
+    total = models.FloatField()
+    orderNumber = models.IntegerField()
 
     def __str__(self):
-        return "Order " + str(self.id) + " placed on " + str(self.placed)
+        return str(self.orderNumber)
 
+    class Meta:
+        verbose_name = "Order"
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
@@ -55,5 +60,14 @@ class OrderItem(models.Model):
     def __str__(self):
         return str(self.qty) + " " + str(self.food)
 
+class Menu(models.Model):
+    menuItem = models.CharField(max_length=60)
+    menuDescription = models.CharField(max_length=400)
+    menuPrice = models.FloatField()
 
+    def __str__(self):
+        return str(self.menuItem)
+
+    class Meta:
+        verbose_name = "Menu"
 
