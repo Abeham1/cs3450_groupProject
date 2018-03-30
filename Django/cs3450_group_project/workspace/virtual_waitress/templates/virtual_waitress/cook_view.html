@@ -1,89 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends './base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.css">
-    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+{% block page-title %}
+Virtual Waitress Cook View
+{% endblock %}
 
+{% block head-script %}
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style>
-.banner {
-    font-weight: bold;
-	margin: 2px;
-	border-style:solid;
-	border-color:black;
-	background-color: rgb(102, 153, 255);
-}
-nav {
-padding: 5px;
-	margin: 2px;
-	border-style:solid;
-	border-color:black;
-}
-nav ul {
-    display: flex;
-}
-nav li {
-    display: inline;
-    text-align: center;
-    flex: 1;
-}
-</style>
+{% endblock %}
 
-<script>
-var RestaurantName = "Kell's Burger Hut";
+{% block page-style %}
+{{ block.super }}
+    <style>
+    main, aside {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
 
-window.onload = function(){
-	loadBanner();
-}
-function loadBanner(){
-	var top = document.getElementsByClassName("banner");
-	var pTag = document.createElement("H1");
-	pTag.innerHTML = RestaurantName;
-	top[0].appendChild(pTag);
-}
-</script>
-</head>
+    .card-header{
+        display: inline-block;
+        align-items: center;
+        height:100%;
+        width:170px;
+    }
+    </style>
+{% endblock %}
 
-<body style="display: flex; flex-direction: column; align-items: center">
-    <div class="banner">
-	</div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a  class="nav-link" href="../menu/">Menu</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../manager/">Manager</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../cook/">Cook</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../inventory/">Inventory</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../review/">Review</a>
-            </li>
-        </ul>
-      </nav>
+{% block central-content %}
+    <main>
     <div class="card border-primary mb-3" style="min-width: 95%;overflow: scroll;">
         <div class="card-header">Cook Work Queue</div>
-        <button data-toggle="collapse" data-target="#thing1">Collapsible</button>
+{#        <button data-toggle="collapse" data-target="#thing1">Collapsible</button>#}
         <div class="card-body" id="thing1">
             <div class="card border-primary mb-3" style="min-width: 20rem;">
                 <div class="card-body">
-                    <div class="card-header" style="display: inline-block; align-items: center; height:100%; width:170px; align-items: center;">
+                    <div class="card-header" >
                         Meal #266
                         <br/>Table 9
                         <br/>Time Remaining
@@ -105,7 +61,7 @@ function loadBanner(){
                             <tbody>
                                 <tr>
                                     <th scope="row" style="display:flex; flex-direction:column; align-items:center;">
-                                        <input class="form-check-input" type="checkbox" value="" style="max-width: 20px;">
+                                        <input class="form-check-input" type="radio" value="" style="max-width: 20px;" title="Select">
                                     </th>
                                     <td>Root Beer Float</td>
                                     <td>2</td>
@@ -115,7 +71,7 @@ function loadBanner(){
                                     </td>
                                     <tr>
                                         <th scope="row" style="display:flex; flex-direction:column; align-items:center;">
-                                            <input class="form-check-input" type="checkbox" value="" style="max-width: 20px;">
+                                            <input class="form-check-input" type="radio" value="" style="max-width: 20px;" title="Select">
                                         </th>
                                         <td>Burger</td>
                                         <td>6</td>
@@ -126,7 +82,7 @@ function loadBanner(){
                                     </tr>
                                     <tr>
                                         <th scope="row" style="display:flex; flex-direction:column; align-items:center;">
-                                            <input class="form-check-input" type="checkbox" value="" style="max-width: 20px;">
+                                            <input class="form-check-input" type="radio" value="" style="max-width: 20px;" title="Select">
                                         </th>
                                         <td>Onion Rings</td>
                                         <td>12</td>
@@ -135,71 +91,6 @@ function loadBanner(){
                                             <button type="button" class="btn btn-success">Finish</button>
                                         </td>
                                     </tr>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button data-toggle="collapse" data-target="#thing2">Collapsible</button>
-        <div class="card-body" id="thing2">
-            <div class="card border-primary mb-3" style="min-width: 20rem;">
-
-                <div class="card-body">
-                    <div class="card-header" style="display: inline-block; align-items: center; height:100%; width:170px; align-items: center;">
-                        Meal #267
-                        <br/>Table 2
-                        <br/>Time Remaining
-                        <br/>
-                        <p id="demo2"></p>
-                        <button type="button" class="btn btn-success">Finish</button>
-                    </div>
-                    <div style="display: inline-block;">
-                        <table class="table table-hover" style=" min-width: 800px;">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Select</th>
-                                    <th scope="col">Food Item</th>
-                                    <th scope="col">QTY</th>
-                                    <th scope="col">Custom</th>
-                                    <th scope="col">Finish</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row" style="display:flex; flex-direction:column; align-items:center;">
-                                        <input class="form-check-input" type="checkbox" value="" style="max-width: 20px;">
-                                    </th>
-                                    <td>Root Beer Float</td>
-                                    <td>2</td>
-                                    <td>-</td>
-                                    <td>
-                                        <button type="button" class="btn btn-success">Finish</button>
-                                    </td>
-                                    <tr>
-                                        <th scope="row" style="display:flex; flex-direction:column; align-items:center;">
-                                            <input class="form-check-input" type="checkbox" value="" style="max-width: 20px;">
-                                        </th>
-                                        <td>Burger</td>
-                                        <td>6</td>
-                                        <td>!</td>
-                                        <td>
-                                            <button type="button" class="btn btn-success">Finish</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="display:flex; flex-direction:column; align-items:center;">
-                                            <input class="form-check-input" type="checkbox" value="" style="max-width: 20px;">
-                                        </th>
-                                        <td>Onion Rings</td>
-                                        <td>12</td>
-                                        <td>!</td>
-                                        <td>
-                                            <button type="button" class="btn btn-success">Finish</button>
-                                        </td>
-                                    </tr>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -207,6 +98,9 @@ function loadBanner(){
             </div>
         </div>
     </div>
+    </main>
+
+    <aside>
     <div class="card border-primary mb-3" style="min-width: 95%;">
         <div class="card-header">Details</div>
         <div class="card-body">
@@ -236,14 +130,14 @@ function loadBanner(){
             </div>
         </div>
     </div>
+    </aside>
+{% endblock %}
 
-    <footer>
-        <h1>Footer goes here</h1>
-    </footer>
-</body>
+{% block body-end-script %}
 <script>
     // Set the date we're counting down to
-    var countDownDate = new Date("Feb 22, 2018 00:00:25").getTime();
+    var countDownDate = new Date();
+    countDownDate.setMinutes(countDownDate.getMinutes() + 10);
 
     // Update the count down every 1 second
     var x = setInterval(function () {
@@ -270,34 +164,6 @@ function loadBanner(){
             document.getElementById("demo").innerHTML = "EXPIRED";
         }
     }, 1000);
-    // Set the date we're counting down to
-    countDownDate = new Date("Feb 22, 2018 00:22:13").getTime();
 
-    // Update the count down every 1 second
-    var x = setInterval(function () {
-
-        // Get todays date and time
-        var now = new Date().getTime();
-
-        // Find the distance between now an the count down date
-        var distance = countDownDate - now;
-
-        // Time calculations for days, hours, minutes and seconds
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        // Display the result in the element with id="demo"
-        document.getElementById("demo2").innerHTML = days + "d " + hours + "h "
-            + minutes + "m " + seconds + "s ";
-
-        // If the count down is finished, write some text 
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("demo2").innerHTML = "EXPIRED";
-        }
-    }, 1000);
 </script>
-
-</html>
+{% endblock %}
