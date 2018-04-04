@@ -50,7 +50,7 @@ class Order(models.Model):
     class Meta:
         verbose_name = "Order"
 
-
+        
 class Number(models.Model):
     number = models.IntegerField()
 
@@ -87,3 +87,8 @@ class Review(models):
     contact = models.CharField(max_length=60)
     starRating = models.FloatField()
     review = models.CharField(max_length=250)
+
+    def __str__(self):
+        return str(self.review)
+
+    class Meta

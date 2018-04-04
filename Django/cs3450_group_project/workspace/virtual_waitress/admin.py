@@ -10,3 +10,5 @@ admin.site.register(OrderItem)
 admin.site.register(Menu)
 admin.site.register(Order)
 admin.site.register(Number)
+admin.site.register(Review)
+
