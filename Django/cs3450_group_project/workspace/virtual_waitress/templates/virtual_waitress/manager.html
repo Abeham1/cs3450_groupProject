@@ -1,82 +1,74 @@
-{% extends "./base.html" %}
-
-{% block page-title %}Virtual Waitress Manager{% endblock page-title %}
-
-{% block page-style %}
-    {{ block.super }}
+{% extends "./base.html" %} {% block page-title %}Virtual Waitress Manager{% endblock page-title %} {% block page-style %}
+{{ block.super }}
 <style>
+	.banner {
+		font-weight: 900;
+		margin: 2px;
+		border-style: solid;
+		border-color: black;
+		background-color: rgb(102, 153, 255);
+	}
 
-.banner {
-    font-weight: 900;
-	margin: 2px;
-	border-style:solid;
-	border-color:black;
-	background-color: rgb(102, 153, 255);
-}
-.FlexDiv {
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
-}
-.card {
-	padding: 25px;
+	.FlexDiv {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+	}
+
+	.card {
+		padding: 25px;
 	}
 </style>
-{% endblock page-style %}
-
-{% block register-on-load-scripts %}
-    <script>
-        window.onload = function () {
-            loadBanner();
-						getMoney();
-						getTableData();
-        }
-
-var salesMoney = 435.68;
-var dailySales = "Daily Sales: $"+salesMoney;
-var tableData = JSON.parse('{{ tableData|escapejs }}');
-//console.log(menu[0].menuItem);
-console.log(tableData);
-//var tableRow1 = [["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]
-//	, ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]];
-var tableSize = 6;
-
-function getMoney(){
-	document.getElementById("salesNumber").innerHTML = dailySales;
-}
-function getTableData(){
-	var temp1 = document.getElementsByTagName('table');
-	for (var j = 0; j < tableData.length; j++){
-		var temp2 = document.createElement("TR");
-		temp1[0].appendChild(temp2);
-		
-		var temp3 = document.createElement("TD");
-		temp3.innerHTML = tableData[j].id;
-		temp2.appendChild(temp3);
-		temp3 = document.createElement("TD");
-		temp3.innerHTML = tableData[j].total;
-		temp2.appendChild(temp3);
-		temp3 = document.createElement("TD");
-		temp3.innerHTML = "table: 24";
-		temp2.appendChild(temp3);
-		temp3 = document.createElement("TD");
-		temp3.innerHTML = "no";
-		temp2.appendChild(temp3);
-		temp3 = document.createElement("TD");
-		temp3.innerHTML = tableData[j].ready;
-		temp2.appendChild(temp3);
-		temp3 = document.createElement("TD");
-		temp3.innerHTML = "00:05:43";
-		temp2.appendChild(temp3);
-		
+{% endblock page-style %} {% block register-on-load-scripts %}
+<script>
+	window.onload = function () {
+		loadBanner();
+		getMoney();
+		getTableData();
 	}
-}
 
-    </script>
-{% endblock register-on-load-scripts %}
+	var salesMoney = 435.68;
+	var dailySales = "Daily Sales: $" + salesMoney;
+	var tableData = JSON.parse('{{ tableData|escapejs }}');
+	//console.log(menu[0].menuItem);
+	console.log(tableData);
+	//var tableRow1 = [["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]
+	//	, ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]];
+	var tableSize = 6;
 
+	function getMoney() {
+		document.getElementById("salesNumber").innerHTML = dailySales;
+	}
+	function getTableData() {
+		var temp1 = document.getElementsByTagName('table');
+		for (var j = 0; j < tableData.length; j++) {
+			var temp2 = document.createElement("TR");
+			temp1[0].appendChild(temp2);
 
-{% block central-content %}
+			var temp3 = document.createElement("TD");
+			temp3.innerHTML = tableData[j].id;
+			temp2.appendChild(temp3);
+			temp3 = document.createElement("TD");
+			temp3.innerHTML = tableData[j].total;
+			temp2.appendChild(temp3);
+			temp3 = document.createElement("TD");
+			temp3.innerHTML = "table: 24";
+			temp2.appendChild(temp3);
+			temp3 = document.createElement("TD");
+			temp3.innerHTML = "no";
+			temp2.appendChild(temp3);
+			temp3 = document.createElement("TD");
+			temp3.innerHTML = tableData[j].ready;
+			temp2.appendChild(temp3);
+			temp3 = document.createElement("TD");
+			temp3.innerHTML = "00:05:43";
+			temp2.appendChild(temp3);
+
+		}
+	}
+
+</script> {% endblock register-on-load-scripts %} {% block central-content %}
+
 <div class="list-group">
 	<a href="#" class="list-group-item list-group-item-action flex-column aligin-items-start">
 		<div class="d-flex w-100 justify-content-between">
@@ -91,75 +83,128 @@ function getTableData(){
 </div>
 <div>
 	<table class="table table-primary">
-	  <tr class="table-info">
-	    <th>Order Number</th>
-		<th>Price</th>
-		<th>Table</th>	<!-- As a waiter / waitress I need to identify which table / location an order relates to -->
-		<th>Needs Service?</th> <!-- As a waiter / waitress I need to know what locations / tables have service requests -->
-		<th>Food Ready?</th>
-		<th>Time Elapsed<th>
-	  </tr>
+		<tr class="table-info">
+			<th>Order Number</th>
+			<th>Price</th>
+			<th>Table</th>
+			<!-- As a waiter / waitress I need to identify which table / location an order relates to -->
+			<th>Needs Service?</th>
+			<!-- As a waiter / waitress I need to know what locations / tables have service requests -->
+			<th>Food Ready?</th>
+			<th>Time Elapsed
+				<th>
+		</tr>
 	</table>
 </div>
 <div class="FlexDiv">
-	<div class="card border-primary mb-3" style="max-width: 20rem;">  <!--As a waiter / waitress I need to be able to place zero cost orders -->
+	<div class="card border-primary mb-3" style="max-width: 20rem;">
+		<!--As a waiter / waitress I need to be able to place zero cost orders -->
 		<form action="">
-		<div class="card-header">1. Adjust order price</div>
-		Order Number: <input type="text" name="adjustPriceOrderNumber">
-		New Price: <input type="text" name="adjustPriceNewPrice">
-		<input type="submit" name="adjustPriceSubmit" value="Submit"> 
+			<div class="card-header">1. Adjust order price</div>
+			Order Number:
+			<input type="text" name="adjustPriceOrderNumber"> New Price:
+			<input type="text" name="adjustPriceNewPrice">
+			<input type="submit" name="adjustPriceSubmit" value="Submit">
 		</form>
 	</div>
 	<!-- As a waiter / waitress, I would like to split or combine different bills -->
 	<div class="card border-primary mb-3" style="max-width: 20rem;">
 		<form action="">
-		<div class="card-header">2. Split Bill</div>
-		Order Number: <input type="text" name="splitBillOrderNumber"><br>
-		<ul>
-			<li>New Price: <input type="text" name="splitBillNewPrice1"></li>
-			<li>New Price: <input type="text" name="splitBillNewPrice2"></li>
-			<li>New Price: <input type="text" name="splitBillNewPrice3"></li>
-			<li>New Price: <input type="text" name="splitBillNewPrice4"></li>
-		</ul>
-		<input type="submit" name="splitBillSubmit" value="Submit"> 
-		</form>
-	</div>
-	<div class="card border-primary mb-3" style="max-width: 20rem;"> <!-- As a manager, I would like to delete, create, and manage menu items -->
-	<form action="">
-		<div class="card-header">3. Add Menu item</div>
-		New item: <input type="text" name="newItem"><br>
-		description: <input type="text" name"newItemDescription"><br>
-		Price: $ <input type="number" name"newItemPrice">
-		<input type="submit" name="newMenuItemSubmit" value="Submit"> 
-	</form>
-	</div>
-	<div class="card border-primary mb-3" style="max-width: 20rem;">
-		<form action="">
-		<div class="card-header">4. Remove Menu item</div>
-		New item: <input type="text" name="removeItem">
-		<input type="submit" name="removeItemSubmit" value="Submit"> 
-	</form>
-	</div>
-<!-- As a manager, I need to be able to override details about an open order (menu items, price, location, etc.) -->
-	<div class="card border-primary mb-3" style="max-width: 20rem;"> 
-		<form action="">
-		<div class="card-header">5. Change table</div>
-		Order Number: <input type="text" name="changeTableOrderNumber">
-		New table: <input type="text" name="newTable">
-		<input type="submit" name="changeTableSubmit" value="Submit"> 
+			<div class="card-header">2. Split Bill</div>
+			Order Number:
+			<input type="text" name="splitBillOrderNumber">
+			<br>
+			<ul>
+				<li>New Price:
+					<input type="text" name="splitBillNewPrice1">
+				</li>
+				<li>New Price:
+					<input type="text" name="splitBillNewPrice2">
+				</li>
+				<li>New Price:
+					<input type="text" name="splitBillNewPrice3">
+				</li>
+				<li>New Price:
+					<input type="text" name="splitBillNewPrice4">
+				</li>
+			</ul>
+			<input type="submit" name="splitBillSubmit" value="Submit">
 		</form>
 	</div>
 	<div class="card border-primary mb-3" style="max-width: 20rem;">
-		<form action="">
-		<div class="card-header">6. Change Order</div>
-		Order Number: <input type="text" name="changeOrder"> 
-		<input type="submit" name="changeOrderSubmit" value="Submit"> <!-- this should probably just kick to menu with pre-populated fields --> 
-	</div>
-	</div>
-{% endblock central-content %}
+		<!-- As a manager, I would like to delete, create, and manage menu items 
+		<form action="" method="post">
+			{% csrf_token %}
+			<div class="card-header">3. Add Menu item</div>
+			New item:
+			<input type="text" name="newItem">
+			<br> description:
+			<input type="text" name "newItemDescription">
+			<br> Price: $
+			<input type="number" name "newItemPrice">
+			<input type="submit" name="newMenuItemSubmit" value="Submit">
+		</form>-->
+		<form action="" method="post">
+			{% csrf_token %}
 
-{% block footer %}
-    <footer>
-        <h1>Code by Chaosreader and Froggy</h1>
-    </footer>
+			<tr>
+				<th>
+					<label for="id_menuItem">Menuitem:</label>
+				</th>
+				<td>
+					<input type="text" name="menuItem" maxlength="60" required id="id_menuItem" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="id_menuDescription">Menudescription:</label>
+				</th>
+				<td>
+					<input type="text" name="menuDescription" maxlength="400" required id="id_menuDescription" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="id_menuPrice">Menuprice:</label>
+				</th>
+				<td>
+					<input type="number" name="menuPrice" step="any" required id="id_menuPrice" />
+				</td>
+			</tr>
+			<input type="submit" name="newMenuItemSubmit" value="Submit">
+		</form>
+
+	</div>
+	<div class="card border-primary mb-3" style="max-width: 20rem;">
+		<form action="" method="post">
+			{% csrf_token %}
+			<div class="card-header">4. Remove Menu item</div>
+			Target item:
+			<input type="text" name="removeItem">
+			<input type="submit" name="removeItemSubmit" value="Submit">
+		</form>
+	</div>
+	<!-- As a manager, I need to be able to override details about an open order (menu items, price, location, etc.) -->
+	<div class="card border-primary mb-3" style="max-width: 20rem;">
+		<form action="">
+			<div class="card-header">5. Change table</div>
+			Order Number:
+			<input type="text" name="changeTableOrderNumber"> New table:
+			<input type="text" name="newTable">
+			<input type="submit" name="changeTableSubmit" value="Submit">
+		</form>
+	</div>
+	<div class="card border-primary mb-3" style="max-width: 20rem;">
+		<form action="">
+			<div class="card-header">6. Change Order</div>
+			Order Number:
+			<input type="text" name="changeOrder">
+			<input type="submit" name="changeOrderSubmit" value="Submit">
+			<!-- this should probably just kick to menu with pre-populated fields -->
+	</div>
+</div>
+{% endblock central-content %} {% block footer %}
+<footer>
+	<h1>Code by Chaosreader and Froggy</h1>
+</footer>
 {% endblock footer %}

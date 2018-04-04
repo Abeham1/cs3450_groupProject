@@ -50,6 +50,16 @@ class Order(models.Model):
     class Meta:
         verbose_name = "Order"
 
+
+class Number(models.Model):
+    number = models.IntegerField()
+
+    def __str__(self):
+        return str(self.number)
+
+    class Meta:
+        verbose_name = "Number"
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     food = models.ForeignKey(AllowedItems, on_delete=models.CASCADE)
