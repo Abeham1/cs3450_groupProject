@@ -71,3 +71,9 @@ class Menu(models.Model):
     class Meta:
         verbose_name = "Menu"
 
+class Review(models):
+    menuItem = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    name = models.CharField(max_length=60)
+    contact = models.CharField(max_length=60)
+    starRating = models.FloatField()
+    review = models.CharField(max_length=250)

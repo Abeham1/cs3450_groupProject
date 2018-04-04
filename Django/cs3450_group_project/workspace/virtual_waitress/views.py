@@ -2,45 +2,27 @@ from pprint import pprint
 
 from django.shortcuts import render
 import json
-from virtual_waitress.models import RestaurantName, Order, OrderItem, Menu
-import datetime
+from virtual_waitress.models import RestaurantName, Order, OrderItem
 
-#https://stackoverflow.com/questions/455580/json-datetime-between-python-and-javascript/
-json.JSONEncoder.default = lambda self, obj: (obj.isoformat() if isinstance(obj, datetime.datetime) else None)
 
 def manager(request):
-    result = RestaurantName.objects.all()
-    myresult = Order.objects.all()
-    #for x in myresult:
-    #    x.dateCreated = strftime(x.dateCreated)
-    #print(myresult)
-
-    
-    mylist = (list(myresult.values()))
-    #myresult = Order.objects.filter(str(Order.objects.datetime))
-    #myresult = Order.objects.get(pk=1).total
-    #mylist = myresult
-    #myresult = str(Order.objects.get(pk=1).dateCreated)
-    #mylist = myresult
-
-
-    lst = (list(result.values())) 
     context = {
-        'activePage': 'manager',
-        'restaurantName': json.dumps(lst),
-        'tableData': json.dumps(mylist)
+        'activePage': 'manager'
     }
     return render(request, 'virtual_waitress/manager.html', context)
 
 
 def cook(request):
     openOrders = Order.objects.filter(orderitem__ready=False)
-    pprint(openOrders.values())
+    pprint(openOrders)
+    food = OrderItem.objects.filter()
+    pprint(food)
 
     restaurantNames = list(RestaurantName.objects.all().values())
     context = {
         'activePage': 'cook',
         'restaurantName': json.dumps(restaurantNames),
+
     }
     return render(request, 'virtual_waitress/cook_view.html', context)
 
@@ -74,12 +56,9 @@ def inventory(request):  # To send model data from Database to Javascript/Templa
 
 def menu(request):
     result = RestaurantName.objects.all()
-    myresult = Menu.objects.all()
-    mylist = (list(myresult.values()))
     lst = (list(result.values()))
     context = {
         'activePage': 'menu',
         'restaurantName': json.dumps(lst),
-        'comboItemsMenu': json.dumps(mylist),
     }
     return render(request, 'virtual_waitress/menu.html', context)
