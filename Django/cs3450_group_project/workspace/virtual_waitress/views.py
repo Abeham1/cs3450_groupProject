@@ -1,8 +1,10 @@
 from pprint import pprint
+from django.http import HttpResponseRedirect, HttpResponse
 
 from django.shortcuts import render
 import json
-from virtual_waitress.models import RestaurantName, Order, OrderItem, Menu
+from virtual_waitress.models import RestaurantName, Order, OrderItem, Menu, Number
+from virtual_waitress.forms import NewMenuItem
 import datetime
 
 #https://stackoverflow.com/questions/455580/json-datetime-between-python-and-javascript/
@@ -30,6 +32,39 @@ def manager(request):
         'restaurantName': json.dumps(lst),
         'tableData': json.dumps(mylist)
     }
+
+    #use this as a starting point to delete from the database
+    #Number.objects.filter(number = 1).delete()
+
+    # Removes menuitems from the admin page
+    if 'removeItem' in request.POST:
+        badItem = request.POST.get('removeItem')
+        Menu.objects.filter(menuItem = badItem).delete()
+        #Menu.objects
+
+    # Adds a new meun item from the manager page
+    if 'newMenuItemSubmit' in request.POST:
+        form = NewMenuItem(request.POST)
+        print(form)
+        print(form.is_valid())
+        #print(form.cleaned_data['newItem'])
+        if form.is_valid():
+            num = Menu()
+            num.menuItem = form.cleaned_data['menuItem']
+            num.menuDescription = form.cleaned_data['menuDescription']
+            num.menuPrice = form.cleaned_data['menuPrice']
+            num.save()
+            print(num)
+        #num.save()
+        # print('item')
+        # print(request.POST.get('newItem'))
+        # print('description')
+        # print(request.POST.get('newItemDescription'))
+        # print('price')
+        # print(request.POST.get('newItemPrice'))
+        # print('object')
+    
+    
     return render(request, 'virtual_waitress/manager.html', context)
 
 
