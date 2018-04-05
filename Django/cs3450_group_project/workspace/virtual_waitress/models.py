@@ -1,6 +1,7 @@
 import datetime
 from django.db import models
 
+
 # Create your models here.
 class AllowedItems(models.Model):
     name = models.CharField("Item Name", max_length=250)
@@ -50,7 +51,7 @@ class Order(models.Model):
     class Meta:
         verbose_name = "Order"
 
-        
+
 class Number(models.Model):
     number = models.IntegerField()
 
@@ -59,6 +60,7 @@ class Number(models.Model):
 
     class Meta:
         verbose_name = "Number"
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
@@ -69,6 +71,7 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return str(self.qty) + " " + str(self.food)
+
 
 class Menu(models.Model):
     menuItem = models.CharField(max_length=60)
@@ -81,6 +84,7 @@ class Menu(models.Model):
     class Meta:
         verbose_name = "Menu"
 
+
 class Review(models):
     menuItem = models.ForeignKey(Menu, on_delete=models.CASCADE)
     name = models.CharField(max_length=60)
@@ -90,5 +94,3 @@ class Review(models):
 
     def __str__(self):
         return str(self.review)
-
-    class Meta
