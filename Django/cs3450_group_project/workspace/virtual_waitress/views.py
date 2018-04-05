@@ -1,7 +1,7 @@
 from pprint import pprint
 from django.http import HttpResponseRedirect, HttpResponse
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 import json
 from virtual_waitress.models import RestaurantName, Order, OrderItem, Menu, Number
 from virtual_waitress.forms import NewMenuItem
@@ -48,16 +48,13 @@ def manager(request):
 
 
 def cook(request):
-    openOrders = Order.objects.filter(orderitem__ready=False)
-    pprint(openOrders)
-    food = OrderItem.objects.filter()
-    pprint(food)
+    open_orders = Order.objects.filter(orderitem__ready=False)
 
-    restaurantNames = list(RestaurantName.objects.all().values())
+    restaurant_names = list(RestaurantName.objects.all().values())
     context = {
         'activePage': 'cook',
-        'restaurantName': json.dumps(restaurantNames),
-
+        'restaurantName': json.dumps(restaurant_names),
+        'orders': open_orders,
     }
     return render(request, 'virtual_waitress/cook_view.html', context)
 
@@ -84,7 +81,7 @@ def inventory(request):  # To send model data from Database to Javascript/Templa
         # must be used in tempalte
         'restaurantName': json.dumps(lst),
         # For single dataobjects, just create variable and pass in by Primary Key
-        'foo': RestaurantName.objects.get(pk=1),
+        'foo': get_object_or_404(RestaurantName, pk=1),
     }
     return render(request, 'virtual_waitress/inventory.html', context)
 
