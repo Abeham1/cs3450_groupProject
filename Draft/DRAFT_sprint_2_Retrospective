@@ -1,0 +1,24 @@
+what went well?
+list successful user stories
+	abe's work was truest to the high level concept
+	other use cases are more of a "version 1"
+	menu mod functions seem pretty ok
+	pair programming is still working really well, probably wouldn't have finished sprint without teamwork
+	
+	We merged to master at regular intervals when all team members were present
+	We branched b4 moving forward
+
+what did not go well
+	Django is really hard
+		lots of lost time trying things that didn't work
+		technical problems implementing design descisions
+
+	People unable to work during Easter holiday
+	People got sick
+		-- relate to actual workplaces
+
+How should you improve
+	We are going to work together in the iis lab more
+		-- invite Aaron and Abe 2
+	More code comments
+	Schedule demo days in the next sprint (show us how your code works!)
