@@ -87,9 +87,18 @@ def review(request):
     menu_items.append(length)
     print(menu_items)
     restaurantNames = list(RestaurantName.objects.all().values())
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+        else:
+            print(form.errors)
+    else:
+        form = ReviewForm()
     context = {
         'activePage': 'review',
         'menu_items' : menu_items,
+        'form' : form,
         'restaurantName': json.dumps(restaurantNames),
     }
     return render(request, 'virtual_waitress/customer_review.html', context)

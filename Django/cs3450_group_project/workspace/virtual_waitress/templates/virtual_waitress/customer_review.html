@@ -42,23 +42,27 @@
 <main>
     <h1>Thank you for your purchase!</h1>
     <h3>Leave us a review</h3>
+    <form method="POST" class="post-review">{% csrf_token %}
     <div class="card border-primary mb-3" style="max-width: 75%;">
         <div class="card-header">Your Information (optional)</div>
         <div class="card-body">
             <p class="card-text">Your information will only be used to contact you if you had any problems with our service or your meal</p>
             <div class="form-group">
-                <label class="col-form-label" for="inputDefault">Your name</label>
-                <input type="text" class="form-control" placeholder="Your name" id="name">
+                <label class="col-form-label" for="inputDefault">Name:</label>
+                {{ form.name }}
+                <!--<input type="text" class="form-control" placeholder="Your name" id="name"> <! Input Name -->
                 <small id="nameHelp" class="form-text text-muted">You may leave a review as annonymous</small>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                <label class="col-form-label" for="inputDefault">Email:</label>
+                <!--<input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"> <! Input Email -->
+                {{ form.email }}
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
-                <label class="col-form-label" for="inputDefault">Phone number</label>
-                <input type="text" class="form-control" placeholder="(xxx) xxx-xxxx" id="phone">
+                <label class="col-form-label" for="inputDefault">Phone:</label>
+                <!-- <input type="text" class="form-control" placeholder="(xxx) xxx-xxxx" id="phone"> <! Input Phone number -->
+                {{ form.phone }}
             </div>
         </div>
     </div>
@@ -72,61 +76,16 @@
                         <th scope="col">Item Description</th>
                         <th scope="col">Your Review</th>
                         <th scope="col">Star Rating</th>
+                        <th scope="col">Submit Review</th>
                     </tr>
                 </thead>
+
                 <tbody id="orderReviews">
-                    <!-- <tr>
-                        <th scope="row">Root Beer Float</th>
-                        <td>A rich, frothy beverage containing soft serve Ice Cream</td>
-                        <td>
-                            <div class="form-group">
-                                <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-group">
-                                <select class="form-control" id="exampleSelect1">
-                                    <option>5</option>
-                                    <option>4</option>
-                                    <option>3</option>
-                                    <option>2</option>
-                                    <option>1</option>
-                                </select>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Burger</th>
-                        <td>Our signature dead cow in a bun with lettuce</td>
-                        <td>
-                            <div class="form-group">
-                                <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-group">
-                                <select class="form-control" id="exampleSelect1">
-                                    <option>5</option>
-                                    <option>4</option>
-                                    <option>3</option>
-                                    <option>2</option>
-                                    <option>1</option>
-                                </select>
-                            </div>
-                        </td>
-                    </tr> -->
                 </tbody>
             </table>
-            <button type="button" class="btn btn-primary btn-lg">Submit Reviews</button>
+           <!-- <button type="submit" class="btn btn-primary btn-lg">Submit Reviews</button> -->
         </div>
     </div>
-    <footer>
-        <h1>Footer goes here</h1>
-    </footer>
-    <h1>New post</h1>
-    <form method="POST" class="post-review">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
     </form>
     </body>
 </main>
@@ -163,19 +122,20 @@
         reviewFood.appendChild(reviewFoodText);
         newReview.appendChild(reviewFood);
 
-        var reviewDescr = document.createElement("td")//Food description with text
+        var reviewDescr = document.createElement("td");//Food description with text
         var reviewDescrText = document.createTextNode("Filler text: will be taken with item description eventually...");
         reviewDescr.appendChild(reviewDescrText);
         newReview.appendChild(reviewDescr);
 
-        var reviewRevew = document.createElement("td")//Review text goes here
+        var reviewRevew = document.createElement("td");//Review text goes here
         var reviewReviewDiv = document.createElement("div");
-        var reviewReviewDivText = document.createElement("textarea");
+        var reviewReviewDivText = document.createElement("input");  
+        reviewReviewDivText.value = "{{ request.POST.review }}";
         reviewReviewDiv.appendChild(reviewReviewDivText);
         reviewRevew.appendChild(reviewReviewDiv);
         newReview.appendChild(reviewRevew);
 
-        var reviewStar = document.createElement("td")//Star rating goes here
+        var reviewStar = document.createElement("td");//Star rating goes here
         var reviewStarDiv = document.createElement("div");
         var reviewStarDivSelect = document.createElement("select");
         var option5 = document.createElement("option");
@@ -200,8 +160,15 @@
         reviewStarDivSelect.appendChild(option1);
         reviewStarDiv.appendChild(reviewStarDivSelect);
         reviewStar.appendChild(reviewStarDiv);
-
         newReview.appendChild(reviewStar);
+
+        var reviewSubmit = document.createElement("td");
+        var reviewSubmitButton = document.createElement("button");
+        reviewSubmit.appendChild(reviewSubmitButton);
+        reviewSubmitButton.type = "submit";
+        var reviewSubmitButtonText = document.createTextNode("Submit Review");
+        reviewSubmitButton.appendChild(reviewSubmitButtonText);
+        newReview.appendChild(reviewSubmit);
 
         reviewTable.appendChild(newReview);
         
@@ -209,3 +176,5 @@
 
 
 </script> {% endblock %}
+
+<!-- <button type="submit" class="btn btn-primary btn-lg">Submit Reviews</button> -->

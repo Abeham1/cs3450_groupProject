@@ -86,7 +86,8 @@ class OrderItem(models.Model):
 class Review(models.Model):
     menuItem = models.ForeignKey(Menu, on_delete=models.CASCADE)
     name = models.CharField(max_length=60)
-    contact = models.CharField(max_length=60)
+    email = models.CharField(max_length=60)
+    phone = models.CharField(max_length=60)
     starRating = models.FloatField()
     review = models.CharField(max_length=250)
 
