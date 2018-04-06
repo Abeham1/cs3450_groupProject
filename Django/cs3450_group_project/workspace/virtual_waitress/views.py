@@ -67,6 +67,9 @@ def review(request):
     #1. get order number
     #2. get queryset of all orderItems relating to order number
     #3. get queryset of all foodItems mentioned by orderItems
+    #3.a turn queryset into array
+    #3.b get length of array
+    #3.c for loop get menu item for each id in array and push to new dynamic array
     #4. Pass to javascript as an array of objects
     #5. Generate Orderlistreview table. One row for each element in queryset
     #6. Get form data and save to model -- This is the hard part.
@@ -79,13 +82,14 @@ def review(request):
     length = len(order_items)
     menu_items = []
     for count in range(0, length):
-        x = Menu.objects.get(pk=order_items[count])
+        x = Menu.objects.get(pk=order_items[count]).menuItem
         menu_items.append(x)
-    
+    menu_items.append(length)
     print(menu_items)
     restaurantNames = list(RestaurantName.objects.all().values())
     context = {
         'activePage': 'review',
+        'menu_items' : menu_items,
         'restaurantName': json.dumps(restaurantNames),
     }
     return render(request, 'virtual_waitress/customer_review.html', context)
