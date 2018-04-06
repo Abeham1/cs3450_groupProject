@@ -29,7 +29,6 @@
     {% block default-script %}
         <script>
             var foo = "{{ foo|safe }}";
-            var menu_items = "{{ menu_items|safe }}";
             console.log(foo);
             var RestaurantName = JSON.parse('{{ restaurantName|escapejs }}');
             console.log(RestaurantName[0].name);
@@ -44,9 +43,7 @@
                 }
 
             }
-            //var menu_items = '{{ menu_items|safe }}'
-            console.log(menu_items);
-            console.log(menu_items.length);
+
         </script>
     {% endblock default-script %}
 

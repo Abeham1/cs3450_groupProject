@@ -1,8 +1,4 @@
-{% extends './base.html' %} 
-
-{% block page-title %} Leave a review! {% endblock %} 
-{% block page-style %} 
-{{ block.super }}
+{% extends './base.html' %} {% block page-title %} Leave a review! {% endblock %} {% block page-style %} {{ block.super }}
 <style>
     main,
     aside {
@@ -37,11 +33,12 @@
         flex: 1;
     }
 </style>
-{% endblock %}
-
-
-
-{% block central-content %}
+{% endblock %} {% block register-on-load-scripts %}
+<script>
+    window.onload = function () {
+        loadBanner();
+    }
+</script> {% endblock register-on-load-scripts %} {% block central-content %}
 <main>
     <h1>Thank you for your purchase!</h1>
     <h3>Leave us a review</h3>
@@ -77,8 +74,8 @@
                         <th scope="col">Star Rating</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
+                <tbody id="orderReviews">
+                    <!-- <tr>
                         <th scope="row">Root Beer Float</th>
                         <td>A rich, frothy beverage containing soft serve Ice Cream</td>
                         <td>
@@ -117,7 +114,7 @@
                                 </select>
                             </div>
                         </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
             <button type="button" class="btn btn-primary btn-lg">Submit Reviews</button>
@@ -126,6 +123,89 @@
     <footer>
         <h1>Footer goes here</h1>
     </footer>
-</body>
+    <h1>New post</h1>
+    <form method="POST" class="post-review">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+    </body>
 </main>
-{% endblock %}
+
+<script>
+    var menu_items = "{{ menu_items|safe }}";
+    console.log("menu_items: " + menu_items);
+    console.log("Menu_items length: " + menu_items.length);
+    var counter = 2;
+    var food_list = [];
+    console.log("Items in menu_items: " + menu_items[menu_items.length - 2]);
+    for (var i = 0; i < menu_items[menu_items.length - 2]; i++) {
+        var food = "";
+        while (menu_items[counter] != '\'') {
+            food += menu_items[counter];
+            counter += 1;
+        }
+        counter += 4;
+        food_list.push(food);
+    }
+    console.log("food_list: " + food_list);
+    console.log("food_list[1]: " + food_list[1]);
+
+    console.log("generating review screen...");
+    var ilength = food_list.length;
+    var reviewTable = document.getElementById("orderReviews");
+    for (var i = 0; i < ilength; i++) {
+        console.log(food_list[i]);
+
+        var newReview = document.createElement("tr"); //New row
+
+        var reviewFood = document.createElement("th");//Food Item with text
+        var reviewFoodText = document.createTextNode(food_list[i]);
+        reviewFood.appendChild(reviewFoodText);
+        newReview.appendChild(reviewFood);
+
+        var reviewDescr = document.createElement("td")//Food description with text
+        var reviewDescrText = document.createTextNode("Filler text: will be taken with item description eventually...");
+        reviewDescr.appendChild(reviewDescrText);
+        newReview.appendChild(reviewDescr);
+
+        var reviewRevew = document.createElement("td")//Review text goes here
+        var reviewReviewDiv = document.createElement("div");
+        var reviewReviewDivText = document.createElement("textarea");
+        reviewReviewDiv.appendChild(reviewReviewDivText);
+        reviewRevew.appendChild(reviewReviewDiv);
+        newReview.appendChild(reviewRevew);
+
+        var reviewStar = document.createElement("td")//Star rating goes here
+        var reviewStarDiv = document.createElement("div");
+        var reviewStarDivSelect = document.createElement("select");
+        var option5 = document.createElement("option");
+        var option5Text = document.createTextNode("5");
+        option5.appendChild(option5Text);
+        reviewStarDivSelect.appendChild(option5);
+        var option4 = document.createElement("option");
+        var option4Text = document.createTextNode("4");
+        option4.appendChild(option4Text);
+        reviewStarDivSelect.appendChild(option4);
+        var option3 = document.createElement("option");
+        var option3Text = document.createTextNode("3");
+        option3.appendChild(option3Text);
+        reviewStarDivSelect.appendChild(option3);
+        var option2 = document.createElement("option");
+        var option2Text = document.createTextNode("2");
+        option2.appendChild(option2Text);
+        reviewStarDivSelect.appendChild(option2);
+        var option1 = document.createElement("option");
+        var option1Text = document.createTextNode("1");
+        option1.appendChild(option1Text);
+        reviewStarDivSelect.appendChild(option1);
+        reviewStarDiv.appendChild(reviewStarDivSelect);
+        reviewStar.appendChild(reviewStarDiv);
+
+        newReview.appendChild(reviewStar);
+
+        reviewTable.appendChild(newReview);
+        
+    }
+
+
+</script> {% endblock %}
