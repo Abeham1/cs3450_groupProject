@@ -72,10 +72,17 @@ def review(request):
     #6. Get form data and save to model -- This is the hard part.
 
     orderNum = Order.objects.get(orderNumber=1) #this will be pulled from menu in the future
-    order_items = OrderItem.objects.filter(order=orderNum)
-    menu_items = Menu.objects.filter
+    order_items = (OrderItem.objects.filter(order=orderNum)).values_list('food_id', flat=True)
+    order_items = list(order_items)
     print(order_items)
 
+    length = len(order_items)
+    menu_items = []
+    for count in range(0, length):
+        x = Menu.objects.get(pk=order_items[count])
+        menu_items.append(x)
+    
+    print(menu_items)
     restaurantNames = list(RestaurantName.objects.all().values())
     context = {
         'activePage': 'review',
