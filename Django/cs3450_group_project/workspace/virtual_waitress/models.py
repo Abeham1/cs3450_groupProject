@@ -61,16 +61,6 @@ class Number(models.Model):
     class Meta:
         verbose_name = "Number"
 
-class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    food = models.ForeignKey(AllowedItems, on_delete=models.CASCADE)
-    qty = models.PositiveIntegerField(default=0)
-    note = models.TextField("Customer Notes", blank=True)
-    ready = models.BooleanField("Food Ready", default=False)
-
-    def __str__(self):
-        return str(self.qty) + " " + str(self.food)
-
 class Menu(models.Model):
     menuItem = models.CharField(max_length=60)
     menuDescription = models.CharField(max_length=400)
@@ -81,6 +71,17 @@ class Menu(models.Model):
 
     class Meta:
         verbose_name = "Menu"
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    food = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    qty = models.PositiveIntegerField(default=0)
+    note = models.TextField("Customer Notes", blank=True)
+    ready = models.BooleanField("Food Ready", default=False)
+
+    def __str__(self):
+        return str(self.qty) + " " + str(self.food)
+
 
 class Review(models.Model):
     menuItem = models.ForeignKey(Menu, on_delete=models.CASCADE)

@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 
 from django.shortcuts import render
 import json
-from virtual_waitress.models import RestaurantName, Order, OrderItem, Menu, Number
-from virtual_waitress.forms import NewMenuItem
+from virtual_waitress.models import RestaurantName, Order, OrderItem, Menu, Number, Review
+from virtual_waitress.forms import NewMenuItem, ReviewForm
 import datetime
 
 
@@ -64,6 +64,17 @@ def cook(request):
 
 
 def review(request):
+    #1. get order number
+    #2. get queryset of all orderItems relating to order number
+    #3. get queryset of all foodItems mentioned by orderItems
+    #4. Pass to javascript as an array of objects
+    #5. Generate Orderlistreview table. One row for each element in queryset
+    #6. Get form data and save to model -- This is the hard part.
+
+    orderNum = Order.objects.get(orderNumber=1) #this will be pulled from menu in the future
+    order_items = OrderItem.objects.filter(order=orderNum)
+    menu_items = Menu.objects.filter
+    print(order_items)
 
     restaurantNames = list(RestaurantName.objects.all().values())
     context = {
