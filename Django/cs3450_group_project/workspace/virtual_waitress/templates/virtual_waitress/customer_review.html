@@ -1,73 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends './base.html' %} 
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Leave a review</title>
-    <link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.css">
-    <!-- Live reload script<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script> -->
+{% block page-title %} Leave a review! {% endblock %} 
+{% block page-style %} 
+{{ block.super }}
 <style>
-.banner {
-    font-weight: bold;
-	margin: 2px;
-	border-style:solid;
-	border-color:black;
-	background-color: rgb(102, 153, 255);
-}
-nav {
-padding: 5px;
-	margin: 2px;
-	border-style:solid;
-	border-color:black;
-}
-nav ul {
-    display: flex;
-}
-nav li {
-    display: inline;
-    text-align: center;
-    flex: 1;
-}
+    main,
+    aside {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .banner {
+        font-weight: bold;
+        margin: 2px;
+        border-style: solid;
+        border-color: black;
+        background-color: rgb(102, 153, 255);
+    }
+
+    nav {
+        padding: 5px;
+        margin: 2px;
+        border-style: solid;
+        border-color: black;
+    }
+
+    nav ul {
+        display: flex;
+    }
+
+    nav li {
+        display: inline;
+        text-align: center;
+        flex: 1;
+    }
 </style>
+{% endblock %}
 
-<script>
-var RestaurantName = "Kell's Burger Hut";
 
-window.onload = function(){
-	loadBanner();
-}
-function loadBanner(){
-	var top = document.getElementsByClassName("banner");
-	var pTag = document.createElement("H1");
-	pTag.innerHTML = RestaurantName;
-	top[0].appendChild(pTag);
-}
-</script>
-</head>
-<body style="display: flex; flex-direction: column; align-items: center">
-    <div class="banner">
-	</div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a  class="nav-link" href="../menu/">Menu</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../manager/">Manager</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../cook/">Cook</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../inventory/">Inventory</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../review/">Review</a>
-            </li>
-        </ul>
-      </nav>
+
+{% block central-content %}
+<main>
     <h1>Thank you for your purchase!</h1>
     <h3>Leave us a review</h3>
     <div class="card border-primary mb-3" style="max-width: 75%;">
@@ -152,18 +127,5 @@ function loadBanner(){
         <h1>Footer goes here</h1>
     </footer>
 </body>
-<script>
-    var contact = {
-        name: "annonymous",
-        email: "none",
-        phone: "none",
-        getinfo: function(){
-            name = document.getElementById("name").value;
-            email = document.getElementById("email").value;
-            phone = document.getElementById("phone").value;
-        }
-    }
-
-</script>
-
-</html>
+</main>
+{% endblock %}

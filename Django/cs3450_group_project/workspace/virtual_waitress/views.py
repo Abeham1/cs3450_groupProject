@@ -13,21 +13,21 @@ def manager(request):
         'activePage': 'manager'
     }
 
-    # use this as a starting point to delete from the database
-    # Number.objects.filter(number = 1).delete()
+    #use this as a starting point to delete from the database
+    #Number.objects.filter(number = 1).delete()
 
     # Removes menuitems from the admin page
     if 'removeItem' in request.POST:
-        bad_item = request.POST.get('removeItem')
-        Menu.objects.filter(menuItem=bad_item).delete()
-        # Menu.objects
+        badItem = request.POST.get('removeItem')
+        Menu.objects.filter(menuItem = badItem).delete()
+        #Menu.objects
 
     # Adds a new meun item from the manager page
     if 'newMenuItemSubmit' in request.POST:
         form = NewMenuItem(request.POST)
         print(form)
         print(form.is_valid())
-        # print(form.cleaned_data['newItem'])
+        #print(form.cleaned_data['newItem'])
         if form.is_valid():
             num = Menu()
             num.menuItem = form.cleaned_data['menuItem']
@@ -35,15 +35,16 @@ def manager(request):
             num.menuPrice = form.cleaned_data['menuPrice']
             num.save()
             print(num)
-            # num.save()
-            # print('item')
-            # print(request.POST.get('newItem'))
-            # print('description')
-            # print(request.POST.get('newItemDescription'))
-            # print('price')
-            # print(request.POST.get('newItemPrice'))
-            # print('object')
-
+        #num.save()
+        # print('item')
+        # print(request.POST.get('newItem'))
+        # print('description')
+        # print(request.POST.get('newItemDescription'))
+        # print('price')
+        # print(request.POST.get('newItemPrice'))
+        # print('object')
+    
+    
     return render(request, 'virtual_waitress/manager.html', context)
 
 
@@ -63,8 +64,11 @@ def cook(request):
 
 
 def review(request):
+
+    restaurantNames = list(RestaurantName.objects.all().values())
     context = {
-        'activePage': 'review'
+        'activePage': 'review',
+        'restaurantName': json.dumps(restaurantNames),
     }
     return render(request, 'virtual_waitress/customer_review.html', context)
 
