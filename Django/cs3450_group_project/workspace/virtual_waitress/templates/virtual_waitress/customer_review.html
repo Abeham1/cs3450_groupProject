@@ -76,20 +76,25 @@
                         <th scope="col">Item Description</th>
                         <th scope="col">Your Review</th>
                         <th scope="col">Star Rating</th>
-                        <th scope="col">Submit Review</th>
                     </tr>
                 </thead>
 
                 <tbody id="orderReviews">
+                    <tr>
+                        <td>{{ form.menuItem }}</td>
+                        <td>Lorum ipso text</td>
+                        <td><div>{{ form.review }}</div></td>
+                        <td><div>{{ form.starRating }}</div></td>
+                    </tr>
                 </tbody>
             </table>
-           <!-- <button type="submit" class="btn btn-primary btn-lg">Submit Reviews</button> -->
+           <button type="submit" class="btn btn-primary btn-lg">Submit Reviews</button>
         </div>
     </div>
     </form>
     </body>
 </main>
-
+<!--
 <script>
     var menu_items = "{{ menu_items|safe }}";
     console.log("menu_items: " + menu_items);
@@ -175,6 +180,8 @@
     }
 
 
-</script> {% endblock %}
+</script>
+-->
+ {% endblock %}
 
 <!-- <button type="submit" class="btn btn-primary btn-lg">Submit Reviews</button> -->
