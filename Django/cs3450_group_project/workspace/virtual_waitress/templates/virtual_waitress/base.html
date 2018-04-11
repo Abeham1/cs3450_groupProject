@@ -57,14 +57,15 @@
 
 </head>
 <body>
-{% block banner %}
-    <div class="banner">
-    </div>
-{% endblock banner %}
+
 
 {% block nav-bar %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Navbar</a>
+    <nav class="navbar navbar-expand-lg bg-primary" style="margin:0px; padding: 0px;">
+        <a class="navbar-brand" href="{% url 'virtual_waitress:menu' %}">
+            <div>
+                <img src="{% static 'virtual_waitress/logo.png'%}" style="margin: 0px; width: 100px;" />
+            </div>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
                 aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
