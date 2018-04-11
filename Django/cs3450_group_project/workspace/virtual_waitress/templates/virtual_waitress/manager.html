@@ -25,20 +25,36 @@
 		loadBanner();
 		getMoney();
 		getTableData();
+		getMenu();
 	}
-
+</script> {% endblock register-on-load-scripts %} {% block head-script %}
+<script>
 	var salesMoney = 435.68;
 	var dailySales = "Daily Sales: $" + salesMoney;
 	var tableData = JSON.parse('{{ tableData|escapejs }}');
+	var menuData = JSON.parse('{{ comboItemsMenu|escapejs }}');
+	//var menuData = tableData;
 	//console.log(menu[0].menuItem);
 	console.log(tableData);
+	console.log(menuData);
 	//var tableRow1 = [["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]
 	//	, ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]];
 	var tableSize = 6;
 
+
 	function getMoney() {
 		document.getElementById("salesNumber").innerHTML = dailySales;
 	}
+
+	function getMenu() {
+		var temp1 = document.getElementById("menuItem");
+		for (var j = 0; j < menuData.length; j++) {
+			var temp2 = document.createElement("option");
+			temp2.text = menuData[j].menuItem;
+			temp1.add(temp2);
+		}
+	}
+
 	function getTableData() {
 		var temp1 = document.getElementsByTagName('table');
 		for (var j = 0; j < tableData.length; j++) {
@@ -67,7 +83,7 @@
 		}
 	}
 
-</script> {% endblock register-on-load-scripts %} {% block central-content %}
+</script> {% endblock head-script %} {% block central-content %}
 
 <div class="list-group">
 	<a href="#" class="list-group-item list-group-item-action flex-column aligin-items-start">
@@ -180,7 +196,7 @@
 			{% csrf_token %}
 			<div class="card-header">4. Remove Menu item</div>
 			Target item:
-			<input type="text" name="removeItem">
+			<select name="removeItem" id="menuItem"></select>
 			<input type="submit" name="removeItemSubmit" value="Submit">
 		</form>
 	</div>
