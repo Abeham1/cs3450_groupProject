@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 import json
 from virtual_waitress.models import RestaurantName, Order, OrderItem, Menu, Number, Review
-from virtual_waitress.forms import NewMenuItem, ReviewForm
+from virtual_waitress.forms import NewMenuItem, ReviewForm, OrderForm
 import datetime
 
 #https://stackoverflow.com/questions/455580/json-datetime-between-python-and-javascript/
@@ -145,4 +145,34 @@ def menu(request):
         'restaurantName': json.dumps(lst),
         'comboItemsMenu': json.dumps(mylist),
     }
+
+    form = OrderForm(request.POST)
+    print(form)
+
+    if 'placeOrder' in request.POST:
+        form = OrderForm(request.POST)
+        #print(form)
+        #print(form.is_valid())
+        #print(form.cleaned_data['newItem'])
+        if form.is_valid():
+            num = Order()
+            
+            num.dateCreated = datetime.datetime.now()
+            num.ready = False
+            num.total = form.cleaned_data['total']
+            num.orderNumber = form.cleaned_data['orderNumber']
+
+            num.save()
+
+            num2 = OrderItem()
+            
+            num2.order = Order.objects.get(orderNumber=2)
+            num2.food = Menu.objects.get(menuItem='Drink')
+            num2.qty = form.cleaned_data['qty']
+            num2.note = form.cleaned_data['note']
+            num2.ready = False
+
+            num2.save()
+            print(num)
+
     return render(request, 'virtual_waitress/menu.html', context)

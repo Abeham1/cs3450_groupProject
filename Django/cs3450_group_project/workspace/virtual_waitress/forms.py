@@ -1,6 +1,6 @@
 from django import forms
-
 from .models import Review, Menu
+import datetime
 
 class ReviewForm(forms.ModelForm):
     menuItem = forms.ModelChoiceField(Menu.objects.all())
@@ -88,3 +88,12 @@ class NewMenuItem(forms.Form):
     menuItem = forms.CharField(max_length=60)
     menuDescription = forms.CharField(max_length=400)
     menuPrice = forms.FloatField()
+
+
+#default=datetime.datetime.now()
+class OrderForm(forms.Form):
+    total = forms.FloatField()
+    orderNumber = forms.IntegerField()
+    food = forms.CharField()
+    qty = forms.IntegerField()
+    note = forms.CharField()
