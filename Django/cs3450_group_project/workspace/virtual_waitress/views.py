@@ -7,10 +7,21 @@ from virtual_waitress.models import RestaurantName, Order, OrderItem, Menu, Numb
 from virtual_waitress.forms import NewMenuItem, ReviewForm
 import datetime
 
+#https://stackoverflow.com/questions/455580/json-datetime-between-python-and-javascript/
+json.JSONEncoder.default = lambda self, obj: (obj.isoformat() if isinstance(obj, datetime.datetime) else None)
 
 def manager(request):
+    result = RestaurantName.objects.all()
+    myresult = Order.objects.all()
+    mymyresult = Menu.objects.all()
+    mymylist = (list(mymyresult.values()))    
+    mylist = (list(myresult.values()))
+    lst = (list(result.values())) 
     context = {
-        'activePage': 'manager'
+        'activePage': 'manager',
+        'restaurantName': json.dumps(lst),
+        'tableData': json.dumps(mylist),
+        'comboItemsMenu': json.dumps(mymylist),
     }
 
     #use this as a starting point to delete from the database
@@ -126,9 +137,12 @@ def inventory(request):  # To send model data from Database to Javascript/Templa
 
 def menu(request):
     result = RestaurantName.objects.all()
+    myresult = Menu.objects.all()
+    mylist = (list(myresult.values()))
     lst = (list(result.values()))
     context = {
         'activePage': 'menu',
         'restaurantName': json.dumps(lst),
+        'comboItemsMenu': json.dumps(mylist),
     }
     return render(request, 'virtual_waitress/menu.html', context)
