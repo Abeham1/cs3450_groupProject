@@ -19,9 +19,9 @@ def manager(request):
     lst = (list(result.values())) 
     context = {
         'activePage': 'manager',
+        'comboItemsMenu': json.dumps(mymylist),
         'restaurantName': json.dumps(lst),
         'tableData': json.dumps(mylist),
-        'comboItemsMenu': json.dumps(mymylist),
     }
 
     #use this as a starting point to delete from the database

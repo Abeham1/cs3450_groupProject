@@ -130,22 +130,16 @@
                 tempA.style = "max-width: 98%; min-width: 98%;";
                 tempB = document.createElement("DIV");
                 tempB.className = "card-header";
-                //tempB.innerHTML = comboItemsMenu[i][2];
                 tempB.innerHTML = menu[i].menuItem;
                 tempDiv = document.createElement("DIV");
                 tempDiv.className = "card-body";
                 tempC = document.createElement("P");
                 tempC.className = "card-text";
-                //tempC.innerHTML = comboItemsMenu[i][1];
                 tempC.innerHTML = "Description: " + menu[i].menuDescription;
                 tempD = document.createElement("P");
                 tempD.className = "card-text";
-                //tempD.innerHTML = "$" + comboItemsMenu[i][0];
                 tempD.innerHTML = "Price: $" + menu[i].menuPrice;
                 tempE = document.createElement("FORM");
-                //temp71 = document.createElement("P");
-				//temp71.innerHTML = "Quantity";
-				//temp7.addEventListener("input", addSubtotal);
                 temp7total = document.createElement("INPUT");
                 temp7total.type = "text";
 				temp7total.readOnly = true;
@@ -156,13 +150,6 @@
 				temp7.value = 0;
 				temp7.id = "quantity" + i;
 				temp7.addEventListener("input", addSubotal);
-				<!-- temp7.oninput = function() { -->
-					<!-- //console.log("hello"); -->
-					<!-- alert(document.getElementById("quantity0").value); -->
-					<!-- //document.getElementById("subtotal" + i).value = document.getElementById("quantity" + i).value * 1.25; -->
-				<!-- } -->
-                //temp7b1 = document.createElement("P");
-				//temp7b1.innerHTML = "Total";
                 temp7b = document.createElement("INPUT");
                 temp7b.type = "text";
 				temp7b.placeholder = "Special Requests";
@@ -173,10 +160,8 @@
                 tempDiv.appendChild(tempD);
                 tempDiv.appendChild(tempE);
                 tempE.appendChild(temp7);
-                //tempE.appendChild(temp71);
                 tempE.appendChild(temp7total);
                 tempE.appendChild(temp7b);
-                //tempE.appendChild(temp7b1);
             }
         }
 		
@@ -262,7 +247,6 @@
         <div class=buttons id="menu_bottom">
             <button id="Request Server" type="button">Request Server</button>
 			Table: <input type="text" name="table" value="Counter">
-			<button id="Subtotal" type="button" onclick=()>Subtotal</button>
             <button id="Order Now" type="button">Order Now</button>
             <label>You're total is:</label>
             <input id=OrderPriceID readOnly></input>
