@@ -85,13 +85,16 @@ class Review(models.Model):
         return str(self.review)
 
 
-class OrderItem(models.Model):
+class Entry(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    food = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    menu_item = models.ForeignKey(Menu, on_delete=models.CASCADE)
     qty = models.PositiveIntegerField(default=0)
     note = models.TextField("Customer Notes", blank=True)
     ready = models.BooleanField("Food Ready", default=False)
 
     def __str__(self):
-        return str(self.qty) + "x " + str(self.food) + " for order " + str(self.order)
+        return str(self.qty) + "x " + str(self.menu_item) + " for order " + str(self.order)
+    
+    class Meta:
+        verbose_name = "Order Item"
 

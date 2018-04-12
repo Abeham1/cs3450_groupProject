@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 
 from django.shortcuts import render, get_object_or_404
 import json
-from virtual_waitress.models import RestaurantName, Order, OrderItem, Menu, Number
+from virtual_waitress.models import RestaurantName, Order, Entry, Menu, Number
 from virtual_waitress.forms import NewMenuItem
 import datetime
 
@@ -48,7 +48,7 @@ def manager(request):
 
 
 def cook(request):
-    open_orders = Order.objects.filter(orderitem__ready=False)
+    open_orders = Order.objects.filter(ready=False).order_by('dateCreated')
 
     restaurant_names = list(RestaurantName.objects.all().values())
     context = {
