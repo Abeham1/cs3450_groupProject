@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 import json
 from virtual_waitress.models import RestaurantName, Order, OrderItem, Menu, Number, Review
-from virtual_waitress.forms import NewMenuItem, ReviewForm, OrderForm
+from virtual_waitress.forms import NewMenuItem, ReviewForm, OrderForm, OrderItemForm
 import datetime
 
 #https://stackoverflow.com/questions/455580/json-datetime-between-python-and-javascript/
@@ -140,39 +140,60 @@ def menu(request):
     myresult = Menu.objects.all()
     mylist = (list(myresult.values()))
     lst = (list(result.values()))
+    mySize = 2
     context = {
         'activePage': 'menu',
         'restaurantName': json.dumps(lst),
         'comboItemsMenu': json.dumps(mylist),
     }
 
-    form = OrderForm(request.POST)
-    print(form)
+    #form = OrderForm()
+    #print(form)
 
-    if 'placeOrder' in request.POST:
-        form = OrderForm(request.POST)
-        #print(form)
-        #print(form.is_valid())
-        #print(form.cleaned_data['newItem'])
-        if form.is_valid():
-            num = Order()
+    if 'placeTestOrder' in request.POST:
+        orderForm = OrderForm(request.POST, prefix='order')
+        #for i xrange(1, mySize):
+        orderItemForm = OrderItemForm(request.POST, prefix='orderItem')
+        
+        #print(orderForm)
+        #print(orderForm.is_valid())
+        print(orderItemForm)
+        print(orderItemForm.is_valid())
+        #if form.is_valid():
+        num = Order()
+        
+        num.dateCreated = datetime.datetime.now()
+        num.ready = False
+        num.total = orderForm.cleaned_data['total']
+        num.orderNumber = orderForm.cleaned_data['orderNumber']
+
+        num.save()
+
+        Item = orderItemForm.cleaned_data['food']
+
+        num2 = OrderItem(
+            order = num,
+            food = Menu.objects.get(menuItem=Item),
+            qty = orderItemForm.cleaned_data['qty'],
+            note = orderItemForm.cleaned_data['note']
+        )
+        orderItemFormTwo = OrderItemForm(request.POST, prefix='orderItem')
+        print(orderItemFormTwo)
+        print(orderItemFormTwo.is_valid())
+        num3 = OrderItem(
+            order = num,
+            food = Menu.objects.get(menuItem=Item),
+            qty = orderItemFormTwo.cleaned_data['qty'],
+            note = orderItemFormTwo.cleaned_data['note']
+        )
             
-            num.dateCreated = datetime.datetime.now()
-            num.ready = False
-            num.total = form.cleaned_data['total']
-            num.orderNumber = form.cleaned_data['orderNumber']
+        #     # num2.order = Order.objects.get(num.orderNumber)
+        #     # num2.food = Menu.objects.get(menuItem='Drink')
+        #     # num2.qty = form.cleaned_data['qty']
+        #     # num2.note = form.cleaned_data['note']
+        #     # num2.ready = False
 
-            num.save()
-
-            num2 = OrderItem()
-            
-            num2.order = Order.objects.get(orderNumber=2)
-            num2.food = Menu.objects.get(menuItem='Drink')
-            num2.qty = form.cleaned_data['qty']
-            num2.note = form.cleaned_data['note']
-            num2.ready = False
-
-            num2.save()
-            print(num)
+        num2.save()
+        #     print(num)
 
     return render(request, 'virtual_waitress/menu.html', context)
