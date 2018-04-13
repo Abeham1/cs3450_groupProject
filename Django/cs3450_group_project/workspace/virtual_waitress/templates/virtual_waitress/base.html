@@ -75,7 +75,7 @@
             <ul class="navbar-nav mr-auto">
                 {% block navbar-menu %}
                     <li class="nav-item {% if activePage == 'menu' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'virtual_waitress:menu' %}">Menu
+                        <a class="nav-link" href="{% url 'virtual_waitress:menu' %}" style="color:black;">Menu
                             {% if activePage == 'menu' %}
                                 <span class="sr-only">(current)</span>
                             {% endif %}
@@ -85,7 +85,7 @@
 
                 {% block navbar-manager %}
                     <li class="nav-item {% if activePage == 'manager' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'virtual_waitress:manager' %}">Manager
+                        <a class="nav-link" href="{% url 'virtual_waitress:manager' %}" style="color:black;">Manager
                             {% if activePage == 'manager' %}
                                 <span class="sr-only">(current)</span>
                             {% endif %}
@@ -95,7 +95,7 @@
 
                 {% block navbar-cook %}
                     <li class="nav-item {% if activePage == 'cook' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'virtual_waitress:cook' %}">Cook
+                        <a class="nav-link" href="{% url 'virtual_waitress:cook' %}" style="color:black;">Cook
                             {% if activePage == 'cook' %}
                                 <span class="sr-only">(current)</span>
                             {% endif %}
@@ -105,7 +105,7 @@
 
                 {% block navbar-inventory %}
                     <li class="nav-item {% if activePage == 'inventory' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'virtual_waitress:inventory' %}">Inventory
+                        <a class="nav-link" href="{% url 'virtual_waitress:inventory' %}" style="color:black;">Inventory
                             {% if activePage == 'inventory' %}
                                 <span class="sr-only">(current)</span>
                             {% endif %}
@@ -115,7 +115,7 @@
 
                 {% block navbar-review %}
                     <li class="nav-item {% if activePage == 'review' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'virtual_waitress:review' %}">Customer Review
+                        <a class="nav-link" href="{% url 'virtual_waitress:review' %}" style="color:black;">Customer Review
                             {% if activePage == 'review' %}
                                 <span class="sr-only">(current)</span>
                             {% endif %}
