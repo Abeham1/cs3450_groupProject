@@ -97,6 +97,7 @@ class OrderForm(forms.Form):
     prefix = 'order'
 
 class OrderItemForm(forms.Form):
+    # Dynamically generate food, qty, note depending on the size of the menu
     food = forms.CharField()
     qty = forms.IntegerField()
     note = forms.CharField()

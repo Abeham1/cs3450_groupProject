@@ -1,5 +1,5 @@
-{% extends "./base.html" %} {% block page-title %}Virtual Waitress Menu{% endblock page-title %} {% block page-style %} {{
-block.super }}
+{% extends "./base.html" %} {% block page-title %}Virtual Waitress Menu{% endblock page-title %} {% block page-style %} 
+{{ block.super }}
 <style>
     .flexBox {
         width: 100%;
@@ -83,7 +83,7 @@ block.super }}
 
     function addFoodMenuItem() {
         var r = document.getElementsByClassName("foodMenuItem");
-        
+
         r[0].value = menu[0].menuItem
         r[1].value = menu[1].menuItem;
         //element.innerHTML = menu[0].menuItem + ":";
@@ -326,7 +326,7 @@ block.super }}
         </tr>
         <tr>
             <th>
-                <label for="id_order-orderNumber">Order Number:</label>
+                <label for="id_order-orderNumber">Ordernumber:</label>
             </th>
             <td>
                 <input type="number" name="order-orderNumber" required id="id_order-orderNumber" />
@@ -357,32 +357,7 @@ block.super }}
                 <input type="text" name="orderItem-note" required id="id_orderItem-note" />
             </td>
         </tr>
-        <!--second food item-->
-        <br>
-        <tr>
-            <th>
-                <label for="id_orderItem-food">Item:</label>
-            </th>
-            <td>
-                <input class="foodMenuItem" type="text" name="orderItem-food" required id="id_orderItem-food" />
-            </td>
-        </tr>
-        <tr>
-            <th>
-                <label for="id_orderItem-qty">Qty:</label>
-            </th>
-            <td>
-                <input type="number" name="orderItem-qty" required id="id_orderItem-qty" />
-            </td>
-        </tr>
-        <tr>
-            <th>
-                <label for="id_orderItem-note">Note:</label>
-            </th>
-            <td>
-                <input type="text" name="orderItem-note" required id="id_orderItem-note" />
-            </td>
-        </tr>
+
         <input name="placeTestOrder" type="submit" value="Order Now"></input>
     </form>
 </div>
