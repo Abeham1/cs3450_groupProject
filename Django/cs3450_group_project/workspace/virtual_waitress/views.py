@@ -1,6 +1,5 @@
 from pprint import pprint
-from django.http import HttpResponseRedirect, HttpResponse
-
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render
 import json
 from virtual_waitress.models import RestaurantName, Order, OrderItem, Menu, Number, Review
@@ -86,18 +85,7 @@ def review(request):
     #5. Generate Orderlistreview table. One row for each element in queryset
     #6. Get form data and save to model -- This is the hard part.
 
-    orderNum = Order.objects.get(orderNumber=1) #this will be pulled from menu in the future
-    order_items = (OrderItem.objects.filter(order=orderNum)).values_list('food_id', flat=True)
-    order_items = list(order_items)
-    print(order_items)
-
-    length = len(order_items)
-    menu_items = []
-    for count in range(0, length):
-        x = Menu.objects.get(pk=order_items[count]).menuItem
-        menu_items.append(x)
-    menu_items.append(length)
-    print(menu_items)
+    numReviews = Review.objects.all()
     restaurantNames = list(RestaurantName.objects.all().values())
     if request.method == 'POST':
         form = ReviewForm(request.POST)
@@ -109,11 +97,13 @@ def review(request):
         form = ReviewForm()
     context = {
         'activePage': 'review',
-        'menu_items' : menu_items,
         'form' : form,
         'restaurantName': json.dumps(restaurantNames),
     }
-    return render(request, 'virtual_waitress/customer_review.html', context)
+    if not numReviews:
+        return render(request, 'virtual_waitress/customer_review.html', context)
+    else:
+        return render(request, 'virtual_waitress/customer_review.html', context)
 
 
 def inventory(request):  # To send model data from Database to Javascript/Template
