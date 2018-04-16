@@ -22,7 +22,7 @@ class ReviewForm(forms.ModelForm):
     email = forms.CharField(        
         max_length=60, 
         widget=forms.TextInput(
-            attrs={'placeholder' : 'Enter your email address',
+            attrs={'placeholder' : 'Enter your email',
             'display': 'block',
             'width': '100%',
             'padding': '0.375rem 0.5rem',
@@ -37,7 +37,7 @@ class ReviewForm(forms.ModelForm):
     phone = forms.CharField(        
         max_length=60, 
         widget=forms.TextInput(
-            attrs={'placeholder' : 'Enter your phone number',
+            attrs={'placeholder' : 'Enter phone number',
             'display': 'block',
             'width': '100%',
             'padding': '0.375rem 0.5rem',
@@ -50,7 +50,7 @@ class ReviewForm(forms.ModelForm):
             'border-radius': '0',
             'transition': 'border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out'}))
     starRating = forms.FloatField(
-        max_value = 5, min_value = 0,
+        max_value = 5, min_value = 1,
         widget=forms.NumberInput(
             attrs={'placeholder':'Enter 1-5',
             'display': 'block',

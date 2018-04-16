@@ -22,8 +22,8 @@
 {% endblock page-style %} {% block register-on-load-scripts %}
 <script>
 	window.onload = function () {
-		loadBanner();
-		getMoney();
+		//loadBanner();
+		//getMoney();
 		getTableData();
 		getMenu();
 	}
@@ -85,142 +85,141 @@
 
 </script> {% endblock head-script %} {% block central-content %}
 
-<div class="list-group">
-	<a href="#" class="list-group-item list-group-item-action flex-column aligin-items-start">
-		<div class="d-flex w-100 justify-content-between">
-			<h3 class="mb-1" id="salesNumber"></h3>
+<div class="card border-primary mb-3" style="max-width: 90%; margin:auto; margin-top: 10%; margin-bottom: 10%;">
+	<div class="card-header" style="width: 100%">Current Orders</div>
+	<div class="card-body">
+		<div style="background-color: red;">
+			<table class="table table-primary">
+				<tr class="table-info">
+					<th>Order Number</th>
+					<th>Price</th>
+					<th>Table</th>
+					<!-- As a waiter / waitress I need to identify which table / location an order relates to -->
+					<th>Needs Service?</th>
+					<!-- As a waiter / waitress I need to know what locations / tables have service requests -->
+					<th>Food Ready?</th>
+					<th>Time Elapsed
+						<th>
+				</tr>
+			</table>
 		</div>
-	</a>
-	<a href="#" class="list-group-item list-group-item-action flex-column aligin-items-start active">
-		<div class="d-flex w-100 justify-content-between">
-			<h3 class="mb-1">Current Orders</h3>
+	</div>
+</div>
+<div class="card border-primary mb-3" style="max-width: 90%; margin: auto; align-content: center;">
+	<div class="card-header">Manager Controls</div>
+	<div class="card-body">
+		<div class="FlexDiv" style="align-content: center">
+			<div class="card border-primary mb-3" style="max-width: 90%;">
+				<!--As a waiter / waitress I need to be able to place zero cost orders -->
+				<form action="">
+					<div class="card-header" style="margin-bottom: 10px;">1. Adjust order price</div>
+					Order Number:
+					<input type="text" name="adjustPriceOrderNumber" style="margin: auto"> New Price:
+					<input type="text" name="adjustPriceNewPrice" style="margin: auto">
+					<input type="submit" name="adjustPriceSubmit" value="Submit" style="margin: auto">
+				</form>
+			</div>
+			<!-- As a waiter / waitress, I would like to split or combine different bills -->
+			<div class="card border-primary mb-3" style="max-width: 20rem;">
+				<form action="">
+					<div class="card-header" style="margin-bottom: 10px;">2. Split Bill</div>
+					Order Number:
+					<input type="text" name="splitBillOrderNumber">
+					<br>
+					<ul>
+						<li>New Price:
+							<input type="text" name="splitBillNewPrice1">
+						</li>
+						<li>New Price:
+							<input type="text" name="splitBillNewPrice2">
+						</li>
+						<li>New Price:
+							<input type="text" name="splitBillNewPrice3">
+						</li>
+						<li>New Price:
+							<input type="text" name="splitBillNewPrice4">
+						</li>
+					</ul>
+					<input type="submit" name="splitBillSubmit" value="Submit">
+				</form>
+			</div>
+			<div class="card border-primary mb-3" style="max-width: 20rem;">
+				<!-- As a manager, I would like to delete, create, and manage menu items 
+			<form action="" method="post">
+				{% csrf_token %}
+				<div class="card-header">3. Add Menu item</div>
+				New item:
+				<input type="text" name="newItem">
+				<br> description:
+				<input type="text" name "newItemDescription">
+				<br> Price: $
+				<input type="number" name "newItemPrice">
+				<input type="submit" name="newMenuItemSubmit" value="Submit">
+			</form>-->
+				<form action="" method="post">
+					{% csrf_token %}
+
+					<tr>
+						<th>
+							<label for="id_menuItem">Menuitem:</label>
+						</th>
+						<td>
+							<input type="text" name="menuItem" maxlength="60" required id="id_menuItem" />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<label for="id_menuDescription">Menudescription:</label>
+						</th>
+						<td>
+							<input type="text" name="menuDescription" maxlength="400" required id="id_menuDescription" />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<label for="id_menuPrice">Menuprice:</label>
+						</th>
+						<td>
+							<input type="number" name="menuPrice" step="any" required id="id_menuPrice" />
+						</td>
+					</tr>
+					<input type="submit" name="newMenuItemSubmit" value="Submit">
+				</form>
+
+			</div>
+			<div class="card border-primary mb-3" style="max-width: 20rem;">
+				<form action="" method="post">
+					{% csrf_token %}
+					<div class="card-header" style="margin-bottom: 10px;">4. Remove Menu item</div>
+					Target item:
+					<select name="removeItem" id="menuItem"></select>
+					<input type="submit" name="removeItemSubmit" value="Submit">
+				</form>
+			</div>
+			<!-- As a manager, I need to be able to override details about an open order (menu items, price, location, etc.) -->
+			<div class="card border-primary mb-3" style="max-width: 20rem;">
+				<form action="">
+					<div class="card-header" style="margin-bottom: 10px;">5. Change table</div>
+					Order Number:
+					<input type="text" name="changeTableOrderNumber"> New table:
+					<input type="text" name="newTable">
+					<input type="submit" name="changeTableSubmit" value="Submit">
+				</form>
+			</div>
+			<div class="card border-primary mb-3" style="max-width: 20rem;">
+				<form action="">
+					<div class="card-header" style="margin-bottom: 10px;">6. Change Order</div>
+					Order Number:
+					<input type="text" name="changeOrder">
+					<input type="submit" name="changeOrderSubmit" value="Submit">
+					<!-- this should probably just kick to menu with pre-populated fields -->
+			</div>
 		</div>
-	</a>
-</div>
-<div>
-	<table class="table table-primary">
-		<tr class="table-info">
-			<th>Order Number</th>
-			<th>Price</th>
-			<th>Table</th>
-			<!-- As a waiter / waitress I need to identify which table / location an order relates to -->
-			<th>Needs Service?</th>
-			<!-- As a waiter / waitress I need to know what locations / tables have service requests -->
-			<th>Food Ready?</th>
-			<th>Time Elapsed
-				<th>
-		</tr>
-	</table>
-</div>
-<div class="FlexDiv">
-	<div class="card border-primary mb-3" style="max-width: 20rem;">
-		<!--As a waiter / waitress I need to be able to place zero cost orders -->
-		<form action="">
-			<div class="card-header">1. Adjust order price</div>
-			Order Number:
-			<input type="text" name="adjustPriceOrderNumber"> New Price:
-			<input type="text" name="adjustPriceNewPrice">
-			<input type="submit" name="adjustPriceSubmit" value="Submit">
-		</form>
-	</div>
-	<!-- As a waiter / waitress, I would like to split or combine different bills -->
-	<div class="card border-primary mb-3" style="max-width: 20rem;">
-		<form action="">
-			<div class="card-header">2. Split Bill</div>
-			Order Number:
-			<input type="text" name="splitBillOrderNumber">
-			<br>
-			<ul>
-				<li>New Price:
-					<input type="text" name="splitBillNewPrice1">
-				</li>
-				<li>New Price:
-					<input type="text" name="splitBillNewPrice2">
-				</li>
-				<li>New Price:
-					<input type="text" name="splitBillNewPrice3">
-				</li>
-				<li>New Price:
-					<input type="text" name="splitBillNewPrice4">
-				</li>
-			</ul>
-			<input type="submit" name="splitBillSubmit" value="Submit">
-		</form>
-	</div>
-	<div class="card border-primary mb-3" style="max-width: 20rem;">
-		<!-- As a manager, I would like to delete, create, and manage menu items 
-		<form action="" method="post">
-			{% csrf_token %}
-			<div class="card-header">3. Add Menu item</div>
-			New item:
-			<input type="text" name="newItem">
-			<br> description:
-			<input type="text" name "newItemDescription">
-			<br> Price: $
-			<input type="number" name "newItemPrice">
-			<input type="submit" name="newMenuItemSubmit" value="Submit">
-		</form>-->
-		<form action="" method="post">
-			{% csrf_token %}
 
-			<tr>
-				<th>
-					<label for="id_menuItem">Menuitem:</label>
-				</th>
-				<td>
-					<input type="text" name="menuItem" maxlength="60" required id="id_menuItem" />
-				</td>
-			</tr>
-			<tr>
-				<th>
-					<label for="id_menuDescription">Menudescription:</label>
-				</th>
-				<td>
-					<input type="text" name="menuDescription" maxlength="400" required id="id_menuDescription" />
-				</td>
-			</tr>
-			<tr>
-				<th>
-					<label for="id_menuPrice">Menuprice:</label>
-				</th>
-				<td>
-					<input type="number" name="menuPrice" step="any" required id="id_menuPrice" />
-				</td>
-			</tr>
-			<input type="submit" name="newMenuItemSubmit" value="Submit">
-		</form>
 
-	</div>
-	<div class="card border-primary mb-3" style="max-width: 20rem;">
-		<form action="" method="post">
-			{% csrf_token %}
-			<div class="card-header">4. Remove Menu item</div>
-			Target item:
-			<select name="removeItem" id="menuItem"></select>
-			<input type="submit" name="removeItemSubmit" value="Submit">
-		</form>
-	</div>
-	<!-- As a manager, I need to be able to override details about an open order (menu items, price, location, etc.) -->
-	<div class="card border-primary mb-3" style="max-width: 20rem;">
-		<form action="">
-			<div class="card-header">5. Change table</div>
-			Order Number:
-			<input type="text" name="changeTableOrderNumber"> New table:
-			<input type="text" name="newTable">
-			<input type="submit" name="changeTableSubmit" value="Submit">
-		</form>
-	</div>
-	<div class="card border-primary mb-3" style="max-width: 20rem;">
-		<form action="">
-			<div class="card-header">6. Change Order</div>
-			Order Number:
-			<input type="text" name="changeOrder">
-			<input type="submit" name="changeOrderSubmit" value="Submit">
-			<!-- this should probably just kick to menu with pre-populated fields -->
-	</div>
-</div>
-{% endblock central-content %} {% block footer %}
-<footer>
-	<h1>Code by Chaosreader and Froggy</h1>
-</footer>
-{% endblock footer %}
+
+		{% endblock central-content %} {% block footer %}
+		<footer>
+			<h1>Code by Chaosreader and Froggy</h1>
+		</footer>
+		{% endblock footer %}

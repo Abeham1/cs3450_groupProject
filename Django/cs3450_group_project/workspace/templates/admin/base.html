@@ -39,8 +39,7 @@
 
 <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}"
   data-admin-utc-offset="{% now "Z" %}">
-    <div class="banner">
-    </div>
+
 <!-- Container -->
 <div id="container">
 
@@ -48,8 +47,9 @@
     <!-- Header -->
     <div id="header">
         <div id="branding">
-        {% block branding %}{% endblock %}
+            <h1>Bob's Beef Barn Database Control</h1>
         </div>
+
         {% block usertools %}
         {% if has_permission %}
         <div id="user-tools">
