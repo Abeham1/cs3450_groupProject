@@ -7,31 +7,6 @@
         align-items: center;
         padding: 10px;
     }
-
-    .banner {
-        font-weight: bold;
-        margin: 2px;
-        border-style: solid;
-        border-color: black;
-        background-color: rgb(102, 153, 255);
-    }
-
-    nav {
-        padding: 5px;
-        margin: 2px;
-        border-style: solid;
-        border-color: black;
-    }
-
-    nav ul {
-        display: flex;
-    }
-
-    nav li {
-        display: inline;
-        text-align: center;
-        flex: 1;
-    }
 </style>
 {% endblock %} {% block register-on-load-scripts %}
 <script>
@@ -43,7 +18,7 @@
     <h1>Thank you for your purchase!</h1>
     <h3>Leave us a review</h3>
     <form method="POST" class="post-review">{% csrf_token %}
-    <div class="card border-primary mb-3" style="max-width: 75%;">
+    <div class="card border-primary mb-3" style="max-width: 100%;">
         <div class="card-header">Your Information (optional)</div>
         <div class="card-body">
             <p class="card-text">Your information will only be used to contact you if you had any problems with our service or your meal</p>
@@ -66,7 +41,7 @@
             </div>
         </div>
     </div>
-    <div class="card border-primary mb-3" style="max-width: 75%; min-width: 500px">
+    <div class="card border-primary mb-3" style="max-width: 100%; min-width: 500px">
         <div class="card-header">Items from your order</div>
         <div class="card-body">
             <table class="table table-hover">
