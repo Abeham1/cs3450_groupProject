@@ -1,96 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Leave a review</title>
-    <link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.css">
-    <!-- Live reload script<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script> -->
+{% extends './base.html' %} {% block page-title %} Leave a review! {% endblock %} {% block page-style %} {{ block.super }}
 <style>
-.banner {
-    font-weight: bold;
-	margin: 2px;
-	border-style:solid;
-	border-color:black;
-	background-color: rgb(102, 153, 255);
-}
-nav {
-padding: 5px;
-	margin: 2px;
-	border-style:solid;
-	border-color:black;
-}
-nav ul {
-    display: flex;
-}
-nav li {
-    display: inline;
-    text-align: center;
-    flex: 1;
-}
+    main,
+    aside {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
 </style>
-
+{% endblock %} {% block register-on-load-scripts %}
 <script>
-var RestaurantName = "Kell's Burger Hut";
-
-window.onload = function(){
-	loadBanner();
-}
-function loadBanner(){
-	var top = document.getElementsByClassName("banner");
-	var pTag = document.createElement("H1");
-	pTag.innerHTML = RestaurantName;
-	top[0].appendChild(pTag);
-}
-</script>
-</head>
-<body style="display: flex; flex-direction: column; align-items: center">
-    <div class="banner">
-	</div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a  class="nav-link" href="../menu/">Menu</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../manager/">Manager</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../cook/">Cook</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../inventory/">Inventory</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../review/">Review</a>
-            </li>
-        </ul>
-      </nav>
+    window.onload = function () {
+        //loadBanner();
+    }
+</script> {% endblock register-on-load-scripts %} {% block central-content %}
+<main>
     <h1>Thank you for your purchase!</h1>
     <h3>Leave us a review</h3>
-    <div class="card border-primary mb-3" style="max-width: 75%;">
+    <form method="POST" class="post-review">{% csrf_token %}
+    <div class="card border-primary mb-3" style="max-width: 100%;">
         <div class="card-header">Your Information (optional)</div>
         <div class="card-body">
             <p class="card-text">Your information will only be used to contact you if you had any problems with our service or your meal</p>
             <div class="form-group">
-                <label class="col-form-label" for="inputDefault">Your name</label>
-                <input type="text" class="form-control" placeholder="Your name" id="name">
+                <label class="col-form-label" for="inputDefault">Name:</label>
+                {{ form.name }}
+                <!--<input type="text" class="form-control" placeholder="Your name" id="name"> <! Input Name -->
                 <small id="nameHelp" class="form-text text-muted">You may leave a review as annonymous</small>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                <label class="col-form-label" for="inputDefault">Email:</label>
+                <!--<input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"> <! Input Email -->
+                {{ form.email }}
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
-                <label class="col-form-label" for="inputDefault">Phone number</label>
-                <input type="text" class="form-control" placeholder="(xxx) xxx-xxxx" id="phone">
+                <label class="col-form-label" for="inputDefault">Phone:</label>
+                <!-- <input type="text" class="form-control" placeholder="(xxx) xxx-xxxx" id="phone"> <! Input Phone number -->
+                {{ form.phone }}
             </div>
         </div>
     </div>
-    <div class="card border-primary mb-3" style="max-width: 75%; min-width: 500px">
+    <div class="card border-primary mb-3" style="max-width: 100%; min-width: 500px">
         <div class="card-header">Items from your order</div>
         <div class="card-body">
             <table class="table table-hover">
@@ -102,68 +53,110 @@ function loadBanner(){
                         <th scope="col">Star Rating</th>
                     </tr>
                 </thead>
-                <tbody>
+
+                <tbody id="orderReviews">
                     <tr>
-                        <th scope="row">Root Beer Float</th>
-                        <td>A rich, frothy beverage containing soft serve Ice Cream</td>
-                        <td>
-                            <div class="form-group">
-                                <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-group">
-                                <select class="form-control" id="exampleSelect1">
-                                    <option>5</option>
-                                    <option>4</option>
-                                    <option>3</option>
-                                    <option>2</option>
-                                    <option>1</option>
-                                </select>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Burger</th>
-                        <td>Our signature dead cow in a bun with lettuce</td>
-                        <td>
-                            <div class="form-group">
-                                <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-group">
-                                <select class="form-control" id="exampleSelect1">
-                                    <option>5</option>
-                                    <option>4</option>
-                                    <option>3</option>
-                                    <option>2</option>
-                                    <option>1</option>
-                                </select>
-                            </div>
-                        </td>
+                        <td>{{ form.menuItem }}</td>
+                        <td>Lorum ipso text</td>
+                        <td><div>{{ form.review }}</div></td>
+                        <td><div>{{ form.starRating }}</div></td>
                     </tr>
                 </tbody>
             </table>
-            <button type="button" class="btn btn-primary btn-lg">Submit Reviews</button>
+           <button type="submit" class="btn btn-primary btn-lg">Submit Reviews</button>
         </div>
     </div>
-    <footer>
-        <h1>Footer goes here</h1>
-    </footer>
-</body>
+    </form>
+    </body>
+</main>
+<!--
 <script>
-    var contact = {
-        name: "annonymous",
-        email: "none",
-        phone: "none",
-        getinfo: function(){
-            name = document.getElementById("name").value;
-            email = document.getElementById("email").value;
-            phone = document.getElementById("phone").value;
+    var menu_items = "{{ menu_items|safe }}";
+    console.log("menu_items: " + menu_items);
+    console.log("Menu_items length: " + menu_items.length);
+    var counter = 2;
+    var food_list = [];
+    console.log("Items in menu_items: " + menu_items[menu_items.length - 2]);
+    for (var i = 0; i < menu_items[menu_items.length - 2]; i++) {
+        var food = "";
+        while (menu_items[counter] != '\'') {
+            food += menu_items[counter];
+            counter += 1;
         }
+        counter += 4;
+        food_list.push(food);
+    }
+    console.log("food_list: " + food_list);
+    console.log("food_list[1]: " + food_list[1]);
+
+    console.log("generating review screen...");
+    var ilength = food_list.length;
+    var reviewTable = document.getElementById("orderReviews");
+    for (var i = 0; i < ilength; i++) {
+        console.log(food_list[i]);
+
+        var newReview = document.createElement("tr"); //New row
+
+        var reviewFood = document.createElement("th");//Food Item with text
+        var reviewFoodText = document.createTextNode(food_list[i]);
+        reviewFood.appendChild(reviewFoodText);
+        newReview.appendChild(reviewFood);
+
+        var reviewDescr = document.createElement("td");//Food description with text
+        var reviewDescrText = document.createTextNode("Filler text: will be taken with item description eventually...");
+        reviewDescr.appendChild(reviewDescrText);
+        newReview.appendChild(reviewDescr);
+
+        var reviewRevew = document.createElement("td");//Review text goes here
+        var reviewReviewDiv = document.createElement("div");
+        var reviewReviewDivText = document.createElement("input");  
+        reviewReviewDivText.value = "{{ request.POST.review }}";
+        reviewReviewDiv.appendChild(reviewReviewDivText);
+        reviewRevew.appendChild(reviewReviewDiv);
+        newReview.appendChild(reviewRevew);
+
+        var reviewStar = document.createElement("td");//Star rating goes here
+        var reviewStarDiv = document.createElement("div");
+        var reviewStarDivSelect = document.createElement("select");
+        var option5 = document.createElement("option");
+        var option5Text = document.createTextNode("5");
+        option5.appendChild(option5Text);
+        reviewStarDivSelect.appendChild(option5);
+        var option4 = document.createElement("option");
+        var option4Text = document.createTextNode("4");
+        option4.appendChild(option4Text);
+        reviewStarDivSelect.appendChild(option4);
+        var option3 = document.createElement("option");
+        var option3Text = document.createTextNode("3");
+        option3.appendChild(option3Text);
+        reviewStarDivSelect.appendChild(option3);
+        var option2 = document.createElement("option");
+        var option2Text = document.createTextNode("2");
+        option2.appendChild(option2Text);
+        reviewStarDivSelect.appendChild(option2);
+        var option1 = document.createElement("option");
+        var option1Text = document.createTextNode("1");
+        option1.appendChild(option1Text);
+        reviewStarDivSelect.appendChild(option1);
+        reviewStarDiv.appendChild(reviewStarDivSelect);
+        reviewStar.appendChild(reviewStarDiv);
+        newReview.appendChild(reviewStar);
+
+        var reviewSubmit = document.createElement("td");
+        var reviewSubmitButton = document.createElement("button");
+        reviewSubmit.appendChild(reviewSubmitButton);
+        reviewSubmitButton.type = "submit";
+        var reviewSubmitButtonText = document.createTextNode("Submit Review");
+        reviewSubmitButton.appendChild(reviewSubmitButtonText);
+        newReview.appendChild(reviewSubmit);
+
+        reviewTable.appendChild(newReview);
+        
     }
 
-</script>
 
-</html>
+</script>
+-->
+ {% endblock %}
+
+<!-- <button type="submit" class="btn btn-primary btn-lg">Submit Reviews</button> -->
