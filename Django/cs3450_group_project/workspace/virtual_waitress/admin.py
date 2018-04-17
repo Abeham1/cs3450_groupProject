@@ -6,7 +6,7 @@ from .models import *
 admin.site.register(RestaurantName)
 admin.site.register(AllowedItems)
 admin.site.register(Items)
-admin.site.register(OrderItem)
+admin.site.register(Entry)
 admin.site.register(Menu)
 admin.site.register(Order)
 admin.site.register(Number)

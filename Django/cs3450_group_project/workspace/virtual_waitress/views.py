@@ -1,8 +1,8 @@
 from pprint import pprint
 from django.http import HttpResponseRedirect, HttpResponse, Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 import json
-from virtual_waitress.models import RestaurantName, Order, OrderItem, Menu, Number, Review
+from virtual_waitress.models import RestaurantName, Order, Entry, Menu, Number, Review
 from virtual_waitress.forms import NewMenuItem, ReviewForm, OrderForm, OrderItemForm
 from django.forms import formset_factory
 import datetime
@@ -14,9 +14,9 @@ def manager(request):
     result = RestaurantName.objects.all()
     myresult = Order.objects.all()
     mymyresult = Menu.objects.all()
-    mymylist = (list(mymyresult.values()))    
+    mymylist = (list(mymyresult.values()))
     mylist = (list(myresult.values()))
-    lst = (list(result.values())) 
+    lst = (list(result.values()))
     context = {
         'activePage': 'manager',
         'comboItemsMenu': json.dumps(mymylist),
@@ -54,22 +54,19 @@ def manager(request):
         # print('price')
         # print(request.POST.get('newItemPrice'))
         # print('object')
-    
-    
+
+
     return render(request, 'virtual_waitress/manager.html', context)
 
 
 def cook(request):
-    openOrders = Order.objects.filter(orderitem__ready=False)
-    pprint(openOrders)
-    food = OrderItem.objects.filter()
-    pprint(food)
+    open_orders = Order.objects.filter(ready=False).order_by('dateCreated')
 
-    restaurantNames = list(RestaurantName.objects.all().values())
+    restaurant_names = list(RestaurantName.objects.all().values())
     context = {
         'activePage': 'cook',
-        'restaurantName': json.dumps(restaurantNames),
-
+        'restaurantName': json.dumps(restaurant_names),
+        'orders': open_orders,
     }
     return render(request, 'virtual_waitress/cook_view.html', context)
 
@@ -146,7 +143,7 @@ def menu(request):
     #    print(form.as_table())
     #print(orderItemFormSet)
     #print(orderItemFormSet.is_valid())
-    
+
     #orderForm = OrderForm(prefix='order')
     #orderItemForm = OrderItemForm(prefix='orderItem')
 
@@ -156,15 +153,15 @@ def menu(request):
     if 'placeTestOrder' in request.POST:
         orderForm = OrderForm(request.POST, prefix='order')
         orderItemForm = OrderItemForm(request.POST, prefix='orderItem')
-        
+
         #print(orderForm)
         #print(orderForm.is_valid())
         #print(orderItemForm)
         #print(orderItemForm.is_valid())
         if orderForm.is_valid():
-            
+
             num = Order()
-            
+
             num.dateCreated = datetime.datetime.now()
             num.ready = False
             num.total = orderForm.cleaned_data['total']
@@ -175,7 +172,7 @@ def menu(request):
 
         if orderItemForm.is_valid():
             Item = orderItemForm.cleaned_data['food']
-            num2 = OrderItem(
+            num2 = Entry(
                 order = num,
                 food = Menu.objects.get(menuItem=Item),
                 qty = orderItemForm.cleaned_data['qty'],
@@ -183,8 +180,8 @@ def menu(request):
             )
 
             num2.save()
-            
-            
+
+
 
 
 
