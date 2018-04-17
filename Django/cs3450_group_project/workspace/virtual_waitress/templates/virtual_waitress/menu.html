@@ -43,36 +43,28 @@
 {% endblock page-style %} {% block register-on-load-scripts %}
 <script>
     window.onload = function () {
-        //addMenu();
-        //addReview();
-        //loadBanner();
         addMikesMenu();
         addMikesReviews();
-     //   addFoodMenuItem();
+        addOrderNumber();
     }
 </script> {% endblock register-on-load-scripts %} {% block head-script %}
 <script>
 
     // doing some console logging
     var menu = JSON.parse('{{ comboItemsMenu|escapejs }}');
+    var order = JSON.parse('{{ orderList|escapejs }}');
+    var nextOrder = order[order.length - 1].id + 1;
     console.log(menu[0].menuItem);
     console.log(menu);
+    
+    console.log(order[0].id);
+    console.log(order.length);
+    console.log(order[order.length - 1].id);
+    console.log(nextOrder);
     // these are variables to read in
     var primaryCard = "card text-white bg-primary mb-3";
-    // var sizeMenu = 5; // old
     var sizeMenu = menu.length;
     var itemArray = [];
-    var itemsMenu = ['Cheeseburger', 'Burger', 'fries', 'pop', 'float'];
-    var descMenu = ['Cheeseburger description',
-        'Burger description',
-        'fries description',
-        'pop description',
-        'float description'];
-    var myPrices = [4.29, 3.79, 1.99, 1.09, 2.79];
-    //var comboItemsMenu = [['Cheeseburger', 'Cheeseburger description', 4.29], ['Burger', 'Burger description', 3.79],
-    //    ['fries', 'fries description', 1.99], ['pop', 'pop description', 1.09],
-    //    ['float', 'float description', 2.79]];
-    // these are reviews to read in
     var sizeReview = 5;
 
     var comboReview = [['Cheeseburger', 'Not enough cheese but the bun was great.'], ['Burger', 'Juciest friggin thing evar'],
@@ -80,30 +72,9 @@
     ['Burger', 'I\'ve had better']];
     // these are functions to build the dom
 
-
-    function addFoodMenuItem() {
-        var r = document.getElementsByClassName("foodMenuItem");
-
-        r[0].value = menu[0].menuItem
-        r[1].value = menu[1].menuItem;
-        //element.innerHTML = menu[0].menuItem + ":";
-
-
-
-
-        // create list object
-        // var temp1 = document.createElement("DIV");
-        // var temp2 = document.createElement("UL");
-        // element.appendChild(temp1);
-        // temp1.appendChild(temp2);
-        // for (var i = 0; i < sizeReview; i++) {
-        //     tempA = document.createElement("LI");
-        //     tempB = document.createTextNode(itemsReview[i]);
-        //     temp2.appendChild(tempA);
-        //     tempA.appendChild(tempB);
-        // }
+    function addOrderNumber() {
+        document.getElementById("id_order-orderNumber").value = nextOrder;
     }
-
 
     //modify class and id names to get yeti to format reviews here
     function addMikesReviews() {
@@ -117,21 +88,6 @@
             top.appendChild(tempA);
             tempA.appendChild(tempB);
             tempA.appendChild(tempC);
-        }
-    }
-
-    function addReview() {
-        var element = document.getElementById("menu_right");
-        // create list object
-        var temp1 = document.createElement("DIV");
-        var temp2 = document.createElement("UL");
-        element.appendChild(temp1);
-        temp1.appendChild(temp2);
-        for (var i = 0; i < sizeReview; i++) {
-            tempA = document.createElement("LI");
-            tempB = document.createTextNode(itemsReview[i]);
-            temp2.appendChild(tempA);
-            tempA.appendChild(tempB);
         }
     }
 
@@ -187,6 +143,7 @@
             total = total + document.getElementById("quantity" + i).value * itemArray[i];
         }
         document.getElementById("OrderPriceID").value = total;
+        document.getElementById("id_order-total").value = total;
     }
 
     function addTotal() {
@@ -198,45 +155,6 @@
         alert(document.getElementById("myInput"));
     }
 
-    function addMenu() {
-        for (var i = 0; i < sizeMenu; i++) {
-            //create elements
-            var temp1 = document.createElement("DIV");
-            var temp2 = document.createElement("LABEL");
-            var temp3 = document.createElement("LABEL");
-            var temp3b = document.createElement("LABEL");
-            var temp4 = document.createElement("LABEL");
-            var temp5 = document.createElement("LABEL");
-            var temp6 = document.createElement("FORM");
-            var temp7 = document.createElement("INPUT");
-            temp7.type = "number";
-            var temp7b = document.createElement("INPUT");
-            temp7b.type = "text";
-            //createTextNodes
-            var temp8 = document.createTextNode(itemsMenu[i]);		//menu item
-            var temp9 = document.createTextNode(descMenu[i]);		// item description
-            var temp10 = document.createTextNode("$ " + myPrices[i]);		// item prices
-            var temp11 = document.createTextNode("Quantity: ");
-            var temp12 = document.createTextNode("Special: ");
-
-            // attach from top down
-            var element = document.getElementById("menu_left");
-            element.appendChild(temp1);
-            temp1.appendChild(temp2);
-            temp1.appendChild(temp3);
-            temp1.appendChild(temp3b);
-            temp1.appendChild(temp6);
-            temp6.appendChild(temp4);
-            temp4.appendChild(temp11);
-            temp6.appendChild(temp7);
-            temp6.appendChild(temp5);
-            temp5.appendChild(temp12);
-            temp6.appendChild(temp7b);
-            temp2.appendChild(temp8);
-            temp3.appendChild(temp9);
-            temp3b.appendChild(temp10);
-        }
-    }
 </script> {% endblock head-script %} {% block central-content %}
 <div class=flexBox>
     <div class=left id="menu_left">
@@ -271,53 +189,6 @@
         {% csrf_token %}
         <tr>
             <th>
-                <label for="id_total">Total:</label>
-            </th>
-            <td>
-                <input type="number" name="total" step="any" required id="id_total" />
-            </td>
-        </tr>
-        <tr>
-            <th>
-                <label for="id_orderNumber">Ordernumber:</label>
-            </th>
-            <td>
-                <input type="number" name="orderNumber" required id="id_orderNumber" />
-            </td>
-        </tr>
-        <tr>
-            <th>
-                <label for="id_food">Item:</label>
-            </th>
-            <td>
-                <input type="text" name="food" required id="id_food" />
-            </td>
-        </tr>
-        <tr>
-            <th>
-                <label for="id_qty">Qty:</label>
-            </th>
-            <td>
-                <input type="number" name="qty" required id="id_qty" />
-            </td>
-        </tr>
-        <tr>
-            <th>
-                <label for="id_note">Note:</label>
-            </th>
-            <td>
-                <input type="text" name="note" required id="id_note" />
-            </td>
-        </tr>
-        <input name="placeOrder" type="submit" value="Order Now"></input>
-    </form>
-</div>
-<!-- This is to test out splitting the form for order and order items -->
-<div>
-    <form action="" method="post">
-        {% csrf_token %}
-        <tr>
-            <th>
                 <label for="id_order-total">Total:</label>
             </th>
             <td>
@@ -326,10 +197,18 @@
         </tr>
         <tr>
             <th>
-                <label for="id_order-orderNumber">Ordernumber:</label>
+                <label for="id_order-orderNumber">Order Number:</label>
             </th>
             <td>
-                <input type="number" name="order-orderNumber" required id="id_order-orderNumber" />
+                <input type="number" name="order-orderNumber" required id="id_order-orderNumber"/>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <label for="id_order-table">Table:</label>
+            </th>
+            <td>
+                <input type="text" name="order-table" required id="id_order-table"  value="Counter"/>
             </td>
         </tr>
         <br>
@@ -338,7 +217,7 @@
                 <label for="id_orderItem-food">Item:</label>
             </th>
             <td>
-                <input class="foodMenuItem" type="text" name="orderItem-food" required id="id_orderItem-food" />
+                <input type="text" name="orderItem-food" required id="id_orderItem-food" />
             </td>
         </tr>
         <tr>

@@ -126,6 +126,8 @@ def inventory(request):  # To send model data from Database to Javascript/Templa
 def menu(request):
     result = RestaurantName.objects.all()
     myresult = Menu.objects.all()
+    mymyresult = Order.objects.all()
+    mymylist = (list(mymyresult.values()))
     mylist = (list(myresult.values()))
     lst = (list(result.values()))
     mySize = 2
@@ -133,6 +135,7 @@ def menu(request):
         'activePage': 'menu',
         'restaurantName': json.dumps(lst),
         'comboItemsMenu': json.dumps(mylist),
+        'orderList': json.dumps(mymylist),
     }
 
     #form = OrderForm()
@@ -145,11 +148,11 @@ def menu(request):
     #print(orderItemFormSet.is_valid())
 
     #orderForm = OrderForm(prefix='order')
-    #orderItemForm = OrderItemForm(prefix='orderItem')
+    orderItemForm = OrderItemForm()
 
     #print(orderForm)
     #print(orderItemForm)
-
+    #print(orderItemForm.is_valid())
     if 'placeTestOrder' in request.POST:
         orderForm = OrderForm(request.POST, prefix='order')
         orderItemForm = OrderItemForm(request.POST, prefix='orderItem')
@@ -157,7 +160,7 @@ def menu(request):
         #print(orderForm)
         #print(orderForm.is_valid())
         #print(orderItemForm)
-        #print(orderItemForm.is_valid())
+        print(orderItemForm.is_valid())
         if orderForm.is_valid():
 
             num = Order()
@@ -166,6 +169,7 @@ def menu(request):
             num.ready = False
             num.total = orderForm.cleaned_data['total']
             num.orderNumber = orderForm.cleaned_data['orderNumber']
+            num.table = orderForm.cleaned_data['table']
 
             num.save()
 

@@ -94,6 +94,7 @@ class NewMenuItem(forms.Form):
 class OrderForm(forms.Form):
     total = forms.FloatField()
     orderNumber = forms.IntegerField()
+    table = forms.CharField()
     prefix = 'order'
 
 class OrderItemForm(forms.Form):
