@@ -1,5 +1,5 @@
 from django import forms
-from .models import Review, Menu
+from .models import Review, Menu, Order, Entry
 import datetime
 
 class ReviewForm(forms.ModelForm):
@@ -102,3 +102,15 @@ class OrderItemForm(forms.Form):
     qty = forms.IntegerField()
     note = forms.CharField()
     prefix = 'orderItem'
+
+class CompleteOrderItem(forms.ModelForm):
+
+    class Meta:
+        model = Entry
+        fields = ('ready',)
+
+class CompleteOrder(forms.ModelForm):
+
+    class Meta:
+        model = Order
+        fields = ('ready',)

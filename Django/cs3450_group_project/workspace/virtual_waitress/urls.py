@@ -11,6 +11,9 @@ urlpatterns = [
     # /virtual_waitress/cook/
     path('cook/', views.cook, name='cook'),
 
+    path('update/entry/<int:entry_id>/', views.update_entry, name='entry_update'),
+    path('update/order/<int:order_id>/', views.update_order, name='order_update'),
+
     # /virtual_waitress/review/
     path('review/', views.review, name='review'),
 

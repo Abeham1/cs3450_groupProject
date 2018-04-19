@@ -43,21 +43,24 @@
                         {% for item in order.entry_set.all %}
                         {% if not item.ready %}
                         <tr>
-                        {% else %}
-                        <tr class="table-success">
-                        {% endif %}
-                        
-                            <td>
-                                <input type="radio" name="orderselector" value="{{ item.id }}">
-                            </td>
-                            <td>{{ item.menu_item }}</td>
-                            <td>{{ item.qty }}</td>
-                            <td>{{ item.note|truncatewords:5 }}</td>
-                            <td>
-                                {% if item.ready %}
-                                <span>Finished</span>
-                                {% else %}
-                                <button type="button" class="btn btn-primary btn-sm">Item Ready</button>
+                            {% else %}
+                            <tr class="table-success">
+                                {% endif %}
+                                
+                                <td>
+                                    <input type="radio" name="orderselector" value="{{ item.id }}">
+                                </td>
+                                <td>{{ item.food }}</td>
+                                <td>{{ item.qty }}</td>
+                                <td>{{ item.note|truncatewords:5 }}</td>
+                                <td>
+                                    {% if item.ready %}
+                                    <span>Finished</span>
+                                    {% else %}
+                                    <form action="{% url 'virtual_waitress:entry_update' item.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="submit" class="btn btn-primary btn-sm" value="Item Ready">
+                                    </form>
                                 {% endif %}
                             </td>
                         </tr>
@@ -68,7 +71,10 @@
                     </tbody>
                 </table>
                 <div class="text-muted">Time Remaining: </div>
-                <button type="button" class="btn btn-primary btn-lg">Complete Order</button>
+                <form action="{% url 'virtual_waitress:order_update' order.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary btn-lg" value="Complete Order">
+                </form>
             </div>
         </div>
         {% endfor %}
@@ -112,38 +118,6 @@
 <p>No Orders to Display</p>
 {% endfor %}
     
-
-
-
-    <div class="card border-primary mb-3" style="min-width: 95%;">
-        <div class="card-header">Details</div>
-        <div class="card-body">
-
-            <div class="card-header">Onion Rings</div>
-            <div class="card-body" style="display: flex; flex-direction: row; justify-content:space-evenly;">
-
-                <div class="card-header">Recipe</div>
-                <div class="card-body">
-                    <h4 class="card-title">Onion Rings</h4>
-                    <p class="card-text">Lorem ipso text. You could say whatever you want here...</p>
-                </div>
-
-
-                <div class="card-header">Notes from customer</div>
-                <div class="card-body">
-                    <p class="card-text">- Gluten Free</p>
-                    <p class="card-text">- Please use beets instead of onions</p>
-                </div>
-
-            </div>
-
-            <div style="display:flex; flex-direction:row; justify-content:space-evenly; min-width:95%">
-                <button type="button" class="btn btn-success">Finish Item</button>
-                <button type="button" class="btn btn-primary">Call Waiter</button>
-                <button type="button" class="btn btn-danger">Delete Item</button>
-            </div>
-        </div>
-    </div>
 </aside>
 {% endblock %} {% block body-end-script %}
 <script>
