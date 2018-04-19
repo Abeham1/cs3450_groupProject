@@ -23,7 +23,7 @@ def manager(request):
         'restaurantName': json.dumps(lst),
         'tableData': json.dumps(mylist),
     }
-
+	
     #use this as a starting point to delete from the database
     #Number.objects.filter(number = 1).delete()
 
@@ -158,23 +158,24 @@ def menu(request):
         orderItemForm = OrderItemForm(request.POST, prefix='orderItem')
 
         #print(orderForm)
-        #print(orderForm.is_valid())
-        #print(orderItemForm)
+        print(orderItemForm)
         print(orderItemForm.is_valid())
-        if orderForm.is_valid():
-
+        print(orderItemForm.is_valid())
+        
+        if orderForm.is_valid() and Order.objects.filter(orderNumber=orderForm.cleaned_data['orderNumber']).exists() == False:
             num = Order()
-
+            
             num.dateCreated = datetime.datetime.now()
             num.ready = False
             num.total = orderForm.cleaned_data['total']
             num.orderNumber = orderForm.cleaned_data['orderNumber']
             num.table = orderForm.cleaned_data['table']
-
+            
             num.save()
+        else:
+            num = Order.objects.get(orderNumber=orderForm.cleaned_data['orderNumber'])
 
-
-        if orderItemForm.is_valid():
+        if orderItemForm.is_valid() and (orderItemForm.cleaned_data['qty'] != 0) and (orderItemForm.cleaned_data['food'] != 'empty'):
             Item = orderItemForm.cleaned_data['food']
             num2 = Entry(
                 order = num,

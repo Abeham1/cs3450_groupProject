@@ -53,14 +53,19 @@
     // doing some console logging
     var menu = JSON.parse('{{ comboItemsMenu|escapejs }}');
     var order = JSON.parse('{{ orderList|escapejs }}');
-    var nextOrder = order[order.length - 1].id + 1;
+    if (order.length > 0) {
+        var nextOrder = order[order.length - 1].id + 1;
+    }
+    else {
+        nextOrder = 1;
+    }
     console.log(menu[0].menuItem);
     console.log(menu);
     
-    console.log(order[0].id);
-    console.log(order.length);
-    console.log(order[order.length - 1].id);
-    console.log(nextOrder);
+    //console.log(order[0].id);
+    //console.log(order.length);
+    //console.log(order[order.length - 1].id);
+    //console.log(nextOrder);
     // these are variables to read in
     var primaryCard = "card text-white bg-primary mb-3";
     var sizeMenu = menu.length;
@@ -217,7 +222,7 @@
                 <label for="id_orderItem-food">Item:</label>
             </th>
             <td>
-                <input type="text" name="orderItem-food" required id="id_orderItem-food" />
+                <input type="text" name="orderItem-food" id="id_orderItem-food" value=""/>
             </td>
         </tr>
         <tr>
