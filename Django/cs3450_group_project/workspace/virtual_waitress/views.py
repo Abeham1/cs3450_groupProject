@@ -151,16 +151,16 @@ def menu(request):
     orderItemForm = OrderItemForm()
 
     #print(orderForm)
-    #print(orderItemForm)
+    print(orderItemForm)
     #print(orderItemForm.is_valid())
     if 'placeTestOrder' in request.POST:
         orderForm = OrderForm(request.POST, prefix='order')
         orderItemForm = OrderItemForm(request.POST, prefix='orderItem')
 
         #print(orderForm)
-        print(orderItemForm)
-        print(orderItemForm.is_valid())
-        print(orderItemForm.is_valid())
+        #print(orderItemForm)
+        #print(orderItemForm.is_valid())
+        #print(orderItemForm.is_valid())
         
         if orderForm.is_valid() and Order.objects.filter(orderNumber=orderForm.cleaned_data['orderNumber']).exists() == False:
             num = Order()
@@ -172,19 +172,61 @@ def menu(request):
             num.table = orderForm.cleaned_data['table']
             
             num.save()
-        else:
+        elif orderForm.is_valid():
             num = Order.objects.get(orderNumber=orderForm.cleaned_data['orderNumber'])
+            num.total += orderForm.cleaned_data['total']
+            num.save()
 
-        if orderItemForm.is_valid() and (orderItemForm.cleaned_data['qty'] != 0) and (orderItemForm.cleaned_data['food'] != 'empty'):
-            Item = orderItemForm.cleaned_data['food']
+        if orderItemForm.is_valid() and (orderItemForm.cleaned_data['qty1'] != 0) and (orderItemForm.cleaned_data['food1'] != 'empty'):
+            Item = orderItemForm.cleaned_data['food1']
+            num1 = Entry(
+                order = num,
+                food = Menu.objects.get(menuItem=Item),
+                qty = orderItemForm.cleaned_data['qty1'],
+                note = orderItemForm.cleaned_data['note1']
+            )
+            num1.save()
+
+        if orderItemForm.is_valid() and (orderItemForm.cleaned_data['qty2'] != 0) and (orderItemForm.cleaned_data['food2'] != 'empty'):
+            Item = orderItemForm.cleaned_data['food2']
             num2 = Entry(
                 order = num,
                 food = Menu.objects.get(menuItem=Item),
-                qty = orderItemForm.cleaned_data['qty'],
-                note = orderItemForm.cleaned_data['note']
+                qty = orderItemForm.cleaned_data['qty2'],
+                note = orderItemForm.cleaned_data['note2']
+            )
+            num2.save()
+
+        if orderItemForm.is_valid() and (orderItemForm.cleaned_data['qty3'] != 0) and (orderItemForm.cleaned_data['food3'] != 'empty'):
+            Item = orderItemForm.cleaned_data['food3']
+            num3 = Entry(
+                order = num,
+                food = Menu.objects.get(menuItem=Item),
+                qty = orderItemForm.cleaned_data['qty3'],
+                note = orderItemForm.cleaned_data['note3']
+            )
+            num3.save()
+
+        if orderItemForm.is_valid() and (orderItemForm.cleaned_data['qty4'] != 0) and (orderItemForm.cleaned_data['food4'] != 'empty'):
+            Item = orderItemForm.cleaned_data['food4']
+            num4 = Entry(
+                order = num,
+                food = Menu.objects.get(menuItem=Item),
+                qty = orderItemForm.cleaned_data['qty4'],
+                note = orderItemForm.cleaned_data['note4']
+            )
+            num4.save()
+
+        if orderItemForm.is_valid() and (orderItemForm.cleaned_data['qty5'] != 0) and (orderItemForm.cleaned_data['food5'] != 'empty'):
+            Item = orderItemForm.cleaned_data['food5']
+            num5 = Entry(
+                order = num,
+                food = Menu.objects.get(menuItem=Item),
+                qty = orderItemForm.cleaned_data['qty5'],
+                note = orderItemForm.cleaned_data['note5']
             )
 
-            num2.save()
+            num5.save()
 
 
 
