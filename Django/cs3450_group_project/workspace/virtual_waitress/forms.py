@@ -1,5 +1,5 @@
 from django import forms
-from .models import Review, Menu
+from .models import Review, Menu, Order, Entry
 import datetime
 
 class ReviewForm(forms.ModelForm):
@@ -99,6 +99,7 @@ class OrderForm(forms.Form):
 
 class OrderItemForm(forms.Form):
     # Dynamically generate food, qty, note depending on the size of the menu
+
     food1 = forms.CharField()
     qty1 = forms.IntegerField()
     note1 = forms.CharField()
@@ -115,3 +116,18 @@ class OrderItemForm(forms.Form):
     qty5 = forms.IntegerField()
     note5 = forms.CharField()
     prefix = 'orderItem'
+
+#abandoned from cook using forms
+class CompleteOrderItem(forms.ModelForm):
+
+    class Meta:
+        model = Entry
+        fields = ('ready',)
+
+#abandoned from cook using forms
+class CompleteOrder(forms.ModelForm):
+
+    class Meta:
+        model = Order
+        fields = ('ready',)
+

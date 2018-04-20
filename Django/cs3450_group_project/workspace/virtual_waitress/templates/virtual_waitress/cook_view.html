@@ -3,24 +3,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> {% endblock %} {% block page-style %}
-<!-- {{ block.super }}
-    <style>
-    main, aside {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 10px;
-    }
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> {% endblock %}
 
-    .card-header{
-        display: inline-block;
-        align-items: center;
-        height:100%;
-        width:170px;
-    }
-    </style> -->
-{% endblock %} {% block central-content %}
+{% block register-on-load-scripts %}
+
+{% endblock register-on-load-scripts %}
+{% block central-content %}
 <main>
     <div class="card border-primary mb-3" style="min-width: 95%;overflow: scroll;">
         <div class="card-header">Cook Work Queue</div>
@@ -43,21 +31,24 @@
                         {% for item in order.entry_set.all %}
                         {% if not item.ready %}
                         <tr>
-                        {% else %}
-                        <tr class="table-success">
-                        {% endif %}
-                        
-                            <td>
-                                <input type="radio" name="orderselector" value="{{ item.id }}">
-                            </td>
-                            <td>{{ item.menu_item }}</td>
-                            <td>{{ item.qty }}</td>
-                            <td>{{ item.note|truncatewords:5 }}</td>
-                            <td>
-                                {% if item.ready %}
-                                <span>Finished</span>
-                                {% else %}
-                                <button type="button" class="btn btn-primary btn-sm">Item Ready</button>
+                            {% else %}
+                            <tr class="table-success">
+                                {% endif %}
+                                
+                                <td>
+                                    <input type="radio" name="orderselector" value="{{ item.id }}" onchange="displayDetails( {{ item.id }} )">
+                                </td>
+                                <td>{{ item.food }}</td>
+                                <td>{{ item.qty }}</td>
+                                <td>{{ item.note|truncatewords:5 }}</td>
+                                <td>
+                                    {% if item.ready %}
+                                    <span>Finished</span>
+                                    {% else %}
+                                    <form action="{% url 'virtual_waitress:entry_update' item.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="submit" class="btn btn-primary btn-sm" value="Item Ready">
+                                    </form>
                                 {% endif %}
                             </td>
                         </tr>
@@ -67,29 +58,24 @@
 
                     </tbody>
                 </table>
-                <div class="text-muted">Time Remaining: </div>
-                <button type="button" class="btn btn-primary btn-lg">Complete Order</button>
+                <div class="text-muted" id="Order{{ order.id }}" onload="initializeClock(this, {{ order.dateCreated }} )">
+                    <p>Time Remaining:</p>
+                    <div>
+                        <span class="minutes"></span>
+                        <div class="smalltext">Minutes</div>
+                    </div>
+                    <div>
+                        <span class="seconds"></span>
+                        <div class="smalltext">Seconds</div>
+                    </div>
+                </div>
+                <form action="{% url 'virtual_waitress:order_update' order.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary btn-lg" value="Complete Order">
+                </form>
             </div>
         </div>
         {% endfor %}
-
-        <div class="card-body" id="thing1">
-            <div class="card border-primary mb-3" style="min-width: 20rem;">
-                <div class="card-body">
-                    <div class="card-header">
-                        Meal #266
-                        <br/>Table 9
-                        <br/>Time Remaining
-                        <br/>
-                        <p id="demo"></p>
-                        <button type="button" class="btn btn-success">Finish</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-
     </div>
 </main>
 
@@ -102,7 +88,7 @@
             <h4 class="card-title">Recipe</h4>
             {% lorem 3 p %}
             <h4 class="card-title">Customer Notes</h4>
-            <p class="card-text">{{ item.note }}</p>
+            <p class="card-text">{{ item.note|linebreaks }}</p>
         </div>
     </div>
     {% empty %}
@@ -112,69 +98,60 @@
 <p>No Orders to Display</p>
 {% endfor %}
     
-
-
-
-    <div class="card border-primary mb-3" style="min-width: 95%;">
-        <div class="card-header">Details</div>
-        <div class="card-body">
-
-            <div class="card-header">Onion Rings</div>
-            <div class="card-body" style="display: flex; flex-direction: row; justify-content:space-evenly;">
-
-                <div class="card-header">Recipe</div>
-                <div class="card-body">
-                    <h4 class="card-title">Onion Rings</h4>
-                    <p class="card-text">Lorem ipso text. You could say whatever you want here...</p>
-                </div>
-
-
-                <div class="card-header">Notes from customer</div>
-                <div class="card-body">
-                    <p class="card-text">- Gluten Free</p>
-                    <p class="card-text">- Please use beets instead of onions</p>
-                </div>
-
-            </div>
-
-            <div style="display:flex; flex-direction:row; justify-content:space-evenly; min-width:95%">
-                <button type="button" class="btn btn-success">Finish Item</button>
-                <button type="button" class="btn btn-primary">Call Waiter</button>
-                <button type="button" class="btn btn-danger">Delete Item</button>
-            </div>
-        </div>
-    </div>
 </aside>
 {% endblock %} {% block body-end-script %}
 <script>
-    // Set the date we're counting down to
-    var countDownDate = new Date();
-    countDownDate.setMinutes(countDownDate.getMinutes() + 10);
 
-    // Update the count down every 1 second
-    var x = setInterval(function () {
-
-        // Get todays date and time
-        var now = new Date().getTime();
-
-        // Find the distance between now an the count down date
-        var distance = countDownDate - now;
-
-        // Time calculations for days, hours, minutes and seconds
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        // Display the result in the element with id="demo"
-        document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-            + minutes + "m " + seconds + "s ";
-
-        // If the count down is finished, write some text 
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("demo").innerHTML = "EXPIRED";
+    var previouslyDisplayed = null
+    function displayDetails(orderItemId){
+        if (previouslyDisplayed != null) {
+            previouslyDisplayed.style.display = "none"
         }
-    }, 1000);
+        
+        let htmlID = "OrderItem" + orderItemId
+        let toDisplay = document.getElementById(htmlID)
+        toDisplay.style.display="block"
+
+        previouslyDisplayed = toDisplay
+    }
+    
+    // Code adapted from https://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
+    function getTimeRemaining(endtime) {
+        let t = Date.parse(endtime) - Date.parse(new Date());
+        let seconds = Math.floor((t / 1000) % 60);
+        let minutes = Math.floor((t / 1000 / 60) % 60);
+        let hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+        let days = Math.floor(t / (1000 * 60 * 60 * 24));
+        return {
+          'total': t,
+          'days': days,
+          'hours': hours,
+          'minutes': minutes,
+          'seconds': seconds
+        };
+      }
+      
+      function initializeClock(id, starttime) {
+        let deadline = new Date(Date.parse(starttime) + 10 * 60 * 1000);
+        let clock = document.getElementById(id);
+        let minutesSpan = clock.querySelector('.minutes');
+        let secondsSpan = clock.querySelector('.seconds');
+      
+        function updateClock() {
+          let t = getTimeRemaining(deadline);
+      
+          daysSpan.innerHTML = t.days;
+          hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+          minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+          secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+      
+          if (t.total <= 0) {
+            clearInterval(timeinterval);
+          }
+        }
+      
+        updateClock();
+        var timeinterval = setInterval(updateClock, 1000);
+      }
 
 </script> {% endblock %}

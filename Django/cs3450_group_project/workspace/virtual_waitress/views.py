@@ -1,9 +1,10 @@
 from pprint import pprint
-from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.http import HttpResponseRedirect, HttpResponse, Http404, HttpResponseNotAllowed
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 import json
 from virtual_waitress.models import RestaurantName, Order, Entry, Menu, Number, Review
-from virtual_waitress.forms import NewMenuItem, ReviewForm, OrderForm, OrderItemForm
+from virtual_waitress.forms import NewMenuItem, ReviewForm, OrderForm, OrderItemForm, CompleteOrderItem, CompleteOrder
 from django.forms import formset_factory
 import datetime
 
@@ -63,13 +64,58 @@ def cook(request):
     open_orders = Order.objects.filter(ready=False).order_by('dateCreated')
 
     restaurant_names = list(RestaurantName.objects.all().values())
+
+    # if request.method == 'POST':
+    #     entry_form = CompleteOrderItem(request.POST)
+    #     order_form = CompleteOrder(request.POST)
+        
+    #     if entry_form.is_valid():
+    #         order_item = entry_form.save(commit=False)
+    #         print(order_item)
+    #         order_item.ready = True
+    #         order_item.save()
+        
+    #     if order_form.is_valid():
+    #         order = order_form.save(commit=False)
+    #         order.ready = True
+    #         order.save()
+
+    #     return HttpResponseRedirect(reverse('virtual_waitress:cook'))
+
+    # entry_form = CompleteOrderItem()
+    # order_form = CompleteOrder()
+
     context = {
         'activePage': 'cook',
         'restaurantName': json.dumps(restaurant_names),
         'orders': open_orders,
+        # 'orderForm':order_form,
+        # 'entryForm':entry_form,
     }
     return render(request, 'virtual_waitress/cook_view.html', context)
 
+
+def update_entry(request, entry_id):
+    entry = get_object_or_404(Entry, pk=entry_id)
+
+    if request.method != 'POST':
+        return HttpResponseNotAllowed(request)
+
+    entry.ready = True
+    entry.save()
+    
+    return HttpResponseRedirect(reverse('virtual_waitress:cook'))
+
+def update_order(request, order_id):
+    order = get_object_or_404(Order, pk=order_id)
+
+    if request.method != 'POST':
+        return HttpResponseNotAllowed(request)
+
+    order.ready = True
+    order.save()
+    
+    return HttpResponseRedirect(reverse('virtual_waitress:cook'))
 
 def review(request):
     #1. get order number
