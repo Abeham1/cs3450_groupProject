@@ -44,6 +44,7 @@ class Order(models.Model):
     ready = models.BooleanField(default=False)
     total = models.FloatField()
     orderNumber = models.IntegerField()
+    table = models.CharField(default='counter', max_length=50)
 
     def __str__(self):
         return str(self.orderNumber)
