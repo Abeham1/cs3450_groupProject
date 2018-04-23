@@ -18,8 +18,10 @@ def manager(request):
     mymylist = (list(mymyresult.values()))
     mylist = (list(myresult.values()))
     lst = (list(result.values()))
-    form = ChangeTable()
-    print(form)
+    #form = ChangeTable()
+    #form.oldOrder = 1
+    #form.newTable = "Bar"
+    #print(form)
     context = {
         'activePage': 'manager',
         'comboItemsMenu': json.dumps(mymylist),
@@ -29,17 +31,18 @@ def manager(request):
 	
     #use this as a starting point to delete from the database
     #Number.objects.filter(number = 1).delete()
-
-    if 'adjustTableSubmit' in request.POST:
+    #form = ChangeTable()
+    #print(form.is_valid)
+    if 'adjustTableSubmit' in request.POST:                                     # fifth form on manager complete
         form = ChangeTable(request.POST)
-        print(form.is_valid)
-        if form.is_valid:
-            #order = Order.objects.get(orderNumber = form.cleaned_data['oldOrder'])
-            #order.table = form.cleaned_data['newTable']
-            #order.save()
+        print(form.is_valid())
+        if form.is_valid():
+            order = Order.objects.get(orderNumber = form.cleaned_data['oldOrder'])
+            order.table = form.cleaned_data['newTable']
+            order.save()
 			
     # Removes menuitems from the admin page
-    if 'adjustPriceSubmit' in request.POST:
+    if 'adjustPriceSubmit' in request.POST:                                     # first form on manager complete
         form = ChangePrice(request.POST)
         if form.is_valid():
     #        num = form.cleaned_data['badOrder']
@@ -49,13 +52,13 @@ def manager(request):
             order.total = form.cleaned_data['newPrice']
             order.save()
 
-    if 'removeItem' in request.POST:
+    if 'removeItem' in request.POST:                                            # fourth form on manager Complete
         badItem = request.POST.get('removeItem')
         Menu.objects.filter(menuItem = badItem).delete()
-        #Menu.objects
+        Menu.objects
 
     # Adds a new meun item from the manager page
-    if 'newMenuItemSubmit' in request.POST:
+    if 'newMenuItemSubmit' in request.POST:                                     # Third form on manager complete
         form = NewMenuItem(request.POST)
         print(form)
         print(form.is_valid())
@@ -75,7 +78,10 @@ def manager(request):
         # print('price')
         # print(request.POST.get('newItemPrice'))
         # print('object')
-
+    
+    if 'removeFoodSubmit' in request.POST:                                      # sixth form on manager complete
+        badItem = request.POST.get('changeOrder')
+        Entry.objects.filter(pk = badItem).delete()
 
     return render(request, 'virtual_waitress/manager.html', context)
 

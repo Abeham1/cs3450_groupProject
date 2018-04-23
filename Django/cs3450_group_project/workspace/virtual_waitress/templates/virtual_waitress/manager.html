@@ -69,7 +69,7 @@
 			temp3.innerHTML = entryData[k].id;
 			temp2.appendChild(temp3);
 			temp3 = document.createElement("TD");
-			temp3.innerHTML = menuData[entryData[k].food_id-1].menuItem;
+			temp3.innerHTML = menuData[entryData[k].food_id - 1].menuItem;
 			temp2.appendChild(temp3);
 			temp3 = document.createElement("TD");
 			temp3.innerHTML = entryData[k].qty;
@@ -80,9 +80,9 @@
 			temp3 = document.createElement("TD");
 			temp3.innerHTML = entryData[k].ready;
 			temp2.appendChild(temp3);
-		}	
+		}
 	}
-	
+
 	function getTableData() {
 		var temp1 = document.getElementById("table1");
 		for (var j = 0; j < tableData.length; j++) {
@@ -90,6 +90,9 @@
 			temp1.appendChild(temp2);
 
 			var temp3 = document.createElement("TD");
+			temp3.innerHTML = tableData[j].orderNumber;
+			temp2.appendChild(temp3);
+			temp3 = document.createElement("TD");
 			temp3.innerHTML = tableData[j].id;
 			temp2.appendChild(temp3);
 			temp3 = document.createElement("TD");
@@ -98,7 +101,7 @@
 			temp3 = document.createElement("TD");
 			temp3.innerHTML = tableData[j].table;
 			temp2.appendChild(temp3);
-			
+
 			temp3 = document.createElement("TD");
 			temp3.innerHTML = tableData[j].ready;
 			temp2.appendChild(temp3);
@@ -118,6 +121,7 @@
 			<table id="table1" class="table table-primary">
 				<tr class="table-info">
 					<th>Order Number</th>
+					<th>PK</th>
 					<th>Price</th>
 					<th>Table</th>
 					<!-- As a waiter / waitress I need to identify which table / location an order relates to -->
@@ -137,7 +141,7 @@
 		<div style="background-color: red;">
 			<table id="table2" class="table table-primary">
 				<tr class="table-info">
-					<th>Order</th>
+					<th>PK</th>
 					<th>ID</th>
 					<th>Food</th>
 					<th>qty</th>
@@ -156,9 +160,23 @@
 			<div class="card border-primary mb-3" style="max-width: 20rem;">
 				<form action="" method="post">
 					{% csrf_token %}
-					<tr><th><label for="id_badOrder">Order: </label></th><td><input type="number" name="badOrder" id="id_badOrder" required /></td></tr>
-<tr><th><label for="id_newPrice">New price: </label></th><td><input type="number" name="newPrice" id="id_newPrice" required step="any" /></td></tr>
-				<input type="submit" name="adjustPriceSubmit" value="Submit">
+					<tr>
+						<th>
+							<label for="id_badOrder">Order (Use Order Number): </label>
+						</th>
+						<td>
+							<input type="number" name="badOrder" id="id_badOrder" required />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<label for="id_newPrice">New price: </label>
+						</th>
+						<td>
+							<input type="number" name="newPrice" id="id_newPrice" required step="any" />
+						</td>
+					</tr>
+					<input type="submit" name="adjustPriceSubmit" value="Submit">
 				</form>
 			</div>
 			<!-- As a waiter / waitress, I would like to split or combine different bills -->
@@ -242,17 +260,32 @@
 			<div class="card border-primary mb-3" style="max-width: 20rem;">
 				<form action="" method="post">
 					{% csrf_token %}
-					<tr><th><label for="id_dldOrder">Table Order:</label></th><td><input type="number" name="oldOrder" required id="id_oldOrder" /></td></tr>
-<tr><th><label for="id_newTable">Newtable:</label></th><td><input type="text" name="newTable" required maxlength="60" id="id_newTable" /></td></tr>
+					<tr>
+						<th>
+							<label for="id_oldOrder">Order Number:</label>
+						</th>
+						<td>
+							<input type="number" name="oldOrder" required id="id_oldOrder" />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<label for="id_newTable">Newtable:</label>
+						</th>
+						<td>
+							<input type="text" name="newTable" maxlength="60" required id="id_newTable" />
+						</td>
+					</tr>
 					<input type="submit" name="adjustTableSubmit" value="Submit">
 				</form>
 			</div>
 			<div class="card border-primary mb-3" style="max-width: 20rem;">
-				<form action="">
-					<div class="card-header" style="margin-bottom: 10px;">6. Change Order</div>
-					Order Number:
-					<input type="text" name="changeOrder">
-					<input type="submit" name="changeOrderSubmit" value="Submit">
+				<form action="" method="post">
+					{% csrf_token %}
+					<div class="card-header" style="margin-bottom: 10px;">6. Remove Food From Order</div>
+					Food ID Number:
+					<input type="number" name="changeOrder">
+					<input type="submit" name="removeFoodSubmit" value="Submit">
 					<!-- this should probably just kick to menu with pre-populated fields -->
 			</div>
 		</div>
