@@ -23,6 +23,6 @@ urlpatterns = [
     # /virtual_waitress/
     path('', views.menu, name='menu'),
 
-    # returning to menu from any other page
-    path('menu/', views.menu, name='menu'),
+    # # returning to menu from any other page
+    # path('menu/', views.menu, name='menu'),
 ]

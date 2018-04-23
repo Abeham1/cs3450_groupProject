@@ -170,21 +170,21 @@ def inventory(request):  # To send model data from Database to Javascript/Templa
 
 
 def menu(request):
-    result = RestaurantName.objects.all()
-    myresult = Menu.objects.all()
-    mymyresult = Order.objects.all()
-    mymylist = (list(mymyresult.values()))
-    mylist = (list(myresult.values()))
-    lst = (list(result.values()))
+    names = RestaurantName.objects.all()
+    menu_items = Menu.objects.all()
+    orders = Order.objects.all()
+    orders_list = (list(orders.values()))
+    menu_items_list = (list(menu_items.values()))
+    name_list = (list(names.values()))
     mySize = 2
 
     review_list = list(Review.objects.all().values())
-    print(review_list)
+    # print(review_list)
     context = {
         'activePage': 'menu',
-        'restaurantName': json.dumps(lst),
-        'comboItemsMenu': json.dumps(mylist),
-        'orderList': json.dumps(mymylist),
+        'restaurantName': json.dumps(name_list),
+        'comboItemsMenu': json.dumps(menu_items_list),
+        'orderList': json.dumps(orders_list),
         'review_list': json.dumps(review_list),
     }
 
@@ -198,10 +198,10 @@ def menu(request):
     #print(orderItemFormSet.is_valid())
 
     #orderForm = OrderForm(prefix='order')
-    orderItemForm = OrderItemForm()
+    
 
     #print(orderForm)
-    print(orderItemForm)
+    # print(orderItemForm)
     #print(orderItemForm.is_valid())
     if 'placeTestOrder' in request.POST:
         orderForm = OrderForm(request.POST, prefix='order')
@@ -278,12 +278,9 @@ def menu(request):
 
             num5.save()
 
-
-
-
-
-
-
+    else:
+        # We aren't doing a POST so we must want a clean form
+        orderItemForm = OrderItemForm()
 
         #     # num2.order = Order.objects.get(num.orderNumber)
         #     # num2.food = Menu.objects.get(menuItem='Drink')
