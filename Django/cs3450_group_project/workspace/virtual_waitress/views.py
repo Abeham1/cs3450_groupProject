@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 import json
 from virtual_waitress.models import RestaurantName, Order, Entry, Menu, Number, Review
-from virtual_waitress.forms import NewMenuItem, ReviewForm, OrderForm, OrderItemForm, CompleteOrderItem, CompleteOrder, ChangePrice
+from virtual_waitress.forms import NewMenuItem, ReviewForm, OrderForm, OrderItemForm, CompleteOrderItem, CompleteOrder, ChangePrice, ChangeTable
 from django.forms import formset_factory
 import datetime
 
@@ -18,6 +18,8 @@ def manager(request):
     mymylist = (list(mymyresult.values()))
     mylist = (list(myresult.values()))
     lst = (list(result.values()))
+    form = ChangeTable()
+    print(form)
     context = {
         'activePage': 'manager',
         'comboItemsMenu': json.dumps(mymylist),
@@ -28,6 +30,14 @@ def manager(request):
     #use this as a starting point to delete from the database
     #Number.objects.filter(number = 1).delete()
 
+    if 'adjustTableSubmit' in request.POST:
+        form = ChangeTable(request.POST)
+        print(form.is_valid)
+        if form.is_valid:
+            #order = Order.objects.get(orderNumber = form.cleaned_data['oldOrder'])
+            #order.table = form.cleaned_data['newTable']
+            #order.save()
+			
     # Removes menuitems from the admin page
     if 'adjustPriceSubmit' in request.POST:
         form = ChangePrice(request.POST)
@@ -37,7 +47,6 @@ def manager(request):
 	#num = Order.objects.get(orderNumber=orderForm.cleaned_data['orderNumber'])
             order = Order.objects.get(orderNumber = form.cleaned_data['badOrder'])
             order.total = form.cleaned_data['newPrice']
-            print(order)
             order.save()
 
     if 'removeItem' in request.POST:

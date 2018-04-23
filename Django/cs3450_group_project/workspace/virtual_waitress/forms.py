@@ -92,6 +92,10 @@ class NewMenuItem(forms.Form):
 class ChangePrice(forms.Form):
 	badOrder = forms.IntegerField()
 	newPrice = forms.FloatField()
+	
+class ChangeTable(forms.Form):
+	oldOrder = forms.IntegerField()
+	newTable = forms.CharField(max_length=60)
 
 #default=datetime.datetime.now()
 class OrderForm(forms.Form):

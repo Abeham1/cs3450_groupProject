@@ -240,12 +240,11 @@
 			</div>
 			<!-- As a manager, I need to be able to override details about an open order (menu items, price, location, etc.) -->
 			<div class="card border-primary mb-3" style="max-width: 20rem;">
-				<form action="">
-					<div class="card-header" style="margin-bottom: 10px;">5. Change table</div>
-					Order Number:
-					<input type="text" name="changeTableOrderNumber"> New table:
-					<input type="text" name="newTable">
-					<input type="submit" name="changeTableSubmit" value="Submit">
+				<form action="" method="post">
+					{% csrf_token %}
+					<tr><th><label for="id_dldOrder">Table Order:</label></th><td><input type="number" name="oldOrder" required id="id_oldOrder" /></td></tr>
+<tr><th><label for="id_newTable">Newtable:</label></th><td><input type="text" name="newTable" required maxlength="60" id="id_newTable" /></td></tr>
+					<input type="submit" name="adjustTableSubmit" value="Submit">
 				</form>
 			</div>
 			<div class="card border-primary mb-3" style="max-width: 20rem;">
