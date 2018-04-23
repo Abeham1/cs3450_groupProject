@@ -46,6 +46,7 @@
         addMikesMenu();
         addMikesReviews();
         addOrderNumber();
+        addMenuToForm();
         //addListenerQty();
     }
 </script> {% endblock register-on-load-scripts %} {% block head-script %}
@@ -85,6 +86,9 @@
 
     function addOrderNumber() {
         document.getElementById("id_order-orderNumber").value = nextOrder;
+    }
+
+    function addMenuToForm() {
         for (var i = 0; i < sizeMenu; i++) {
             var temp = i + 1;
             document.getElementById("id_orderItem-food" + temp).value = menu[i].menuItem;
@@ -178,7 +182,9 @@
             temp7.addEventListener("input", addSubotal);
             temp7b = document.createElement("INPUT");
             temp7b.type = "text";
+            temp7b.id = "note" + i;
             temp7b.placeholder = "Special Requests";
+            temp7b.onkeyup = function() {updateNote()};
             top.appendChild(tempA);
             tempA.appendChild(tempB);
             tempA.appendChild(tempDiv);
@@ -200,6 +206,17 @@
             document.getElementById("id_orderItem-qty" + j).value = document.getElementById("quantity" + i).value;
         }
         document.getElementById("id_order-total").value = total;
+    }
+    
+    function updateNote() {
+        for (var i = 0, j = 1; i < itemArray.length; i++, j++) {
+            if (document.getElementById("note" + i).value != "") {
+                document.getElementById("id_orderItem-note" + j).value = document.getElementById("note" + i).value;
+            }
+            else {
+                document.getElementById("id_orderItem-note" + j).value = "None";
+            }
+        }
     }
 
     function addTotal() {
