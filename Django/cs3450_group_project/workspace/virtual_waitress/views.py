@@ -177,11 +177,15 @@ def menu(request):
     mylist = (list(myresult.values()))
     lst = (list(result.values()))
     mySize = 2
+
+    review_list = list(Review.objects.all().values())
+    print(review_list)
     context = {
         'activePage': 'menu',
         'restaurantName': json.dumps(lst),
         'comboItemsMenu': json.dumps(mylist),
         'orderList': json.dumps(mymylist),
+        'review_list': json.dumps(review_list),
     }
 
     #form = OrderForm()
