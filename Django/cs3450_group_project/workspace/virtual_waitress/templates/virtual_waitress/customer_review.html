@@ -15,60 +15,73 @@
     }
 </script> {% endblock register-on-load-scripts %} {% block central-content %}
 <main>
-    <h1>Thank you for your purchase!</h1>
-    <h3>Leave us a review</h3>
-    <form method="POST" class="post-review">{% csrf_token %}
-    <div class="card border-primary mb-3" style="max-width: 100%;">
-        <div class="card-header">Your Information (optional)</div>
-        <div class="card-body">
-            <p class="card-text">Your information will only be used to contact you if you had any problems with our service or your meal</p>
-            <div class="form-group">
-                <label class="col-form-label" for="inputDefault">Name:</label>
-                {{ form.name }}
-                <!--<input type="text" class="form-control" placeholder="Your name" id="name"> <! Input Name -->
-                <small id="nameHelp" class="form-text text-muted">You may leave a review as annonymous</small>
-            </div>
-            <div class="form-group">
-                <label class="col-form-label" for="inputDefault">Email:</label>
-                <!--<input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"> <! Input Email -->
-                {{ form.email }}
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <div class="form-group">
-                <label class="col-form-label" for="inputDefault">Phone:</label>
-                <!-- <input type="text" class="form-control" placeholder="(xxx) xxx-xxxx" id="phone"> <! Input Phone number -->
-                {{ form.phone }}
-            </div>
+    <div class="card border-primary mb-3" style="max-width: 100%; min-width: 75%">
+        <div class="card-header">
+            <h1>Thank you for your purchase!</h1>
+            <h3>Leave us a review</h3>
         </div>
-    </div>
-    <div class="card border-primary mb-3" style="max-width: 100%; min-width: 500px">
-        <div class="card-header">Items from your order</div>
         <div class="card-body">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Item Name</th>
-                        <th scope="col">Item Description</th>
-                        <th scope="col">Your Review</th>
-                        <th scope="col">Star Rating</th>
-                    </tr>
-                </thead>
+        <form method="POST" class="post-review">{% csrf_token %}
+            <div class="card border-primary mb-3" style="max-width: 100%;">
+                <div class="card-header">Your Information (optional)</div>
+                <div class="card-body">
+                    <p class="card-text">Your information will only be used to contact you if you had any problems with our service or your meal</p>
+                    <div class="form-group">
+                        <label class="col-form-label" for="inputDefault">Name:</label>
+                        {{ form.name }}
+                        <!--<input type="text" class="form-control" placeholder="Your name" id="name"> <! Input Name -->
+                        <small id="nameHelp" class="form-text text-muted">You may leave a review as annonymous</small>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" for="inputDefault">Email:</label>
+                        <!--<input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"> <! Input Email -->
+                        {{ form.email }}
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" for="inputDefault">Phone:</label>
+                        <!-- <input type="text" class="form-control" placeholder="(xxx) xxx-xxxx" id="phone"> <! Input Phone number -->
+                        {{ form.phone }}
+                    </div>
+                </div>
+            </div>
+            <div class="card border-primary mb-3" style="max-width: 100%; min-width: 500px">
+                <div class="card-header">Items from your order</div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Item Name</th>
+                                <th scope="col">Item Description</th>
+                                <th scope="col">Your Review</th>
+                                <th scope="col">Star Rating</th>
+                            </tr>
+                        </thead>
 
-                <tbody id="orderReviews">
-                    <tr>
-                        <td>{{ form.menuItem }}</td>
-                        <td>Lorum ipso text</td>
-                        <td><div>{{ form.review }}</div></td>
-                        <td><div>{{ form.starRating }}</div></td>
-                    </tr>
-                </tbody>
-            </table>
-           <button type="submit" class="btn btn-primary btn-lg">Submit Reviews</button>
-        </div>
+                        <tbody id="orderReviews">
+                            <tr>
+                                <td>{{ form.menuItem }}</td>
+                                <td>Lorum ipso text</td>
+                                <td>
+                                    <div>{{ form.review }}</div>
+                                </td>
+                                <td>
+                                    <div>{{ form.starRating }}</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-primary btn-lg">Submit Reviews</button>
+                </div>
+            </div>
+        </form>
+        </body>
     </div>
-    </form>
-    </body>
+    </div>
+    </div>
 </main>
+
+
 <!--
 <script>
     var menu_items = "{{ menu_items|safe }}";
@@ -157,6 +170,6 @@
 
 </script>
 -->
- {% endblock %}
+{% endblock %}
 
 <!-- <button type="submit" class="btn btn-primary btn-lg">Submit Reviews</button> -->

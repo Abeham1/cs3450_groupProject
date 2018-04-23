@@ -9,8 +9,8 @@
 
 {% endblock register-on-load-scripts %}
 {% block central-content %}
-<main>
-    <div class="card border-primary mb-3" style="min-width: 95%;overflow: scroll;">
+<main style="align-content: center;">
+    <div class="card border-primary mb-3" style="min-width: 95%; overflow-y: auto; margin: 20px;">
         <div class="card-header">Cook Work Queue</div>
 
         {% for order in orders %}
@@ -83,7 +83,7 @@
 {% for order in orders %}
     {% for item in order.entry_set.all %}
     <div class="card border-info mb-3" style="max-width: 90%;  margin:auto; display:none;", id="OrderItem{{ item.id }}">
-        <div class="card-header">Details for {{ item.menu_item }} on order {{ item.order }}</div>
+        <div class="card-header">Details for {{ item.food }} on order {{ item.order }}</div>
         <div class="card-body">
             <h4 class="card-title">Recipe</h4>
             {% lorem 3 p %}

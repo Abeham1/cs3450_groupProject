@@ -153,7 +153,7 @@
 	<div class="card-body">
 		<div class="FlexDiv" style="align-content: center">
 			<!-- adjust order price -->
-			<div class="card border-primary mb-3" style="max-width: 20rem;">
+			<div class="card border-primary mb-3" style="width: 33%;">
 				<form action="" method="post">
 					{% csrf_token %}
 					<tr><th><label for="id_badOrder">Order: </label></th><td><input type="number" name="badOrder" id="id_badOrder" required /></td></tr>
@@ -162,7 +162,7 @@
 				</form>
 			</div>
 			<!-- As a waiter / waitress, I would like to split or combine different bills -->
-			<div class="card border-primary mb-3" style="max-width: 20rem;">
+			<div class="card border-primary mb-3" style="width: 33%;">
 				<form action="">
 					<div class="card-header" style="margin-bottom: 10px;">2. Split Bill</div>
 					Order Number:
@@ -185,7 +185,8 @@
 					<input type="submit" name="splitBillSubmit" value="Submit">
 				</form>
 			</div>
-			<div class="card border-primary mb-3" style="max-width: 20rem;">
+			<div class="card border-primary mb-3" style="width: 33%;">
+				<div class="card-header" style="margin-bottom: 10px;">3. Add menu item</div>
 				<!-- As a manager, I would like to delete, create, and manage menu items 
 			<form action="" method="post">
 				{% csrf_token %}
@@ -200,36 +201,37 @@
 			</form>-->
 				<form action="" method="post">
 					{% csrf_token %}
+					<table>
+						<tr>
+							<th>
+								<label for="id_menuItem">Menuitem:</label>
+							</th>
+							<td>
+								<input type="text" name="menuItem" maxlength="60" required id="id_menuItem" />
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label for="id_menuDescription">Menudescription:</label>
+							</th>
+							<td>
+								<input type="text" name="menuDescription" maxlength="400" required id="id_menuDescription" />
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label for="id_menuPrice">Menuprice:</label>
+							</th>
+							<td>
+								<input type="number" name="menuPrice" step="any" required id="id_menuPrice" />
+							</td>
+						</tr>
 
-					<tr>
-						<th>
-							<label for="id_menuItem">Menuitem:</label>
-						</th>
-						<td>
-							<input type="text" name="menuItem" maxlength="60" required id="id_menuItem" />
-						</td>
-					</tr>
-					<tr>
-						<th>
-							<label for="id_menuDescription">Menudescription:</label>
-						</th>
-						<td>
-							<input type="text" name="menuDescription" maxlength="400" required id="id_menuDescription" />
-						</td>
-					</tr>
-					<tr>
-						<th>
-							<label for="id_menuPrice">Menuprice:</label>
-						</th>
-						<td>
-							<input type="number" name="menuPrice" step="any" required id="id_menuPrice" />
-						</td>
-					</tr>
+					</table>
 					<input type="submit" name="newMenuItemSubmit" value="Submit">
 				</form>
-
 			</div>
-			<div class="card border-primary mb-3" style="max-width: 20rem;">
+			<div class="card border-primary mb-3" style="width: 33%;">
 				<form action="" method="post">
 					{% csrf_token %}
 					<div class="card-header" style="margin-bottom: 10px;">4. Remove Menu item</div>
@@ -239,16 +241,16 @@
 				</form>
 			</div>
 			<!-- As a manager, I need to be able to override details about an open order (menu items, price, location, etc.) -->
-			<div class="card border-primary mb-3" style="max-width: 20rem;">
+			<div class="card border-primary mb-3" style="width: 33%;">
 				<form action="">
 					<div class="card-header" style="margin-bottom: 10px;">5. Change table</div>
 					Order Number:
-					<input type="text" name="changeTableOrderNumber"> New table:
+					<input type="text" name="changeTableOrderNumber"> <br>New table:
 					<input type="text" name="newTable">
 					<input type="submit" name="changeTableSubmit" value="Submit">
 				</form>
 			</div>
-			<div class="card border-primary mb-3" style="max-width: 20rem;">
+			<div class="card border-primary mb-3" style="width: 33%;">
 				<form action="">
 					<div class="card-header" style="margin-bottom: 10px;">6. Change Order</div>
 					Order Number:
