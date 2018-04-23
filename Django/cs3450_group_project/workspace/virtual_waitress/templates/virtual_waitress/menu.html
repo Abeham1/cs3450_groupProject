@@ -1,5 +1,4 @@
-{% extends "./base.html" %} {% block page-title %}Virtual Waitress Menu{% endblock page-title %} {% block page-style %} 
-{{ block.super }}
+{% extends "./base.html" %} {% block page-title %}Virtual Waitress Menu{% endblock page-title %} {% block page-style %}
 <style>
     .flexBox {
         width: 100%;
@@ -64,13 +63,13 @@
     }
     console.log(menu[0].menuItem);
     console.log(menu);
-    
+
     //console.log(order[0].id);
     //console.log(order.length);
     //console.log(order[order.length - 1].id);
     //console.log(nextOrder);
     // these are variables to read in
-    var primaryCard = "card text-white bg-primary mb-3";
+    var primaryCard = "card border-primary mb-3";
     var sizeMenu = menu.length;
     var itemArray = [];
     var sizeReview = 5;
@@ -97,27 +96,27 @@
     //}
 
     //modify class and id names to get yeti to format reviews here
-   /* function addMikesReviews() {
+    /* function addMikesReviews() {
+         var top = document.getElementById("reviews");
+         for (var i = 0; i < sizeReview; i++) {
+             tempA = document.createElement("TR");
+             tempB = document.createElement("TH");
+             tempB.innerHTML = comboReview[i][0];
+             tempC = document.createElement("TD");
+             tempC.innerHTML = comboReview[i][1];
+             top.appendChild(tempA);
+             tempA.appendChild(tempB);
+             tempA.appendChild(tempC);
+         }
+     }*/
+    function addMikesReviews() {
         var top = document.getElementById("reviews");
-        for (var i = 0; i < sizeReview; i++) {
-            tempA = document.createElement("TR");
-            tempB = document.createElement("TH");
-            tempB.innerHTML = comboReview[i][0];
-            tempC = document.createElement("TD");
-            tempC.innerHTML = comboReview[i][1];
-            top.appendChild(tempA);
-            tempA.appendChild(tempB);
-            tempA.appendChild(tempC);
-        }
-    }*/
-    function addMikesReviews(){
-        var top = document.getElementById("reviews");
-        for(var i = 0; i < review_list.length; i++){
+        for (var i = 0; i < review_list.length; i++) {
             tempA = document.createElement("TR");
             tempB = document.createElement("TH");
             var innerB;
-            for(var j = 0; j < menu.length; j++){
-                if(review_list[i].menuItem_id === menu[j].id){
+            for (var j = 0; j < menu.length; j++) {
+                if (review_list[i].menuItem_id === menu[j].id) {
                     tempB.innerHTML = menu[j].menuItem;
                     break;
                 }
@@ -154,8 +153,8 @@
             var total_stars = 0;
             var count = 0;
             var avg_stars;
-            for(var j = 0; j < review_list.length; j++){
-                if(review_list[j].menuItem_id === menu[i].id){
+            for (var j = 0; j < review_list.length; j++) {
+                if (review_list[j].menuItem_id === menu[i].id) {
                     total_stars += review_list[j].starRating;
                     count++;
                 }
@@ -191,7 +190,7 @@
 
     function addSubotal() {
         var total = 0;
-        for (var i = 0, j = 1; i < itemArray.length; i++, j++) {
+        for (var i = 0, j = 1; i < itemArray.length; i++ , j++) {
             document.getElementById("subtotal" + i).value = document.getElementById("quantity" + i).value * itemArray[i];
             total = total + document.getElementById("quantity" + i).value * itemArray[i];
             document.getElementById("id_orderItem-qty" + j).value = document.getElementById("quantity" + i).value;
@@ -209,90 +208,183 @@
     }
 
 </script> {% endblock head-script %} {% block central-content %}
-<div class=flexBox>
-    <div class=left id="menu_left">
-    </div>
-    <div class=right id="menu_right">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Menu Item</th>
-                    <td>Customer Review</td>
-                </tr>
-            </thead>
-            <tbody id="reviews">
+<div class="card border-primary mb-3" style="min-width: 95%; overflow-y: auto; margin: 20px;">
+    <div class="card-header" style="margin-bottom: 20px">Menu</div>
+    <div class=flexBox style="padding: 10px">
+        <div class=left id="menu_left" style="min-width: 50%">
+        </div>
+        <div class="card border-primary mb-3" id="menu_right" style="min-width: 50%">
+            <table class="table table-primary">
+                <thead>
+                    <tr class="table-info">
+                        <th scope="col">Menu Item</th>
+                        <td>Customer Review</td>
+                    </tr>
+                </thead>
+                <tbody id="reviews">
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div>
+        <br />
+        <form action="" method="post">
+            {% csrf_token %}
+            <tr>
+                <th>
+                    <label for="id_order-total">Total:</label>
+                </th>
+                <td>
+                    <input type="number" name="order-total" step="any" required id="id_order-total" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="id_order-orderNumber">Order Number:</label>
+                </th>
+                <td>
+                    <input type="number" name="order-orderNumber" required id="id_order-orderNumber" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="id_order-table">Table:</label>
+                </th>
+                <td>
+                    <input type="text" name="order-table" required id="id_order-table" value="Counter" />
+                </td>
+            </tr>
+            <br />
+            <br />
+            <tr>
+                <th>
+                    <label for="id_orderItem-food1">Food1:</label>
+                </th>
+                <td>
+                    <input type="text" name="orderItem-food1" id="id_orderItem-food1" value="empty" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="id_orderItem-qty1">Qty1:</label>
+                </th>
+                <td>
+                    <input type="number" name="orderItem-qty1" required id="id_orderItem-qty1" value=0 />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="id_orderItem-note1">Note1:</label>
+                </th>
+                <td>
+                    <input type="text" name="orderItem-note1" required id="id_orderItem-note1" value="None" />
+                </td>
+            </tr>
+            <br />
+            <tr>
+                <th>
+                    <label for="id_orderItem-food2">Food2:</label>
+                </th>
+                <td>
+                    <input type="text" name="orderItem-food2" required id="id_orderItem-food2" value="empty" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="id_orderItem-qty2">Qty2:</label>
+                </th>
+                <td>
+                    <input type="number" name="orderItem-qty2" required id="id_orderItem-qty2" value=0 />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="id_orderItem-note2">Note2:</label>
+                </th>
+                <td>
+                    <input type="text" name="orderItem-note2" id="id_orderItem-note2" value="None" />
+                </td>
+            </tr>
+            <br />
+            <tr>
+                <th>
+                    <label for="id_orderItem-food3">Food3:</label>
+                </th>
+                <td>
+                    <input type="text" name="orderItem-food3" required id="id_orderItem-food3" value="empty" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="id_orderItem-qty3">Qty3:</label>
+                </th>
+                <td>
+                    <input type="number" name="orderItem-qty3" required id="id_orderItem-qty3" value=0 />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="id_orderItem-note3">Note3:</label>
+                </th>
+                <td>
+                    <input type="text" name="orderItem-note3" id="id_orderItem-note3" value="None" />
+                </td>
+            </tr>
+            <br />
+            <tr>
+                <th>
+                    <label for="id_orderItem-food4">Food4:</label>
+                </th>
+                <td>
+                    <input type="text" name="orderItem-food4" required id="id_orderItem-food4" value="empty" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="id_orderItem-qty4">Qty4:</label>
+                </th>
+                <td>
+                    <input type="number" name="orderItem-qty4" required id="id_orderItem-qty4" value=0 />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="id_orderItem-note4">Note4:</label>
+                </th>
+                <td>
+                    <input type="text" name="orderItem-note4" id="id_orderItem-note4" value="None" />
+                </td>
+            </tr>
+            <br />
+            <tr>
+                <th>
+                    <label for="id_orderItem-food5">Food5:</label>
+                </th>
+                <td>
+                    <input type="text" name="orderItem-food5" required id="id_orderItem-food5" value="empty" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="id_orderItem-qty5">Qty5:</label>
+                </th>
+                <td>
+                    <input type="number" name="orderItem-qty5" required id="id_orderItem-qty5" value=0 />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="id_orderItem-note5">Note5:</label>
+                </th>
+                <td>
+                    <input type="text" name="orderItem-note5" id="id_orderItem-note5" value="None" />
+                </td>
+            </tr>
+            <input name="placeTestOrder" type="submit" value="Order Now"></input>
+        </form>
     </div>
 </div>
-
-<div>
-    <br />
-    <form action="" method="post">
-        {% csrf_token %}
-        <tr>
-            <th>
-                <label for="id_order-total">Total:</label>
-            </th>
-            <td>
-                <input type="number" name="order-total" step="any" required id="id_order-total" />
-            </td>
-        </tr>
-        <tr>
-            <th>
-                <label for="id_order-orderNumber">Order Number:</label>
-            </th>
-            <td>
-                <input type="number" name="order-orderNumber" required id="id_order-orderNumber" />
-            </td>
-        </tr>
-        <tr>
-            <th>
-                <label for="id_order-table">Table:</label>
-            </th>
-            <td>
-                <input type="text" name="order-table" required id="id_order-table" value="Counter" />
-            </td>
-        </tr>
-        <br /><br />
-        <tr>
-            <th>
-                <label for="id_orderItem-food1">Food1:</label>
-            </th>
-            <td>
-                <input type="text" name="orderItem-food1" id="id_orderItem-food1" value="empty" />
-            </td>
-        </tr>
-        <tr>
-            <th>
-                <label for="id_orderItem-qty1">Qty1:</label>
-            </th>
-            <td>
-                <input type="number" name="orderItem-qty1" required id="id_orderItem-qty1" value=0 />
-            </td>
-        </tr>
-        <tr>
-            <th>
-                <label for="id_orderItem-note1">Note1:</label>
-            </th>
-            <td>
-                <input type="text" name="orderItem-note1" required id="id_orderItem-note1" value="None" />
-            </td>
-        </tr><br />
-        <tr><th><label for="id_orderItem-food2">Food2:</label></th><td><input type="text" name="orderItem-food2" required id="id_orderItem-food2" value="empty" /></td></tr>
-        <tr><th><label for="id_orderItem-qty2">Qty2:</label></th><td><input type="number" name="orderItem-qty2" required id="id_orderItem-qty2" value=0 /></td></tr>
-        <tr><th><label for="id_orderItem-note2">Note2:</label></th><td><input type="text" name="orderItem-note2" id="id_orderItem-note2" value="None" /></td></tr><br />
-        <tr><th><label for="id_orderItem-food3">Food3:</label></th><td><input type="text" name="orderItem-food3" required id="id_orderItem-food3" value="empty" /></td></tr>
-        <tr><th><label for="id_orderItem-qty3">Qty3:</label></th><td><input type="number" name="orderItem-qty3" required id="id_orderItem-qty3" value=0 /></td></tr>
-        <tr><th><label for="id_orderItem-note3">Note3:</label></th><td><input type="text" name="orderItem-note3" id="id_orderItem-note3" value="None" /></td></tr><br />
-        <tr><th><label for="id_orderItem-food4">Food4:</label></th><td><input type="text" name="orderItem-food4" required id="id_orderItem-food4" value="empty" /></td></tr>
-        <tr><th><label for="id_orderItem-qty4">Qty4:</label></th><td><input type="number" name="orderItem-qty4" required id="id_orderItem-qty4" value=0 /></td></tr>
-        <tr><th><label for="id_orderItem-note4">Note4:</label></th><td><input type="text" name="orderItem-note4" id="id_orderItem-note4" value="None" /></td></tr><br />
-        <tr><th><label for="id_orderItem-food5">Food5:</label></th><td><input type="text" name="orderItem-food5" required id="id_orderItem-food5" value="empty" /></td></tr>
-        <tr><th><label for="id_orderItem-qty5">Qty5:</label></th><td><input type="number" name="orderItem-qty5" required id="id_orderItem-qty5" value=0 /></td></tr>
-        <tr><th><label for="id_orderItem-note5">Note5:</label></th><td><input type="text" name="orderItem-note5" id="id_orderItem-note5" value="None" /></td></tr>
-        <input name="placeTestOrder" type="submit" value="Order Now"></input>
-    </form>
 </div>
 {% endblock central-content %}
