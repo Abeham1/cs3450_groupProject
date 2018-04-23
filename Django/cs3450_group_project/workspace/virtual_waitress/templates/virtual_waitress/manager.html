@@ -156,8 +156,17 @@
 			<div class="card border-primary mb-3" style="width: 33%;">
 				<form action="" method="post">
 					{% csrf_token %}
-					<tr><th><label for="id_badOrder">Order: </label></th><td><input type="number" name="badOrder" id="id_badOrder" required /></td></tr>
-<tr><th><label for="id_newPrice">New price: </label></th><td><input type="number" name="newPrice" id="id_newPrice" required step="any" /></td></tr>
+					<div class="card-header" style="margin-bottom: 10px;">1. Change Order Price</div>
+					<table>
+						<tr>
+							<th><label for="id_badOrder">Order Number: </label></th>
+							<th><label for="id_newPrice">New price: </label></th>
+						</tr>
+						<tr>
+							<td><input type="number" name="badOrder" id="id_badOrder" required /></td>
+							<td><input type="number" name="newPrice" id="id_newPrice" required step="any" /></td>
+						</tr>
+						</table>
 				<input type="submit" name="adjustPriceSubmit" value="Submit">
 				</form>
 			</div>
