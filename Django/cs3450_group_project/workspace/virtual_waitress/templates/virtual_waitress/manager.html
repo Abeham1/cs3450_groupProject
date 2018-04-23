@@ -25,6 +25,7 @@
 		//loadBanner();
 		//getMoney();
 		getTableData();
+		getEntryData();
 		getMenu();
 	}
 </script> {% endblock register-on-load-scripts %} {% block head-script %}
@@ -33,10 +34,10 @@
 	var dailySales = "Daily Sales: $" + salesMoney;
 	var tableData = JSON.parse('{{ tableData|escapejs }}');
 	var menuData = JSON.parse('{{ comboItemsMenu|escapejs }}');
-	//var menuData = tableData;
-	//console.log(menu[0].menuItem);
+	var entryData = JSON.parse('{{ entryData|escapejs }}');
 	console.log(tableData);
 	console.log(menuData);
+	console.log(entryData);
 	//var tableRow1 = [["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]
 	//	, ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"], ["0001", 13.50, "L4", 'N', 'N', "3:47"]];
 	var tableSize = 6;
@@ -55,11 +56,38 @@
 		}
 	}
 
+	function getEntryData() {
+		var temp1 = document.getElementById("table2");
+		for (var k = 0; k < entryData.length; k++) {
+			var temp2 = document.createElement("TR");
+			temp1.appendChild(temp2);
+
+			var temp3 = document.createElement("TD");
+			temp3.innerHTML = entryData[k].order_id;
+			temp2.appendChild(temp3);
+			temp3 = document.createElement("TD");
+			temp3.innerHTML = entryData[k].id;
+			temp2.appendChild(temp3);
+			temp3 = document.createElement("TD");
+			temp3.innerHTML = menuData[entryData[k].food_id-1].menuItem;
+			temp2.appendChild(temp3);
+			temp3 = document.createElement("TD");
+			temp3.innerHTML = entryData[k].qty;
+			temp2.appendChild(temp3);
+			temp3 = document.createElement("TD");
+			temp3.innerHTML = entryData[k].note;
+			temp2.appendChild(temp3);
+			temp3 = document.createElement("TD");
+			temp3.innerHTML = entryData[k].ready;
+			temp2.appendChild(temp3);
+		}	
+	}
+	
 	function getTableData() {
-		var temp1 = document.getElementsByTagName('table');
+		var temp1 = document.getElementById("table1");
 		for (var j = 0; j < tableData.length; j++) {
 			var temp2 = document.createElement("TR");
-			temp1[0].appendChild(temp2);
+			temp1.appendChild(temp2);
 
 			var temp3 = document.createElement("TD");
 			temp3.innerHTML = tableData[j].id;
@@ -68,16 +96,14 @@
 			temp3.innerHTML = tableData[j].total;
 			temp2.appendChild(temp3);
 			temp3 = document.createElement("TD");
-			temp3.innerHTML = "table: 24";
+			temp3.innerHTML = tableData[j].table;
 			temp2.appendChild(temp3);
-			temp3 = document.createElement("TD");
-			temp3.innerHTML = "no";
-			temp2.appendChild(temp3);
+			
 			temp3 = document.createElement("TD");
 			temp3.innerHTML = tableData[j].ready;
 			temp2.appendChild(temp3);
 			temp3 = document.createElement("TD");
-			temp3.innerHTML = "00:05:43";
+			temp3.innerHTML = "00:00:00";
 			temp2.appendChild(temp3);
 
 		}
@@ -89,13 +115,13 @@
 	<div class="card-header" style="width: 100%">Current Orders</div>
 	<div class="card-body">
 		<div style="background-color: red;">
-			<table class="table table-primary">
+			<table id="table1" class="table table-primary">
 				<tr class="table-info">
 					<th>Order Number</th>
 					<th>Price</th>
 					<th>Table</th>
 					<!-- As a waiter / waitress I need to identify which table / location an order relates to -->
-					<th>Needs Service?</th>
+					<!--<th>Needs Service?</th>-->
 					<!-- As a waiter / waitress I need to know what locations / tables have service requests -->
 					<th>Food Ready?</th>
 					<th>Time Elapsed
@@ -105,18 +131,34 @@
 		</div>
 	</div>
 </div>
+<div class="card border-primary mb-3" style="max-width: 90%; margin:auto; margin-top: 10%; margin-bottom: 10%;">
+	<div class="card-header" style="width: 100%">In The Kitchen</div>
+	<div class="card-body">
+		<div style="background-color: red;">
+			<table id="table2" class="table table-primary">
+				<tr class="table-info">
+					<th>Order</th>
+					<th>ID</th>
+					<th>Food</th>
+					<th>qty</th>
+					<th>note</th>
+					<th>ready?</th>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
 <div class="card border-primary mb-3" style="max-width: 90%; margin: auto; align-content: center;">
 	<div class="card-header">Manager Controls</div>
 	<div class="card-body">
 		<div class="FlexDiv" style="align-content: center">
-			<div class="card border-primary mb-3" style="max-width: 90%;">
-				<!--As a waiter / waitress I need to be able to place zero cost orders -->
-				<form action="">
-					<div class="card-header" style="margin-bottom: 10px;">1. Adjust order price</div>
-					Order Number:
-					<input type="text" name="adjustPriceOrderNumber" style="margin: auto"> New Price:
-					<input type="text" name="adjustPriceNewPrice" style="margin: auto">
-					<input type="submit" name="adjustPriceSubmit" value="Submit" style="margin: auto">
+			<!-- adjust order price -->
+			<div class="card border-primary mb-3" style="max-width: 20rem;">
+				<form action="" method="post">
+					{% csrf_token %}
+					<tr><th><label for="id_badOrder">Order: </label></th><td><input type="number" name="badOrder" id="id_badOrder" required /></td></tr>
+<tr><th><label for="id_newPrice">New price: </label></th><td><input type="number" name="newPrice" id="id_newPrice" required step="any" /></td></tr>
+				<input type="submit" name="adjustPriceSubmit" value="Submit">
 				</form>
 			</div>
 			<!-- As a waiter / waitress, I would like to split or combine different bills -->

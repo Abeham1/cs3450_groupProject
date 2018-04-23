@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 import json
 from virtual_waitress.models import RestaurantName, Order, Entry, Menu, Number, Review
-from virtual_waitress.forms import NewMenuItem, ReviewForm, OrderForm, OrderItemForm, CompleteOrderItem, CompleteOrder
+from virtual_waitress.forms import NewMenuItem, ReviewForm, OrderForm, OrderItemForm, CompleteOrderItem, CompleteOrder, ChangePrice
 from django.forms import formset_factory
 import datetime
 
@@ -12,7 +12,7 @@ import datetime
 json.JSONEncoder.default = lambda self, obj: (obj.isoformat() if isinstance(obj, datetime.datetime) else None)
 
 def manager(request):
-    result = RestaurantName.objects.all()
+    result = Entry.objects.all()
     myresult = Order.objects.all()
     mymyresult = Menu.objects.all()
     mymylist = (list(mymyresult.values()))
@@ -21,7 +21,7 @@ def manager(request):
     context = {
         'activePage': 'manager',
         'comboItemsMenu': json.dumps(mymylist),
-        'restaurantName': json.dumps(lst),
+        'entryData': json.dumps(lst),
         'tableData': json.dumps(mylist),
     }
 	
@@ -29,6 +29,17 @@ def manager(request):
     #Number.objects.filter(number = 1).delete()
 
     # Removes menuitems from the admin page
+    if 'adjustPriceSubmit' in request.POST:
+        form = ChangePrice(request.POST)
+        if form.is_valid():
+    #        num = form.cleaned_data['badOrder']
+    #       price = form.cleaned_data['newPrice']
+	#num = Order.objects.get(orderNumber=orderForm.cleaned_data['orderNumber'])
+            order = Order.objects.get(orderNumber = form.cleaned_data['badOrder'])
+            order.total = form.cleaned_data['newPrice']
+            print(order)
+            order.save()
+
     if 'removeItem' in request.POST:
         badItem = request.POST.get('removeItem')
         Menu.objects.filter(menuItem = badItem).delete()
