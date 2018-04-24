@@ -88,16 +88,6 @@
                     </li>
                 {% endblock navbar-cook %}
 
-                {% block navbar-inventory %}
-                    <li id="navbar_button" class="nav-item {% if activePage == 'inventory' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'virtual_waitress:inventory' %}" style="color: white">Inventory
-                            {% if activePage == 'inventory' %}
-                                <span class="sr-only">(current)</span>
-                            {% endif %}
-                        </a>
-                    </li>
-                {% endblock navbar-inventory %}
-
                 {% block navbar-review %}
                     <li id="navbar_button" class="nav-item {% if activePage == 'review' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'virtual_waitress:review' %}" style="color: white">Customer Review
@@ -117,12 +107,6 @@
         <h1>Hello World!</h1>
     </main>
 {% endblock central-content %}
-
-{% block footer %}
-    <footer>
-        <h1>Footer goes here</h1>
-    </footer>
-{% endblock footer %}
 
 {% block body-end-script %}
 

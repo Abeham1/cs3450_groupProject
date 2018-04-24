@@ -18,6 +18,38 @@
 	.card {
 		padding: 25px;
 	}
+
+	/* Tooltip container */
+
+	.tooltip {
+		position: relative;
+		display: inline-block;
+		border-bottom: 1px dotted black;
+		/* If you want dots under the hoverable text */
+	}
+
+	/* Tooltip text */
+
+	.tooltip .tooltiptext {
+		visibility: visible;
+		width: 120px;
+		background-color: black;
+		color: #fff;
+		text-align: center;
+		padding: 5px 0;
+		border-radius: 6px;
+		opacity: 0;
+
+		/* Position the tooltip text - see examples below! */
+		position: absolute;
+		z-index: 1;
+	}
+
+	/* Show the tooltip text when you mouse over the tooltip container */
+
+	.tooltip:hover .tooltiptext {
+		visibility: visible;
+	}
 </style>
 {% endblock page-style %} {% block register-on-load-scripts %}
 <script>
@@ -54,6 +86,16 @@
 			temp2.text = menuData[j].menuItem;
 			temp1.add(temp2);
 		}
+	}
+
+	function tooltip(){
+		var text = document.getElementById("tip");
+		text.style.opacity = 1;
+	}
+
+	function tooltipOut(){
+		var text = document.getElementById("tip");
+		text.style.opacity = 0;
 	}
 
 	function getEntryData() {
@@ -111,8 +153,8 @@
 
 </script> {% endblock head-script %} {% block central-content %}
 
-<div class="card border-primary mb-3" style="max-width: 90%; margin:auto; margin-top: 10%; margin-bottom: 10%;">
-	<div class="card-header" style="width: 100%">Current Orders</div>
+<div class="card border-primary mb-3" style="max-width: 90%; margin:auto; margin-bottom: 10%; padding: 0px">
+	<div class="card-header" style="width: 100%;">Current Orders</div>
 	<div class="card-body">
 		<div style="background-color: red;">
 			<table id="table1" class="table table-primary">
@@ -131,7 +173,7 @@
 		</div>
 	</div>
 </div>
-<div class="card border-primary mb-3" style="max-width: 90%; margin:auto; margin-top: 10%; margin-bottom: 10%;">
+<div class="card border-primary mb-3" style="max-width: 90%; margin:auto; margin-top: 10%; margin-bottom: 10%; padding: 0px;">
 	<div class="card-header" style="width: 100%">In The Kitchen</div>
 	<div class="card-body">
 		<div style="background-color: red;">
@@ -148,12 +190,12 @@
 		</div>
 	</div>
 </div>
-<div class="card border-primary mb-3" style="max-width: 90%; margin: auto; align-content: center;">
+<div class="card border-primary mb-3" style="max-width: 90%; margin: auto; align-content: center; padding: 0px;">
 	<div class="card-header">Manager Controls</div>
 	<div class="card-body">
 		<div class="FlexDiv" style="align-content: center">
 			<!-- adjust order price -->
-			<div class="card border-primary mb-3" style="width: 33%;">
+			<div class="card border-primary mb-3" style="width: 33%; padding: 0px;">
 				<form action="" method="post">
 					{% csrf_token %}
 					<div class="card-header" style="margin-bottom: 10px;">1. Change Order Price</div>
@@ -171,7 +213,7 @@
 				</form>
 			</div>
 			<!-- As a waiter / waitress, I would like to split or combine different bills -->
-			<div class="card border-primary mb-3" style="width: 33%;">
+			<div class="card border-primary mb-3" style="width: 33%; padding: 0px;">
 				<form action="">
 					<div class="card-header" style="margin-bottom: 10px;">2. Split Bill</div>
 					Order Number:
@@ -191,10 +233,14 @@
 							<input type="text" name="splitBillNewPrice4">
 						</li>
 					</ul>
-					<input type="submit" name="splitBillSubmit" value="Submit">
+					<input type="submit" name="splitBillSubmit" value="Submit" onmouseover="tooltip()" onmouseout="tooltipOut()">
+					<div class="tooltip" style="opacity: unset">
+						<span class="tooltiptext" id="tip">Not yet implemented</span>
+					</div>
 				</form>
 			</div>
-			<div class="card border-primary mb-3" style="width: 33%;">
+
+			<div class="card border-primary mb-3" style="width: 33%; padding: 0px">
 				<div class="card-header" style="margin-bottom: 10px;">3. Add menu item</div>
 				<!-- As a manager, I would like to delete, create, and manage menu items 
 			<form action="" method="post">
@@ -240,7 +286,7 @@
 					<input type="submit" name="newMenuItemSubmit" value="Submit">
 				</form>
 			</div>
-			<div class="card border-primary mb-3" style="width: 33%;">
+			<div class="card border-primary mb-3" style="width: 33%; padding: 0px">
 				<form action="" method="post">
 					{% csrf_token %}
 					<div class="card-header" style="margin-bottom: 10px;">4. Remove Menu item</div>
@@ -250,16 +296,17 @@
 				</form>
 			</div>
 			<!-- As a manager, I need to be able to override details about an open order (menu items, price, location, etc.) -->
-			<div class="card border-primary mb-3" style="width: 33%;">
+			<div class="card border-primary mb-3" style="width: 33%; padding: 0px; margin-bottom: 20px; padding-bottom: 20px">
 				<form action="">
 					<div class="card-header" style="margin-bottom: 10px;">5. Change table</div>
 					Order Number:
-					<input type="text" name="changeTableOrderNumber"> <br>New table:
+					<input type="text" name="changeTableOrderNumber">
+					<br>New table:
 					<input type="text" name="newTable">
 					<input type="submit" name="changeTableSubmit" value="Submit">
 				</form>
 			</div>
-			<div class="card border-primary mb-3" style="width: 33%;">
+			<div class="card border-primary mb-3" style="width: 33%; padding: 0px">
 				<form action="">
 					<div class="card-header" style="margin-bottom: 10px;">6. Change Order</div>
 					Order Number:
