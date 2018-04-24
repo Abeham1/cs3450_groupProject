@@ -220,23 +220,16 @@
 			<div class="card border-primary mb-3" style="width: 33%; padding: 0px;">
 				<form action="">
 					<div class="card-header" style="margin-bottom: 10px;">2. Split Bill</div>
-					Order Number:
-					<input type="text" name="splitBillOrderNumber">
-					<br>
-					<ul>
-						<li>New Price:
-							<input type="text" name="splitBillNewPrice1">
-						</li>
-						<li>New Price:
-							<input type="text" name="splitBillNewPrice2">
-						</li>
-						<li>New Price:
-							<input type="text" name="splitBillNewPrice3">
-						</li>
-						<li>New Price:
-							<input type="text" name="splitBillNewPrice4">
-						</li>
-					</ul>
+					<table>
+						<tr>
+							<th>
+								<label for="blah2">Order Number:</label>
+							</th>
+							<td>
+								<input type="text" name="splitBillOrderNumber">
+							</td>
+						</tr>
+					</table>
 					<input type="submit" name="splitBillSubmit" value="Submit" onmouseover="tooltip()" onmouseout="tooltipOut()">
 					<div class="tooltip" style="opacity: unset">
 						<span class="tooltiptext" id="tip">Not yet implemented</span>
@@ -244,26 +237,15 @@
 				</form>
 			</div>
 
-			<div class="card border-primary mb-3" style="width: 33%; padding: 0px">
+			<div class="card border-primary mb-3" style="width: 33%; padding: 0px; margin-bottom: 20px; padding-bottom: 20px">
 				<div class="card-header" style="margin-bottom: 10px;">3. Add menu item</div>
-				<!-- As a manager, I would like to delete, create, and manage menu items 
-			<form action="" method="post">
-				{% csrf_token %}
-				<div class="card-header">3. Add Menu item</div>
-				New item:
-				<input type="text" name="newItem">
-				<br> description:
-				<input type="text" name "newItemDescription">
-				<br> Price: $
-				<input type="number" name "newItemPrice">
-				<input type="submit" name="newMenuItemSubmit" value="Submit">
-			</form>-->
+				<!-- As a manager, I would like to delete, create, and manage menu items-->
 				<form action="" method="post">
 					{% csrf_token %}
 					<table>
 						<tr>
 							<th>
-								<label for="id_menuItem">Menuitem:</label>
+								<label for="id_menuItem">Menu Item:</label>
 							</th>
 							<td>
 								<input type="text" name="menuItem" maxlength="60" required id="id_menuItem" />
@@ -271,7 +253,7 @@
 						</tr>
 						<tr>
 							<th>
-								<label for="id_menuDescription">Menudescription:</label>
+								<label for="id_menuDescription">Menu Description:</label>
 							</th>
 							<td>
 								<input type="text" name="menuDescription" maxlength="400" required id="id_menuDescription" />
@@ -279,7 +261,7 @@
 						</tr>
 						<tr>
 							<th>
-								<label for="id_menuPrice">Menuprice:</label>
+								<label for="id_menuPrice">Menu Price:</label>
 							</th>
 							<td>
 								<input type="number" name="menuPrice" step="any" required id="id_menuPrice" />
@@ -290,45 +272,68 @@
 					<input type="submit" name="newMenuItemSubmit" value="Submit">
 				</form>
 			</div>
-			<div class="card border-primary mb-3" style="width: 33%; padding: 0px">
+			<div class="card border-primary mb-3" style="width: 33%; padding: 0px; margin-bottom: 20px; padding-bottom: 20px">
 				<form action="" method="post">
 					{% csrf_token %}
 					<div class="card-header" style="margin-bottom: 10px;">4. Remove Menu item</div>
-					Target item:
-					<select name="removeItem" id="menuItem"></select>
+					<table>
+						<tr>
+							<th>
+								<label for="blah4">Target item:</label>
+							</th>
+							<td>
+								<select name="removeItem" id="menuItem"></select>
+							</td>
+						</tr>
+					</table>
 					<input type="submit" name="removeItemSubmit" value="Submit">
 				</form>
 			</div>
-			<!-- As a manager, I need to be able to override details about an open order (menu items, price, location, etc.) -->
+			<!-- As a manager, I need to be able to override details about an open order (menu items, price, location, etc.) 
+			
+			<div class="card border-primary mb-3" style="width: 33%; padding: 0px">
+				<div class="card-header" style="margin-bottom: 10px;">3. Add menu item</div>
+			
+			-->
 			<div class="card border-primary mb-3" style="width: 33%; padding: 0px; margin-bottom: 20px; padding-bottom: 20px">
 				<form action="" method="post">
 					{% csrf_token %}
 					<div class="card-header" style="margin-bottom: 10px;">5. Change table</div>
-					<tr>
-						<th>
-							<label for="id_oldOrder">Order Number:</label>
-						</th>
-						<td>
-							<input type="number" name="oldOrder" required id="id_oldOrder" />
-						</td>
-					</tr>
-					<tr>
-						<th>
-							<label for="id_newTable">Newtable:</label>
-						</th>
-						<td>
-							<input type="text" name="newTable" maxlength="60" required id="id_newTable" />
-						</td>
-					</tr>
+					<table>
+						<tr>
+							<th>
+								<label for="id_oldOrder">Order Number:</label>
+							</th>
+							<td>
+								<input type="number" name="oldOrder" required id="id_oldOrder" />
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label for="id_newTable">New table:</label>
+							</th>
+							<td>
+								<input type="text" name="newTable" maxlength="60" required id="id_newTable" />
+							</td>
+						</tr>
+					</table>
 					<input type="submit" name="adjustTableSubmit" value="Submit">
 				</form>
 			</div>
-			<div class="card border-primary mb-3" style="max-width: 20rem;">
+			<div class="card border-primary mb-3" style="width: 33%; padding: 0px; margin-bottom: 20px; padding-bottom: 20px">
 				<form action="" method="post">
 					{% csrf_token %}
 					<div class="card-header" style="margin-bottom: 10px;">6. Remove Food From Order</div>
-					Food ID Number:
-					<input type="number" name="changeOrder">
+					<table>
+						<tr>
+							<th>
+								<label for="blah6">Food ID Number:</label>
+							</th>
+							<td>
+								<input type="number" name="changeOrder">
+							</td>
+						</tr>
+					</table>
 					<input type="submit" name="removeFoodSubmit" value="Submit">
 
 					<!--<div class="card border-primary mb-3" style="width: 33%; padding: 0px;">
