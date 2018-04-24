@@ -9,7 +9,7 @@
         {% block page-title %}Welcome to the Virtual Waitress{% endblock page-title %}
     </title>
 
-    <link rel="stylesheet" href="{% static 'virtual_waitress/style.css' %}"/>
+    <link rel="stylesheet" href="https://bootswatch.com/4/spacelab/bootstrap.css"/>
 
     {% block page-style %}
         <style>
@@ -17,7 +17,10 @@
                 font-weight: bold;
                 margin: 2px;
                 border: solid black;
-                background-color: rgb(102, 153, 255);
+                background-color: rgb(104, 155, 255);
+            }
+            #navbar_button:hover{
+                background-color: #345276;
             }
         </style>
     {% endblock page-style %}
@@ -27,30 +30,12 @@
     {% endblock head-script %}
 
     {% block default-script %}
-        <script>
-            var foo = "{{ foo|safe }}";
-            console.log(foo);
-            var RestaurantName = "asdf";
-            //console.log(RestaurantName[0].name);
-            console.log(RestaurantName);
-
-            function loadBanner() {
-                var top = document.getElementsByClassName("banner");
-                var pTag = document.createElement("H1");
-                for (var i = 0; i < RestaurantName.length; i++) {
-                    pTag.innerHTML += RestaurantName[i].name + " ";
-                    top[0].appendChild(pTag);
-                }
-
-            }
-
-        </script>
     {% endblock default-script %}
 
     {% block register-on-load-scripts %}
         <script>
             window.onload = function () {
-                loadBanner();
+                //loadBanner();
             }
         </script>
     {% endblock register-on-load-scripts %}
@@ -60,7 +45,7 @@
 
 
 {% block nav-bar %}
-    <nav class="navbar navbar-expand-lg bg-primary" style="margin:0px; padding: 0px;">
+    <nav class="navbar navbar-expand-lg" style="margin-bottom: 10px; padding: 0px; background-image: linear-gradient(#6d94bf, #446E9B 50%, #3e648d)">
         <a class="navbar-brand" href="{% url 'virtual_waitress:menu' %}">
             <div>
                 <img src="{% static 'virtual_waitress/logo.png'%}" style="margin: 0px; width: 100px;" />
@@ -75,7 +60,7 @@
             <ul class="navbar-nav mr-auto">
                 {% block navbar-menu %}
                     <li class="nav-item {% if activePage == 'menu' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'virtual_waitress:menu' %}" style="color:black;">Menu
+                        <a id="navbar_button" class="nav-link" href="{% url 'virtual_waitress:menu' %}" style="color: white;">Menu
                             {% if activePage == 'menu' %}
                                 <span class="sr-only">(current)</span>
                             {% endif %}
@@ -84,8 +69,8 @@
                 {% endblock navbar-menu %}
 
                 {% block navbar-manager %}
-                    <li class="nav-item {% if activePage == 'manager' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'virtual_waitress:manager' %}" style="color:black;">Manager
+                    <li id="navbar_button" class="nav-item {% if activePage == 'manager' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'virtual_waitress:manager' %}" style="color: white">Manager
                             {% if activePage == 'manager' %}
                                 <span class="sr-only">(current)</span>
                             {% endif %}
@@ -94,8 +79,8 @@
                 {% endblock navbar-manager %}
 
                 {% block navbar-cook %}
-                    <li class="nav-item {% if activePage == 'cook' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'virtual_waitress:cook' %}" style="color:black;">Cook
+                    <li id="navbar_button" class="nav-item {% if activePage == 'cook' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'virtual_waitress:cook' %}" style="color: white">Cook
                             {% if activePage == 'cook' %}
                                 <span class="sr-only">(current)</span>
                             {% endif %}
@@ -103,19 +88,9 @@
                     </li>
                 {% endblock navbar-cook %}
 
-                {% block navbar-inventory %}
-                    <li class="nav-item {% if activePage == 'inventory' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'virtual_waitress:inventory' %}" style="color:black;">Inventory
-                            {% if activePage == 'inventory' %}
-                                <span class="sr-only">(current)</span>
-                            {% endif %}
-                        </a>
-                    </li>
-                {% endblock navbar-inventory %}
-
                 {% block navbar-review %}
-                    <li class="nav-item {% if activePage == 'review' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'virtual_waitress:review' %}" style="color:black;">Customer Review
+                    <li id="navbar_button" class="nav-item {% if activePage == 'review' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'virtual_waitress:review' %}" style="color: white">Customer Review
                             {% if activePage == 'review' %}
                                 <span class="sr-only">(current)</span>
                             {% endif %}
@@ -132,12 +107,6 @@
         <h1>Hello World!</h1>
     </main>
 {% endblock central-content %}
-
-{% block footer %}
-    <footer>
-        <h1>Footer goes here</h1>
-    </footer>
-{% endblock footer %}
 
 {% block body-end-script %}
 

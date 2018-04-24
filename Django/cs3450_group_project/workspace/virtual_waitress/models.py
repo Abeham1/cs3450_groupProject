@@ -96,6 +96,7 @@ class Entry(models.Model):
     qty = models.PositiveIntegerField(default=0)
     note = models.TextField("Customer Notes", blank=True)
     ready = models.BooleanField("Food Ready", default=False)
+    foodName = models.CharField(max_length=60)
 
     def __str__(self):
         return str(self.qty) + "x " + str(self.food) + " for order " + str(self.order)
