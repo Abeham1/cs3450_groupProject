@@ -89,6 +89,9 @@ class NewMenuItem(forms.Form):
     menuDescription = forms.CharField(max_length=400)
     menuPrice = forms.FloatField()
 
+class ChangePrice(forms.Form):
+	badOrder = forms.IntegerField()
+	newPrice = forms.FloatField()
 
 #default=datetime.datetime.now()
 class OrderForm(forms.Form):

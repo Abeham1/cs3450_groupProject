@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 import json
 from virtual_waitress.models import RestaurantName, Order, Entry, Menu, Number, Review
-from virtual_waitress.forms import NewMenuItem, ReviewForm, OrderForm, OrderItemForm, CompleteOrderItem, CompleteOrder
+from virtual_waitress.forms import NewMenuItem, ReviewForm, OrderForm, OrderItemForm, CompleteOrderItem, CompleteOrder, ChangePrice
 from django.forms import formset_factory
 import datetime
 
@@ -12,7 +12,7 @@ import datetime
 json.JSONEncoder.default = lambda self, obj: (obj.isoformat() if isinstance(obj, datetime.datetime) else None)
 
 def manager(request):
-    result = RestaurantName.objects.all()
+    result = Entry.objects.all()
     myresult = Order.objects.all()
     mymyresult = Menu.objects.all()
     mymylist = (list(mymyresult.values()))
@@ -21,7 +21,7 @@ def manager(request):
     context = {
         'activePage': 'manager',
         'comboItemsMenu': json.dumps(mymylist),
-        'restaurantName': json.dumps(lst),
+        'entryData': json.dumps(lst),
         'tableData': json.dumps(mylist),
     }
 	
@@ -29,6 +29,17 @@ def manager(request):
     #Number.objects.filter(number = 1).delete()
 
     # Removes menuitems from the admin page
+    if 'adjustPriceSubmit' in request.POST:
+        form = ChangePrice(request.POST)
+        if form.is_valid():
+    #        num = form.cleaned_data['badOrder']
+    #       price = form.cleaned_data['newPrice']
+	#num = Order.objects.get(orderNumber=orderForm.cleaned_data['orderNumber'])
+            order = Order.objects.get(orderNumber = form.cleaned_data['badOrder'])
+            order.total = form.cleaned_data['newPrice']
+            print(order)
+            order.save()
+
     if 'removeItem' in request.POST:
         badItem = request.POST.get('removeItem')
         Menu.objects.filter(menuItem = badItem).delete()
@@ -170,21 +181,21 @@ def inventory(request):  # To send model data from Database to Javascript/Templa
 
 
 def menu(request):
-    result = RestaurantName.objects.all()
-    myresult = Menu.objects.all()
-    mymyresult = Order.objects.all()
-    mymylist = (list(mymyresult.values()))
-    mylist = (list(myresult.values()))
-    lst = (list(result.values()))
+    names = RestaurantName.objects.all()
+    menu_items = Menu.objects.all()
+    orders = Order.objects.all()
+    orders_list = (list(orders.values()))
+    menu_items_list = (list(menu_items.values()))
+    name_list = (list(names.values()))
     mySize = 2
 
     review_list = list(Review.objects.all().values())
-    print(review_list)
+    # print(review_list)
     context = {
         'activePage': 'menu',
-        'restaurantName': json.dumps(lst),
-        'comboItemsMenu': json.dumps(mylist),
-        'orderList': json.dumps(mymylist),
+        'restaurantName': json.dumps(name_list),
+        'comboItemsMenu': json.dumps(menu_items_list),
+        'orderList': json.dumps(orders_list),
         'review_list': json.dumps(review_list),
     }
 
@@ -198,10 +209,10 @@ def menu(request):
     #print(orderItemFormSet.is_valid())
 
     #orderForm = OrderForm(prefix='order')
-    orderItemForm = OrderItemForm()
+    
 
     #print(orderForm)
-    print(orderItemForm)
+    # print(orderItemForm)
     #print(orderItemForm.is_valid())
     if 'placeTestOrder' in request.POST:
         orderForm = OrderForm(request.POST, prefix='order')
@@ -278,12 +289,9 @@ def menu(request):
 
             num5.save()
 
-
-
-
-
-
-
+    else:
+        # We aren't doing a POST so we must want a clean form
+        orderItemForm = OrderItemForm()
 
         #     # num2.order = Order.objects.get(num.orderNumber)
         #     # num2.food = Menu.objects.get(menuItem='Drink')
